@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>海南骑行路书</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <p class="eyebrow">HAINAN CYCLING PLANNER</p>
+          <h1>海南骑行路书</h1>
+        </div>
+        <nav class="sidebar-nav" aria-label="主导航">
+          <a href="#/map" data-page="map">
+            <span class="nav-icon" aria-hidden="true">🗺</span>环岛地图
+          </a>
+          <a href="#/library" data-page="library">
+            <span class="nav-icon" aria-hidden="true">📚</span>景点库
+          </a>
+          <a href="#/review" data-page="review">
+            <span class="nav-icon" aria-hidden="true">🔍</span>待审核景点
+            <span id="nav-review-count" class="nav-badge" hidden></span>
+          </a>
+          <a href="#/itinerary" data-page="itinerary">
+            <span class="nav-icon" aria-hidden="true">🚴</span>行程规划
+          </a>
+          <a href="#/lodging" data-page="lodging">
+            <span class="nav-icon" aria-hidden="true">🏠</span>住宿与补给
+          </a>
+          <a href="#/export" data-page="export">
+            <span class="nav-icon" aria-hidden="true">⌚</span>Garmin 导出
+          </a>
+          <a href="#/settings" data-page="settings">
+            <span class="nav-icon" aria-hidden="true">⚙</span>设置与假设
+          </a>
+        </nav>
+        <p class="sidebar-footer">本地优先 · 未核实信息不会标为确认事实</p>
+      </aside>
+
+      <main class="content">
+        <!-- 环岛地图 -->
+        <section class="view" data-view="map" hidden aria-labelledby="map-title">
+          <header class="page-header">
+            <p class="eyebrow">MAP</p>
+            <h2 id="map-title">环岛地图</h2>
+            <p class="intro">海南岛地图、环岛主线和已选景点的位置。</p>
+          </header>
+          <div class="panel map-placeholder" role="img" aria-label="地图占位区">
+            <p class="placeholder-title">地图尚未接入</p>
+            <p>
+              地图底图与路网数据的提供方尚未选型。接入前需要确认许可、署名要求和离线缓存方式。
+            </p>
+          </div>
+          <div class="panel">
+            <h3>计划内容</h3>
+            <ul class="plan-list">
+              <li>海口出发、逆时针环岛主线</li>
+              <li>已审核景点的地图标记（目前有核实坐标的候选为 32 个）</li>
+              <li>行程分段与绕行路线叠加显示</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 景点库 -->
+        <section class="view" data-view="library" hidden aria-labelledby="library-title">
+          <header class="page-header">
+            <p class="eyebrow">ATTRACTION LIBRARY</p>
+            <h2 id="library-title">景点库</h2>
+            <p class="intro">已通过审核的景点，可直接用于行程规划。</p>
+          </header>
+          <div class="panel">
+            <div class="section-heading">
+              <h3>已审核景点</h3>
+              <span id="library-count" class="count">加载中</span>
+            </div>
+            <p id="library-message" class="empty-state" role="status">正在读取景点库…</p>
+            <ul id="library-list" class="attraction-list"></ul>
+          </div>
+        </section>
+
+        <!-- 待审核景点 -->
+        <section class="view" data-view="review" hidden aria-labelledby="review-title">
+          <header class="page-header">
+            <p class="eyebrow">CANDIDATE REVIEW</p>
+            <h2 id="review-title">待审核景点</h2>
+            <p class="intro">研究阶段收集的候选景点及其来源记录。通过审核的景点会进入景点库；删除会把记录从目录文件中永久移除。</p>
+          </header>
+          <div class="panel">
+            <div class="section-heading">
+              <h3>候选清单</h3>
+              <span id="review-count" class="count">加载中</span>
+            </div>
+            <p id="review-message" class="empty-state" role="status">正在读取候选景点…</p>
+            <p id="review-feedback" class="action-feedback" role="status" hidden></p>
+            <ul id="review-list" class="attraction-list"></ul>
+          </div>
+        </section>
+
+        <!-- 行程规划 -->
+        <section class="view" data-view="itinerary" hidden aria-labelledby="itinerary-title">
+          <header class="page-header">
+            <p class="eyebrow">ITINERARY</p>
+            <h2 id="itinerary-title">行程规划</h2>
+            <p class="intro">选择景点，沿环岛骑行道路生成按天分段的行程，并计入绕行距离。</p>
+          </header>
+          <div class="panel placeholder">
+            <p class="placeholder-title">功能尚未实现</p>
+            <ol class="plan-list">
+              <li>从景点库中勾选要去的景点</li>
+              <li>设定出发日期、每日目标里程</li>
+              <li>生成含绕行距离的分段行程</li>
+              <li>查看每段距离、累计里程与途经点</li>
+            </ol>
+            <p class="note">路线几何与距离将由确定性的应用代码计算，不由语言模型生成。</p>
+          </div>
+        </section>
+
+        <!-- 住宿与补给 -->
+        <section class="view" data-view="lodging" hidden aria-labelledby="lodging-title">
+          <header class="page-header">
+            <p class="eyebrow">LODGING &amp; RESUPPLY</p>
+            <h2 id="lodging-title">住宿与补给</h2>
+            <p class="intro">沿线住宿点、补给点，以及各站之间的距离和可达性估算。</p>
+          </header>
+          <div class="panel placeholder">
+            <p class="placeholder-title">尚无住宿与补给数据</p>
+            <p>
+              数据模型中还没有住宿点和补给点类型。研究日志中仅有零散的骑行者观察，例如昌江 7 号彩虹公路驿站和部分乡镇的补给稀疏提示，这些都是带日期的单次观察，不是当前服务保证。
+            </p>
+            <p class="note">
+              未来的可达性估算会明确显示所用的假设：速度、日落时间、海拔、休息和天气。
+            </p>
+          </div>
+        </section>
+
+        <!-- Garmin 导出 -->
+        <section class="view" data-view="export" hidden aria-labelledby="export-title">
+          <header class="page-header">
+            <p class="eyebrow">GARMIN EXPORT</p>
+            <h2 id="export-title">Garmin 导出</h2>
+            <p class="intro">把规划好的行程导出为 Garmin Connect 和码表可用的格式。</p>
+          </header>
+          <div class="panel placeholder">
+            <p class="placeholder-title">导出尚未实现</p>
+            <ul class="plan-list">
+              <li>首期目标格式为 GPX</li>
+              <li>导出前需确认用户 Garmin Connect / 设备的导入方式</li>
+              <li>区分可导航的路线（course）与记录轨迹（track）</li>
+            </ul>
+            <button type="button" class="button" disabled>导出 GPX（未开放）</button>
+          </div>
+        </section>
+
+        <!-- 设置与假设 -->
+        <section class="view" data-view="settings" hidden aria-labelledby="settings-title">
+          <header class="page-header">
+            <p class="eyebrow">SETTINGS</p>
+            <h2 id="settings-title">设置与假设</h2>
+            <p class="intro">可达性估算所依赖的输入。这些是估算假设，不是保证。</p>
+          </header>
+          <form class="panel settings-form" aria-describedby="settings-note">
+            <label>
+              <span>平均骑行速度（km/h）</span>
+              <input type="number" name="speed" placeholder="尚未接入" disabled>
+            </label>
+            <label>
+              <span>每日出发时间</span>
+              <input type="time" name="start-time" disabled>
+            </label>
+            <label>
+              <span>计划出发日期</span>
+              <input type="date" name="start-date" disabled>
+            </label>
+            <label>
+              <span>每日休息时间（分钟）</span>
+              <input type="number" name="rest" placeholder="尚未接入" disabled>
+            </label>
+            <p id="settings-note" class="note">
+              设置尚未保存或参与计算。12 月至 1 月的日落时间、海拔和天气影响将在可达性估算实现时一并显示。
+            </p>
+          </form>
+        </section>
+
+        <section class="view" data-view="not-found" hidden>
+          <header class="page-header">
+            <h2>页面不存在</h2>
+            <p class="intro">请从左侧导航选择页面。</p>
+          </header>
+        </section>
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+  </body>
+</html>

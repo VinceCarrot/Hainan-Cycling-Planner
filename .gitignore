@@ -1,0 +1,23 @@
+.conda/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.env.*
+!.env.example
+/instance/
+/data/private/
+/data/media/
+
+
+# Claude Code local state and credentials
+.claude/
+.claude.json
+.mcp.json
+*.local.json
+*.pem
+*.key
+credentials*

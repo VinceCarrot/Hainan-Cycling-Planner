@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Original folding-bike mark: small 20" wheels, mid-frame hinge, tall seatpost and handlepost. -->
+  <rect width="64" height="64" rx="13" fill="#222b2e"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- wheels -->
+    <circle cx="16.5" cy="45" r="9" stroke="#b9684b" stroke-width="3.6"/>
+    <circle cx="47.5" cy="45" r="9" stroke="#b9684b" stroke-width="3.6"/>
+    <!-- frame -->
+    <g stroke="#e3e7e5" stroke-width="3.2">
+      <!-- main tube: head tube down to bottom bracket -->
+      <path d="M42 29 L28 46"/>
+      <!-- chainstay -->
+      <path d="M28 46 L16.5 45"/>
+      <!-- seat tube and tall seatpost -->
+      <path d="M28 46 L23 15"/>
+      <!-- seatstay -->
+      <path d="M16.5 45 L25.5 30"/>
+      <!-- fork -->
+      <path d="M42 29 L47.5 45"/>
+      <!-- tall handlepost -->
+      <path d="M42 29 L45.5 12"/>
+      <!-- saddle -->
+      <path d="M18 15 L29 15"/>
+      <!-- handlebar -->
+      <path d="M40.5 12 L51 12"/>
+    </g>
+  </g>
+  <!-- folding hinge on the main tube -->
+  <rect x="32.3" y="34.6" width="5.4" height="5.4" rx="1" fill="#b9684b" transform="rotate(-50 35 37.3)"/>
+  <!-- crank -->
+  <circle cx="28" cy="46" r="2.6" fill="#b9684b"/>
+</svg>

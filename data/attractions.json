@@ -1,0 +1,4596 @@
+[
+    {
+        "id": "haikou-clock-tower",
+        "name": "海口钟楼",
+        "region": "海口市",
+        "category": "历史街区与地标",
+        "latitude": 20.0466062,
+        "longitude": 110.3372243,
+        "coordinate_source_id": "osm-clock-tower",
+        "summary": {
+            "text": "一篇环岛骑行游记将钟楼一带作为海口市区骑行的地标和往返参照；作者没有单独评价钟楼本身。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月出发、15天环岛骑行。单篇体验，不代表普遍口碑。"
+            },
+            {
+                "id": "osm-clock-tower",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海口钟楼地图要素",
+                "url": "https://www.openstreetmap.org/way/1171637360",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标来自 OSM Nominatim 检索；数据许可 ODbL，展示需署名。"
+            },
+            {
+                "id": "commons-clock-tower",
+                "platform": "Wikimedia Commons",
+                "kind": "objective_reference",
+                "title": "Clock tower in Haikou 01.jpg",
+                "url": "https://commons.wikimedia.org/wiki/File:Clock_tower_in_Haikou_01.jpg",
+                "author": "Anna Frodesiak",
+                "accessed_at": "2026-10-22",
+                "notes": "Commons 文件页标注 CC0 1.0；本地展示仍保留作者及来源。"
+            }
+        ],
+        "images": [
+            {
+                "source_id": "commons-clock-tower",
+                "source_url": "https://commons.wikimedia.org/wiki/File:Clock_tower_in_Haikou_01.jpg",
+                "rights": "download_authorized",
+                "creator": "Anna Frodesiak",
+                "license_name": "CC0 1.0",
+                "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "caption": "海口钟楼；开放许可图片，非马蜂窝游记照片。当前保留来源，尚未缓存本地文件。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "只有一篇骑行游记来源，属于线索级体验，尚未达到三条独立体验来源。",
+            "作者提到钟楼作为路线地标，未提供对钟楼景点本身的评价。"
+        ]
+    },
+    {
+        "id": "haikou-wanlv-park",
+        "name": "万绿园",
+        "region": "海口市",
+        "category": "城市公园",
+        "latitude": 20.0352366,
+        "longitude": 110.3104417,
+        "coordinate_source_id": "osm-wanlv-park",
+        "summary": {
+            "text": "骑行游记把万绿园作为海口市区停留点；作者特别留意到园内树荫和当季花木。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "作者认为园内绿荫较多，骑行途中可作为市区休息停留点。",
+                "source_ids": [
+                    "mafengwo-hainan-loop-2024"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月出发、15天环岛骑行。单篇体验，不代表普遍口碑。"
+            },
+            {
+                "id": "osm-wanlv-park",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "万绿园地图要素",
+                "url": "https://www.openstreetmap.org/way/1235354269",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标来自 OSM Nominatim 检索；数据许可 ODbL，展示需署名。"
+            },
+            {
+                "id": "commons-wanlv-park",
+                "platform": "Wikimedia Commons",
+                "kind": "objective_reference",
+                "title": "万绿园 - Wanlv Park - 2016.01 - panoramio.jpg",
+                "url": "https://commons.wikimedia.org/wiki/File:%E4%B8%87%E7%BB%BF%E5%9B%AD_-_Wanlv_Park_-_2016.01_-_panoramio.jpg",
+                "author": "rheins",
+                "accessed_at": "2026-10-22",
+                "notes": "Commons 文件页标注 CC BY 3.0；再利用须署名并链接许可。照片拍摄于2016年，较旧。"
+            }
+        ],
+        "images": [
+            {
+                "source_id": "commons-wanlv-park",
+                "source_url": "https://commons.wikimedia.org/wiki/File:%E4%B8%87%E7%BB%BF%E5%9B%AD_-_Wanlv_Park_-_2016.01_-_panoramio.jpg",
+                "rights": "download_authorized",
+                "creator": "rheins",
+                "license_name": "CC BY 3.0",
+                "license_url": "https://creativecommons.org/licenses/by/3.0/",
+                "caption": "万绿园；rheins，CC BY 3.0。拍摄于2016年。当前保留来源，尚未缓存本地文件。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "只有一篇骑行游记来源，尚未达到三条独立体验来源。",
+            "代表图片来自 Wikimedia Commons 开放许可文件，不是马蜂窝游客照片；拍摄年份较早。"
+        ]
+    },
+    {
+        "id": "haikou-arcade-old-street",
+        "name": "海口骑楼老街",
+        "region": "海口市",
+        "category": "历史街区与建筑",
+        "latitude": 20.0414173,
+        "longitude": 110.339709,
+        "coordinate_source_id": "osm-arcade-street",
+        "summary": {
+            "text": "作者在海口市区骑行时穿行骑楼片区，并把南洋风格建筑作为沿途观察内容；游记没有提供对商业体验的系统评价。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "从骑行者视角看，街区建筑风格适合作为海口市区路线中的文化停留点。",
+                "source_ids": [
+                    "mafengwo-hainan-loop-2024"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月出发、15天环岛骑行。单篇体验，不代表普遍口碑。"
+            },
+            {
+                "id": "osm-arcade-street",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海口骑楼老街历史文化街区地图要素",
+                "url": "https://www.openstreetmap.org/way/1437132014",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标来自 OSM Nominatim 检索；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "只有一篇骑行游记来源，尚未达到三条独立体验来源。",
+            "坐标使用街区要素的代表点，非街区入口或单一景点入口。"
+        ]
+    },
+    {
+        "id": "haikou-guanhaitai",
+        "name": "观海台",
+        "region": "海口市",
+        "category": "海岸观景点",
+        "latitude": 20.0314759,
+        "longitude": 110.2467621,
+        "coordinate_source_id": "osm-guanhaitai",
+        "summary": {
+            "text": "环岛骑行游记提及海岸步道、沙滩与观海停留；这些是作者当次出行的体验记录，季节和天气会影响感受。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "海岸步道可串联海边观景与骑行，适合作为海口西侧的短暂停留。",
+                "source_ids": [
+                    "mafengwo-hainan-loop-2024"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月出发、15天环岛骑行。单篇体验，不代表普遍口碑。"
+            },
+            {
+                "id": "osm-guanhaitai",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海口观海台地图要素",
+                "url": "https://www.openstreetmap.org/node/11467474445",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标来自 OSM Nominatim 检索；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "只有一篇骑行游记来源，尚未达到三条独立体验来源。",
+            "游记中“观海台”与具体海岸段的对应关系建议用户审核。"
+        ]
+    },
+    {
+        "id": "haikou-haidian-river-bridge",
+        "name": "海甸河大桥",
+        "region": "海口市",
+        "category": "城市骑行与河岸景观",
+        "summary": {
+            "text": "环岛骑行者记载清晨从骑楼片区经海甸河大桥出城；该记录主要是骑行路线经过，不是对桥梁景观的完整评价。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月环岛骑行；本处见于路线叙述。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游记提及的路线候选，尚无独立景观评价。",
+            "尚未核实对应桥梁要素及坐标，暂不显示地图点。"
+        ]
+    },
+    {
+        "id": "haikou-cloud-camping-beach",
+        "name": "云朵露营海滩",
+        "region": "海口市",
+        "category": "海滩与骑行停留点",
+        "summary": {
+            "text": "作者从滨海大道骑到这处海滩，原计划到海堤深处看海钓，但因担心碎石路扎胎而折返；路面状况值得骑行者留意。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月骑行；碎石路担忧为当次观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇骑行游记线索；是否仍可通行及海滩准确位置待核实。",
+            "暂未获得可靠地图坐标。"
+        ]
+    },
+    {
+        "id": "haikou-holiday-beach",
+        "name": "海口假日海滩",
+        "region": "海口市",
+        "category": "海滩与沿海骑行停留点",
+        "summary": {
+            "text": "两篇小红书笔记都将假日海滩列入海口沿海骑行路线。其中一篇称海滩一段人车较多、作者买到椰子水；另一篇将观海亭列为看日落的停留点。均为单篇路线记录，拥挤程度、补给、亭台位置和骑行通行条件可能随时间变化。",
+            "source_ids": [
+                "xiaohongshu-haikou-holiday-beach-ride-2026",
+                "xiaohongshu-haikou-holiday-beach-sunset-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-haikou-holiday-beach-ride-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "🚴海口骑行！“西海岸”的绝美落日☄🏝",
+                "url": "https://www.xiaohongshu.com/explore/6a773eb10000000025017f10",
+                "author": "小红薯66575186",
+                "accessed_at": "2026-10-23",
+                "notes": "作者称沿滨海大道向新海港骑行并途经假日海滩，描述当时人车较多并提到买椰子水；终点为新海港附近未具名海岸，未据此推断其为某个已知海滩。笔记没有年份明确的到访日期。"
+            },
+            {
+                "id": "xiaohongshu-haikou-holiday-beach-sunset-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海口骑车真的会上瘾🌊",
+                "url": "https://www.xiaohongshu.com/explore/6a9e417900000000290151ab",
+                "author": "molly W",
+                "accessed_at": "2026-10-23",
+                "notes": "作者以个人海边骑行路线形式列出假日海滩和观海亭日落停留点；页面日期显示09-07，未推断年份。路线和“沿途都有补给点”等概括性说法尚未独立验证。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "两篇同平台笔记提供路线停留线索，尚非跨平台交叉验证；第二篇部分表述较概括，不将其作为当前路况或服务保证。",
+            "没有证据将第一篇提及的新海港附近无名海湾定位到假日海滩或其他既有海滩，故不合并该处。",
+            "尚未核验观海亭的具体位置、骑行通行细节、补给点营业状态及地图入口坐标。"
+        ]
+    },
+    {
+        "id": "haikou-bay-cross-sea-bridge",
+        "name": "海口湾跨海大桥",
+        "region": "海口市",
+        "category": "桥梁与海岸景观",
+        "summary": {
+            "text": "骑行游记作者描述沿海岸骑行时看到海口湾跨海大桥和海面船只；可作为海口西向海岸骑行路线的景观点线索。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月骑行；桥梁为沿途观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "一篇游客记录提及，尚未核实最佳观景位置和骑行通行条件。",
+            "Nominatim 未返回可确认的桥梁要素，暂不设坐标。"
+        ]
+    },
+    {
+        "id": "haikou-binhai-park",
+        "name": "海口滨海公园",
+        "region": "海口市",
+        "category": "城市公园与海岸",
+        "latitude": 20.0415453,
+        "longitude": 110.3181665,
+        "coordinate_source_id": "osm-haikou-binhai-park",
+        "summary": {
+            "text": "骑行游记将滨海公园列为海口西向海岸骑行途经点；目前只有路线提及，尚无对公园设施或停留体验的详细评价。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月骑行；路线段提及滨海公园。"
+            },
+            {
+                "id": "osm-haikou-binhai-park",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海口滨海公园地图要素",
+                "url": "https://www.openstreetmap.org/relation/2866732",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 公园要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇路线提及，尚未达到多来源体验要求。",
+            "坐标代表公园要素，不等同于入口或骑行路线入口。"
+        ]
+    },
+    {
+        "id": "haikou-century-bridge",
+        "name": "世纪大桥",
+        "region": "海口市",
+        "category": "桥梁与城市景观",
+        "latitude": 20.050898,
+        "longitude": 110.3153412,
+        "coordinate_source_id": "osm-century-bridge",
+        "summary": {
+            "text": "携程自驾游记将世纪大桥安排在海口第一天城市行程中；该文章提供了行程点，但没有单独评价桥上骑行条件。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录九日自驾行程；桥梁作为海口行程点出现。"
+            },
+            {
+                "id": "osm-century-bridge",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海口世纪大桥地图要素",
+                "url": "https://www.openstreetmap.org/way/177110540",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 桥梁要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "游客行程提及，不是桥上自行车通行安全评价。",
+            "需核实自行车可通行路面和安全观景位置。"
+        ]
+    },
+    {
+        "id": "haikou-five-officials-temple",
+        "name": "五公祠",
+        "region": "海口市",
+        "category": "历史建筑与人文景点",
+        "latitude": 20.009698,
+        "longitude": 110.3551909,
+        "coordinate_source_id": "osm-five-officials-temple",
+        "summary": {
+            "text": "携程游客把五公祠列入海口城市游览日程；现有来源仅能确认它是作者计划中的停留点，尚无具体参观体验细节。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者九日自驾行程安排中列为海口停留点。"
+            },
+            {
+                "id": "osm-five-officials-temple",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "五公祠地图要素",
+                "url": "https://www.openstreetmap.org/way/482234121",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 建筑要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客行程提及，尚无可归纳的体验评价。",
+            "坐标为建筑要素代表点，不是检票口。"
+        ]
+    },
+    {
+        "id": "haikou-hainan-museum",
+        "name": "海南省博物馆",
+        "region": "海口市",
+        "category": "博物馆与人文景点",
+        "latitude": 20.0174267,
+        "longitude": 110.3745397,
+        "coordinate_source_id": "osm-hainan-museum",
+        "summary": {
+            "text": "携程自驾游记将海南省博物馆列入海口的一日安排；该页面未提供本条目的具体展览体验，因此仅作为待补充的游客行程线索。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将博物馆列入海口行程；页面没有单独评价展览。"
+            },
+            {
+                "id": "osm-hainan-museum",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海南省博物馆地图要素",
+                "url": "https://www.openstreetmap.org/way/1346093772",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 建筑要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇行程安排，不代表作者完成参观或推荐。",
+            "开放时间、展览和预约要求需另行核实。"
+        ]
+    },
+    {
+        "id": "chengmai-mangrove-wetland-park",
+        "name": "澄迈红树林湿地公园",
+        "region": "澄迈县",
+        "category": "湿地与生态景观",
+        "summary": {
+            "text": "环岛骑行游记记载作者沿海南环岛旅游公路经过红树林湿地公园；另一位创作者的视频记录从海口假日海滩骑行至该公园的路线，但现有来源未说明是否入园或具体游览体验。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024",
+                "bilibili-chengmai-mangrove-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月骑行；记载沿途经过红树林湿地公园。"
+            },
+            {
+                "id": "bilibili-chengmai-mangrove-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "「Around Hainan Island」 Haikou Holiday Beach - Chengmai Mangrove Bay Wetland Park (HDR)",
+                "url": "https://www.bilibili.com/video/BV1vnhj6QEEE/",
+                "author": "赵子清CN",
+                "published_at": "2026-08-26",
+                "accessed_at": "2026-10-23",
+                "notes": "视频页面标题指向假日海滩至红树林湿地公园的环岛路线；不据此推断入园体验。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "现有来源主要是路线记录，尚未证实作者进入园区或描述园内体验。",
+            "具体公园边界、开放状态和坐标尚待核实。"
+        ]
+    },
+    {
+        "id": "chengmai-fushan-coffee-town",
+        "name": "澄迈福山咖啡文化风情镇",
+        "region": "澄迈县",
+        "category": "咖啡文化与乡镇游览点",
+        "summary": {
+            "text": "一位游客记录在福山咖啡文化风情镇走访咖啡馆和艺术空间，称作者2025年4月到访时园区较冷清，咖啡文化馆仍在装修；咖啡价格等为当时观察，设施和营业状态需重新核实。",
+            "source_ids": [
+                "toutiao-chengmai-fushan-baoliang-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "toutiao-chengmai-fushan-baoliang-2025",
+                "platform": "今日头条",
+                "kind": "visitor_experience",
+                "title": "海南旅游体验澄迈篇（一）——福山咖啡文化风情镇与保良古村",
+                "url": "https://www.toutiao.com/article/7503934041273418259/",
+                "author": "小岛村夫",
+                "published_at": "2025-05-13",
+                "accessed_at": "2026-10-23",
+                "notes": "作者标注到访时间为2025-04-05；咖啡文化馆装修、园区客流和价格均为当时观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客记录；馆舍装修、店铺经营和价格为时效信息，出行前需核实。",
+            "来源作者未说明骑行进入或自行车停放条件，且未提供可靠入口坐标。"
+        ]
+    },
+    {
+        "id": "chengmai-baoliang-ancient-village",
+        "name": "澄迈保良古村",
+        "region": "澄迈县",
+        "category": "古村落与乡村体验",
+        "summary": {
+            "text": "同一位游客记录在保良村咖啡店停留并随后逛村，认为村落规模不大；作者当次看到咖啡店、村剧场、农家乐和南瓜地等乡村游览元素。价格及新建设施情况只代表2025年4月的观察。",
+            "source_ids": [
+                "toutiao-chengmai-fushan-baoliang-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "toutiao-chengmai-fushan-baoliang-2025",
+                "platform": "今日头条",
+                "kind": "visitor_experience",
+                "title": "海南旅游体验澄迈篇（一）——福山咖啡文化风情镇与保良古村",
+                "url": "https://www.toutiao.com/article/7503934041273418259/",
+                "author": "小岛村夫",
+                "published_at": "2025-05-13",
+                "accessed_at": "2026-10-23",
+                "notes": "作者标注到访时间为2025-04-05；游览内容和设施状态为当次观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一游客来源；需进一步确认公共游览范围、进入方式和当前咖啡店及乡村设施经营情况。",
+            "村庄内咖啡店和农家乐作为内部体验记录，不另建重复候选。",
+            "未获得可靠坐标，不显示地图点。"
+        ]
+    },
+    {
+        "id": "lingao-cape-scenic-area",
+        "name": "临高角风景区",
+        "region": "临高县",
+        "category": "海角与海岸遗址",
+        "summary": {
+            "text": "一篇自驾游记把临高角列为西线停留点；另一篇环岛骑行日志记录作者骑至临高角并在海边民宿住宿。骑行日志所列114公里包含用保障车穿过市区的路段，不能直接视为全程骑行距离；住宿和补给信息也仅代表笔记当时情况。",
+            "source_ids": [
+                "mafengwo-west-4day-2025",
+                "xiaohongshu-lingao-cape-cycling-2026",
+                "xiaohongshu-nanshan-day1-haihua-island",
+                "xiaohongshu-lingao-danzhou-selfdrive-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "行程记录将该地作为临高停留点；观景点与纪念设施信息需核验。"
+            },
+            {
+                "id": "xiaohongshu-lingao-cape-cycling-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "🏝️海南岛民的环岛骑行1️⃣海口市区-临高角",
+                "url": "https://www.xiaohongshu.com/explore/6aa26e94000000002700855e",
+                "author": "小丸子的奇思妙想",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记录从海口出发骑至临高角并在海边民宿住宿；笔记所列114公里行程中，作者用保障车穿过市区。途中经过包岸港看见归港渔船，并称约70公里到桥头镇可休息；住宿、补给及路线数据均未核实为当前信息。"
+            },
+            {
+                "id": "xiaohongshu-nanshan-day1-haihua-island",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "环海南岛骑行Day1 海口-海花岛",
+                "url": "https://www.xiaohongshu.com/explore/694ea8f0000000001e0000e5",
+                "author": "南山伐木累",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记述在临高角附近用餐并提醒及时补水；这是模糊的沿线补给观察，不代表临高角景区内设施或当前营业情况。"
+            },
+            {
+                "id": "xiaohongshu-lingao-danzhou-selfdrive-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南西线环岛4日day1之临高儋州（附路线图）",
+                "url": "https://www.xiaohongshu.com/explore/6ac1290e000000001a02065c",
+                "author": "小森林（有猫版）",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记录临高角海水清澈，并称到访时栈道关闭；栈道状态仅为当次观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "OSM未返回可确认的临高角景区要素，先不提供地图点。",
+            "新增一篇骑行者的单次实地日志；城市路段由保障车通过，里程不能当作全程骑行实测。其民宿和补给建议需出发前核实。"
+        ]
+    },
+    {
+        "id": "lingao-dongying-international-slow-city-tidal-flat-park",
+        "name": "临高东英国际慢城赶海公园",
+        "region": "临高县",
+        "category": "海岸公园与赶海点",
+        "summary": {
+            "text": "一篇西线自驾游记记录作者到访东英国际慢城赶海公园，称进海边的小路景致不错，并提到“幸福号船”打卡点。车行到海边的描述不能当作骑行路线或当前通行、设施承诺。",
+            "source_ids": [
+                "xiaohongshu-lingao-danzhou-selfdrive-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-lingao-danzhou-selfdrive-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南西线环岛4日day1之临高儋州（附路线图）",
+                "url": "https://www.xiaohongshu.com/explore/6ac1290e000000001a02065c",
+                "author": "小森林（有猫版）",
+                "accessed_at": "2026-10-23",
+                "notes": "作者自驾到东英国际慢城赶海公园，描述进海边的小路和“幸福号船”打卡点；未确认骑行可达性及当前开放情况。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "仅有一篇自驾者体验；确切入口、区域范围、骑行接近方式和当前开放状态待核实。",
+            "未获得可靠地图入口坐标，不显示地图点。"
+        ]
+    },
+    {
+        "id": "lingao-golden-bay-fishing-village",
+        "name": "临高金牌湾小渔村",
+        "region": "临高县",
+        "category": "沿海渔村与骑行停留点",
+        "summary": {
+            "text": "一位自驾环岛创作者发布以临高金牌湾小渔村为主题的视频，并在简介中把该点列入海南环岛行程；目前仅据此确认到访拍摄线索，不作设施或游客口碑判断。",
+            "source_ids": [
+                "bilibili-lingao-golden-bay-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-lingao-golden-bay-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "「Around Hainan Island」Lingao County | Gold Coast Small Fishing Village (HDR)",
+                "url": "https://www.bilibili.com/video/BV1QrWF6mEjy/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-13",
+                "accessed_at": "2026-10-23",
+                "notes": "视频标题和页面地点标签指向临高金牌湾小渔村；页面标注未经作者授权禁止转载，未下载或缓存视频画面。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一创作者的视频地点记录；确切海岸入口、公共通行、补给和骑行路况未核实。",
+            "页面内容作为来源链接保留，不将未授权视频画面离线保存。"
+        ]
+    },
+    {
+        "id": "lingao-liberation-park",
+        "name": "临高海南解放公园",
+        "region": "临高县",
+        "category": "纪念公园与海岸历史",
+        "summary": {
+            "text": "一位环岛自驾创作者发布从海南解放公园前往梅霞村的视频；该记录可作为作者到访公园的线索，但页面文字没有提供具体游览体验或设施信息。",
+            "source_ids": [
+                "bilibili-lingao-liberation-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-lingao-liberation-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Lingao | Hainan Liberation Park - Meixia Village (HDR)",
+                "url": "https://www.bilibili.com/video/BV1kDpy6xEQZ/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-14",
+                "accessed_at": "2026-10-23",
+                "notes": "视频标题以海南解放公园作为路线起点；未经作者授权禁止转载，未下载或缓存视频画面。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一创作者的路线视频；纪念设施范围、开放状态和自行车停放点待核实。",
+            "来源只支持到访路线线索，不作为历史事实来源。"
+        ]
+    },
+    {
+        "id": "lingao-meixia-village",
+        "name": "临高梅霞村",
+        "region": "临高县",
+        "category": "村落与环岛路线停留点",
+        "summary": {
+            "text": "环岛路线视频记录从海南解放公园向梅霞村行进；另有同一创作者从梅霞村前往蓝迈海滩的视频，说明该村是西线行程节点，但没有提供村内游览评价。",
+            "source_ids": [
+                "bilibili-lingao-liberation-2026",
+                "bilibili-lingao-meixia-lanmai-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-lingao-liberation-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Lingao | Hainan Liberation Park - Meixia Village (HDR)",
+                "url": "https://www.bilibili.com/video/BV1kDpy6xEQZ/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-14",
+                "accessed_at": "2026-10-23",
+                "notes": "视频记录途经梅霞村的环岛路线；未归纳村内体验。"
+            },
+            {
+                "id": "bilibili-lingao-meixia-lanmai-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "「Around Hainan Island」Lingao | Meixia Village - Lanmai Beach (HDR)",
+                "url": "https://www.bilibili.com/video/BV1mrpy6aEg4/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-14",
+                "accessed_at": "2026-10-23",
+                "notes": "视频标题显示梅霞村至蓝迈海滩路线；不据此推断村庄公共游览设施。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "目前仅有一位创作者的路线记录，未证实该村适合作为观光停留点。",
+            "尊重居民隐私，不把普通民居作为可进入的景点或观景设施。"
+        ]
+    },
+    {
+        "id": "lingao-lanmai-beach",
+        "name": "临高蓝迈海滩",
+        "region": "临高县",
+        "category": "海滩与骑行停留点",
+        "summary": {
+            "text": "一位环岛自驾创作者发布以蓝迈海滩为题的视频，并另有从梅霞村到蓝迈海滩的路线记录；目前仅作为到访地点线索，不归纳海滩环境或通行体验。",
+            "source_ids": [
+                "bilibili-lingao-lanmai-2026",
+                "bilibili-lingao-meixia-lanmai-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-lingao-lanmai-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Lingao | Lanmai Beach (HDR)",
+                "url": "https://www.bilibili.com/video/BV11ypy68ERj/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-14",
+                "accessed_at": "2026-10-23",
+                "notes": "页面以蓝迈海滩为题；未经作者授权禁止转载，未下载或缓存视频画面。"
+            },
+            {
+                "id": "bilibili-lingao-meixia-lanmai-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "「Around Hainan Island」Lingao | Meixia Village - Lanmai Beach (HDR)",
+                "url": "https://www.bilibili.com/video/BV1mrpy6aEg4/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-14",
+                "accessed_at": "2026-10-23",
+                "notes": "视频标题记录从梅霞村到蓝迈海滩的路线；不据此推断海滩入口或开放状态。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "来源来自同一创作者，属于路线到访线索而非独立口碑。",
+            "海滩准确入口、潮汐安全和骑行接驳待核实，不提供推测坐标。"
+        ]
+    },
+    {
+        "id": "lingao-touyang-haitang-tourism-zone",
+        "name": "临高头洋海棠渔耕文化旅游区",
+        "region": "临高县",
+        "category": "乡村文旅与沿海路线停留点",
+        "summary": {
+            "text": "环岛路线视频记录作者从蓝迈海滩前往头洋·海棠渔耕文化旅游区；页面文字只能确认路线节点，不能证明作者进入园区或体验具体项目。",
+            "source_ids": [
+                "bilibili-lingao-haitang-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-lingao-haitang-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Lingao | Lanmai Beach - Touyang · Haitang Fishing and Farming Cultural Tourism Zone (HDR)",
+                "url": "https://www.bilibili.com/video/BV1cVpy6QEx3/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-14",
+                "accessed_at": "2026-10-23",
+                "notes": "视频标题将旅游区列为路线目的地；未经作者授权禁止转载，未下载或缓存视频画面。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一创作者的路线记录；园区范围、实际游览内容、开放状态及自行车通行待核实。",
+            "未获得可靠坐标，不显示地图点。"
+        ]
+    },
+    {
+        "id": "lingao-guyin-waterfall",
+        "name": "临高古银瀑布",
+        "region": "临高县",
+        "category": "内陆瀑布与自然步道",
+        "summary": {
+            "text": "一位署名王志远的游客游记记录作者从临近小停车场步行，沿曲折小山路走约三四百米到达古银瀑布；作者当次看到林间溪流、瀑布和观瀑台。步道、停车与水量是有日期的现场观察，不构成当前通行或安全保证。",
+            "source_ids": [
+                "sohu-lingao-guyin-waterfall-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "sohu-lingao-guyin-waterfall-2025",
+                "platform": "搜狐",
+                "kind": "visitor_experience",
+                "title": "散文||临高古银瀑布游记",
+                "url": "https://www.sohu.com/a/899753796_121124710",
+                "author": "王志远",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "正文署名王志远；作者称在春节期间与朋友驾车到访，具体到访年份未明确。"
+            },
+            {
+                "id": "bilibili-lingao-guyin-waterfall-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "Vlog 13*2026海南之旅chapter1｜海南环岛｜临高｜古银瀑布",
+                "url": "https://www.bilibili.com/video/BV1doaX6dEpQ/",
+                "author": "双木钬钬",
+                "published_at": "2026-09-30",
+                "accessed_at": "2026-10-23",
+                "notes": "标题将临高和古银瀑布列为旅行地点；仅作另一位创作者的地点线索，未缓存视频或据此推断详细体验。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "搜狐游记正文提供第一人称到访体验；B站只提供标题级独立地点线索。",
+            "搜狐作者提到的停车场、步行距离及观瀑台是当次记录，需核验当前步道和进入条件。",
+            "未获得可靠地图入口坐标，不显示地图点；瀑布水潭深度和下水安全未核实，不作游泳建议。"
+        ]
+    },
+    {
+        "id": "danzhou-guangcun-silver-beach",
+        "name": "光村银滩",
+        "region": "儋州市",
+        "category": "海滩与海岸",
+        "latitude": 19.841376,
+        "longitude": 109.4946757,
+        "coordinate_source_id": "osm-guangcun-silver-beach",
+        "summary": {
+            "text": "环岛骑行者分别记录阴雨天经过光村银滩，以及非涨潮时未久留、认为景观特点不突出；一篇自驾游记补充，作者不赶海、只看景色时觉得与其他海滩差异不大。这些均为当次个人观察，不代表常态。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024",
+                "xiaohongshu-nanshan-day1-haihua-island",
+                "xiaohongshu-lingao-danzhou-selfdrive-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月出发的15天环岛骑行。光村银滩的评价来自阴雨天气下的一次经过，不代表常态。"
+            },
+            {
+                "id": "osm-guangcun-silver-beach",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "光村银滩地图要素",
+                "url": "https://www.openstreetmap.org/node/12221762733",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标由 OSM Nominatim 检索结果取得；数据许可 ODbL，展示需署名。"
+            },
+            {
+                "id": "xiaohongshu-nanshan-day1-haihua-island",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "环海南岛骑行Day1 海口-海花岛",
+                "url": "https://www.xiaohongshu.com/explore/694ea8f0000000001e0000e5",
+                "author": "南山伐木累",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记述骑行经过光村银滩、龙门激浪，但未多停留；其关于非涨潮时景观一般的判断是当次个人观察。"
+            },
+            {
+                "id": "xiaohongshu-lingao-danzhou-selfdrive-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南西线环岛4日day1之临高儋州（附路线图）",
+                "url": "https://www.xiaohongshu.com/explore/6ac1290e000000001a02065c",
+                "author": "小森林（有猫版）",
+                "accessed_at": "2026-10-23",
+                "notes": "作者称不赶海、只看景色时觉得光村银滩与其他海滩差异不大；这是个人审美观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "目前只有一篇游客骑行游记来源，尚未达到三条独立体验来源。",
+            "游记记载天气阴雨且沿途风力较强；海滩观感不应脱离当时天气解读。"
+        ]
+    },
+    {
+        "id": "danzhou-eman-volcanic-coast",
+        "name": "峨蔓火山海岸地质公园",
+        "region": "儋州市",
+        "category": "海岸地貌与地质公园",
+        "summary": {
+            "text": "骑行游记作者抵达时，海岸地质公园的观景台处于关闭状态；同一段西北海岸骑行还遇到强横风。观景台开放情况和天气影响需出行前另行核实。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月出发的15天环岛骑行；观景台关闭为当次记录，不能据此推断目前状态。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "目前只有一篇游客骑行游记来源，且记录的观景台关闭状态需要核实。",
+            "本轮未能从 OSM 检索到足够精确的公园坐标，因此暂不设置地图坐标。"
+        ]
+    },
+    {
+        "id": "danzhou-longmen-jilang",
+        "name": "龙门激浪",
+        "region": "儋州市",
+        "category": "海岸与海蚀地貌",
+        "summary": {
+            "text": "两篇环岛骑行记录将龙门激浪列入沿途路线；一位作者称经过时没有多停留，另一篇自驾游记称下午到访时潮位不合、未见明显浪景。潮汐与时段影响属于当次体验。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024",
+                "xiaohongshu-nanshan-day1-haihua-island",
+                "xiaohongshu-lingao-danzhou-selfdrive-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月骑行；龙门激浪出现在当日路线标题中。"
+            },
+            {
+                "id": "xiaohongshu-nanshan-day1-haihua-island",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "环海南岛骑行Day1 海口-海花岛",
+                "url": "https://www.xiaohongshu.com/explore/694ea8f0000000001e0000e5",
+                "author": "南山伐木累",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记述骑行经过龙门激浪，但未多停留；其关于非涨潮时景观一般的判断是当次个人观察。"
+            },
+            {
+                "id": "xiaohongshu-lingao-danzhou-selfdrive-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南西线环岛4日day1之临高儋州（附路线图）",
+                "url": "https://www.xiaohongshu.com/explore/6ac1290e000000001a02065c",
+                "author": "小森林（有猫版）",
+                "accessed_at": "2026-10-23",
+                "notes": "作者称下午四五点到访时潮位不合、未见明显浪景；这是当次潮汐时段观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "目前为单篇路线线索，是否实际停留和景点体验待补充。",
+            "地图检索未得到可确认坐标。"
+        ]
+    },
+    {
+        "id": "danzhou-eman-coast-viewpoint",
+        "name": "峨蔓火山海岸观景台",
+        "region": "儋州市",
+        "category": "海岸观景点",
+        "summary": {
+            "text": "骑行游记作者抵达火山海岸地质公园时，记载观景台关闭；这是一次有日期的现场观察，不代表目前开放状态。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月到访；观景台关闭为当次状态。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与峨蔓火山海岸地质公园父级候选相关的子地点，精确位置和现状待核实。",
+            "单篇记录，不得将当时关闭状态解释为现状。"
+        ]
+    },
+    {
+        "id": "danzhou-ocean-flower-island",
+        "name": "海花岛",
+        "region": "儋州市",
+        "category": "海岛与滨海休闲",
+        "latitude": 19.6698886,
+        "longitude": 109.1690418,
+        "coordinate_source_id": "osm-ocean-flower-island",
+        "summary": {
+            "text": "环岛骑行游记记载作者因天气滞留海花岛；该条目来自旅途路线和停留记录，未据此推断岛上项目的普遍评价。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024",
+                "xiaohongshu-danzhou-day3-haihua-haitou"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "另一篇2021年游记单列海花岛灯光秀并配图，说明作者曾将其作为夜间观赏内容；演出安排和当前状态需另行核实。",
+                "source_ids": [
+                    "mafengwo-danzhou-huakai-2021"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月环岛骑行；行程中在海花岛滞留。"
+            },
+            {
+                "id": "mafengwo-danzhou-huakai-2021",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南 | 21（爱你）天荒地老，伴你天涯海角（5）儋州",
+                "url": "https://www.mafengwo.cn/i/23477672.html",
+                "author": "珍爷驾到",
+                "published_at": "2021-12-10",
+                "accessed_at": "2026-10-23",
+                "notes": "作者行程日期为2021-11-04；游记包含海花岛灯光秀图文段落，不能据此推断当前演出。"
+            },
+            {
+                "id": "xiaohongshu-danzhou-day3-haihua-haitou",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "环海南岛骑行 day3儋州-海花岛-海头镇",
+                "url": "https://www.xiaohongshu.com/explore/6960c614000000000c03786e",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记述2025-12-16骑行113.58公里、爬升583米，途中游览海花岛商业街并称岛上风景不错。住宿评价涉及后续海头镇，当次观察不代表当前住宿条件。"
+            },
+            {
+                "id": "osm-ocean-flower-island",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海花岛地图要素",
+                "url": "https://www.openstreetmap.org/relation/11681378",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 岛屿要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "游客来源年代和体验维度不一；灯光秀不作为当前运营承诺。",
+            "坐标为岛屿代表点，岛内路线需另外规划。"
+        ]
+    },
+    {
+        "id": "danzhou-shihua-water-cave",
+        "name": "儋州石花水洞地质公园",
+        "region": "儋州市",
+        "category": "地质景观与溶洞",
+        "latitude": 19.4438628,
+        "longitude": 109.2953465,
+        "coordinate_source_id": "osm-danzhou-shihua-water-cave",
+        "summary": {
+            "text": "游客把石花水洞安排在棋子湾之后，作为西线行程中的溶洞停留点；其记录主要介绍到达和游览安排，洞内地质数据需另行核实。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "游客游记记载实地游览；介绍性地质描述未作为本条体验摘要依据。"
+            },
+            {
+                "id": "osm-danzhou-shihua-water-cave",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "石花水洞地质公园地图要素",
+                "url": "https://www.openstreetmap.org/node/6039583407",
+                "accessed_at": "2026-10-23",
+                "notes": "匹配儋州市石花水洞地质公园；坐标为地图要素点，不代表售票处。数据许可ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "西线骑行绕行距离、入园耗时和自行车停放需进一步核对。"
+        ]
+    },
+    {
+        "id": "danzhou-hainan-tropical-botanical-garden",
+        "name": "海南热带植物园",
+        "region": "儋州市",
+        "category": "植物园与自然教育",
+        "summary": {
+            "text": "一篇游客行程把海南热带植物园安排在中和古镇和东坡书院之前；游记能证明行程提及，未提供可据以概括园内具体体验的细节。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "原文为行程路线提及，具体游览和感受证据有限。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "Nominatim未找到能确认的同名要素；名称、入口及骑行偏离待核实。"
+        ]
+    },
+    {
+        "id": "danzhou-zhonghe-old-town",
+        "name": "儋州中和古镇",
+        "region": "儋州市",
+        "category": "古镇与历史街区",
+        "summary": {
+            "text": "游客将中和古镇列入从热带植物园到东坡书院的西线行程，并将其作为寻找历史街巷与地方饮食的一站；未记录完整步行路线。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "游客路线包含古镇；街区现状和具体看点仍需补充独立游记。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "古镇范围较大，坐标、核心步行区和环岛路线接驳待确认。"
+        ]
+    },
+    {
+        "id": "danzhou-dongpo-academy",
+        "name": "儋州东坡书院",
+        "region": "儋州市",
+        "category": "历史书院与文化遗址",
+        "latitude": 19.7423164,
+        "longitude": 109.3536478,
+        "coordinate_source_id": "osm-danzhou-dongpo-academy",
+        "summary": {
+            "text": "游客把东坡书院列为中和古镇一带的文化游览点；书院具体游览感受在该篇中的描述有限。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "作为日程中的实际停留点记录；开放和展陈以最新公告为准。"
+            },
+            {
+                "id": "osm-danzhou-dongpo-academy",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "东坡书院地图要素",
+                "url": "https://www.openstreetmap.org/way/1021027110",
+                "accessed_at": "2026-10-23",
+                "notes": "匹配儋州市中和镇东坡书院建筑要素；坐标用于地图定位。数据许可ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "路线偏离及当天开放情况待核验；坐标对应书院要素而非停车点。"
+        ]
+    },
+    {
+        "id": "danzhou-millennium-salt-fields",
+        "name": "儋州千年古盐田",
+        "region": "儋州市",
+        "category": "海盐生产遗址与海岸文化",
+        "summary": {
+            "text": "游客在西线行程中参观古盐田，注意到石槽晒盐景观及制盐主题展示；文章提醒部分展示性盐丘可能是人工营造，不应当作真实生产现场。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "另一篇2024年12月游记记载，作者当次只能从观景台和盐田外围小路参观，并用无人机航拍；这是当时的进入限制记录，不代表目前规则。",
+                "source_ids": [
+                    "mafengwo-yangpu-salt-2025"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "单篇游客体验；文中对部分人工景观有保留意见。"
+            },
+            {
+                "id": "mafengwo-yangpu-salt-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南235｜儋州——洋浦盐田",
+                "url": "https://www.mafengwo.cn/i/24615932.html",
+                "author": "珍宝游天下",
+                "published_at": "2025-01-05",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载2024-12-04到访；观景台及外围道路的通行情况是当次观察，需出行前复核。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "地图未检索到可靠同名要素；坐标、实际生产活动和骑行路线需复核。"
+        ]
+    },
+    {
+        "id": "danzhou-lanshan-reef-lookout",
+        "name": "儋州兰山望礁观景台",
+        "region": "儋州市",
+        "category": "海岸礁石与观景点",
+        "summary": {
+            "text": "一篇环岛旅游公路游记记载，作者从兰山望礁观景台步行约200米到兰山角，看到成片圆形礁石；赶海捉蟹是作者转述的当地玩法，不代表随时可体验。",
+            "source_ids": [
+                "mafengwo-danzhou-2025-0102"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-danzhou-2025-0102",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南232｜儋州——兰山望礁、新丰古村及儋耳追光驿站",
+                "url": "https://www.mafengwo.cn/i/24614412.html",
+                "author": "珍宝游天下",
+                "published_at": "2025-01-02",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记录2024-12-03出发的海南行程；位置和约200米步行距离为游记描述。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源；观景台与兰山角的地图位置、骑行接驳及礁石安全边界待核实。",
+            "赶海信息为游记中的转述，不作为潮汐或可进入性保证。"
+        ]
+    },
+    {
+        "id": "danzhou-xinfeng-old-village",
+        "name": "儋州新丰古村",
+        "region": "儋州市",
+        "category": "古村落与乡野景观",
+        "summary": {
+            "text": "作者次日离开儋耳追光驿站时顺路游览新丰古村观景台，记录水边火山石和田园景色；古村与观景台合并为一个游览候选。",
+            "source_ids": [
+                "mafengwo-danzhou-2025-0102"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-danzhou-2025-0102",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南232｜儋州——兰山望礁、新丰古村及儋耳追光驿站",
+                "url": "https://www.mafengwo.cn/i/24614412.html",
+                "author": "珍宝游天下",
+                "published_at": "2025-01-02",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载2024-12-04早晨顺路游览；观景台属于古村游览点位，不单独计数。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源；古村准确边界、公共进入方式和自行车停放点待核实。",
+            "将新丰古村观景台合并在村落条目中，避免景区内部点位重复计数。"
+        ]
+    },
+    {
+        "id": "danzhou-mangrove-stone-viewpoint",
+        "name": "儋州红树林石趣观景台",
+        "region": "儋州市",
+        "category": "海岸观景台与地貌打卡点",
+        "summary": {
+            "text": "一位环岛创作者发布以红树林石趣观景台为题的视频；目前仅据视频标题确认该点为路线停留线索，不推断观景内容或设施情况。",
+            "source_ids": [
+                "bilibili-danzhou-mangrove-stone-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-danzhou-mangrove-stone-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Danzhou | Mangrove Stone Fun Viewing Platform (HDR)",
+                "url": "https://www.bilibili.com/video/BV1Rfnj6bEtN/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-19",
+                "accessed_at": "2026-10-23",
+                "notes": "页面以该观景台为题；未下载或缓存视频画面。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与峨蔓火山海岸地质公园处于同一西北海岸路线区域；确切归属、入口位置及是否为独立停留点待核实。",
+            "因视频以该点为单独拍摄主题，暂作为有独立路线价值的候选；没有可靠坐标。"
+        ]
+    },
+    {
+        "id": "danzhou-pearl-bay-viewpoint",
+        "name": "儋州珍珠湾观景台",
+        "region": "儋州市",
+        "category": "海湾观景点",
+        "summary": {
+            "text": "一位环岛创作者发布以珍珠湾观景台为题的视频；目前仅作为作者到访拍摄的地点线索，不推断景观质量或设施情况。",
+            "source_ids": [
+                "bilibili-danzhou-pearl-bay-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-danzhou-pearl-bay-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Danzhou | Pearl Bay Observation Deck (HDR)",
+                "url": "https://www.bilibili.com/video/BV1u8nj6JEbL/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-19",
+                "accessed_at": "2026-10-23",
+                "notes": "视频以珍珠湾观景台为题；未下载或缓存视频画面。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与峨蔓火山海岸候选相邻的沿海路线节点；精确位置、海湾名称和与父景区的关系待核实。",
+            "视频标题只能证明地点主题，不构成对景观质量或安全的评价。"
+        ]
+    },
+    {
+        "id": "danzhou-longteng-yunxia-viewpoint",
+        "name": "儋州龙腾云霞观景台",
+        "region": "儋州市",
+        "category": "海岸观景台",
+        "summary": {
+            "text": "一位环岛创作者发布以龙腾云霞观景台为题的视频；另一篇西线自驾游记记载作者在此观日落并评价景色美。具体视野、进入条件及设施仍需核实。",
+            "source_ids": [
+                "bilibili-danzhou-longteng-yunxia-2026",
+                "xiaohongshu-lingao-danzhou-selfdrive-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-danzhou-longteng-yunxia-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Danzhou | Longteng Yunxia Observation Deck (HDR)",
+                "url": "https://www.bilibili.com/video/BV1GWnj6WEhA/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-19",
+                "accessed_at": "2026-10-23",
+                "notes": "视频以该观景台为题；未下载或缓存视频画面。"
+            },
+            {
+                "id": "xiaohongshu-lingao-danzhou-selfdrive-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南西线环岛4日day1之临高儋州（附路线图）",
+                "url": "https://www.xiaohongshu.com/explore/6ac1290e000000001a02065c",
+                "author": "小森林（有猫版）",
+                "accessed_at": "2026-10-23",
+                "notes": "作者从原计划的峨蔓地质公园改去龙腾云霞观景台看日落，称景色美；地点可达性与观景条件仍未独立核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与峨蔓火山海岸候选处于同一西北海岸路线区域；精确位置和归属待核实。",
+            "作为独立命名且有单独拍摄主题的路线节点暂时保留；未验证实际骑行通行和地图坐标。"
+        ]
+    },
+    {
+        "id": "changjiang-changhua-old-town",
+        "name": "昌化古城",
+        "region": "昌江黎族自治县",
+        "category": "古城与历史街区",
+        "summary": {
+            "text": "骑行游记将昌化古城列为海花岛至东方一段的经过地点；目前只有路线标题线索，是否停留及具体体验尚未核实。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月骑行；昌化古城出现在日程标题中。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇路线线索，尚未有古城游览描述。",
+            "坐标和可骑行到达位置待核实。"
+        ]
+    },
+    {
+        "id": "changjiang-changhua-temple",
+        "name": "昌化古庙",
+        "region": "昌江黎族自治县",
+        "category": "古庙与街区文化",
+        "summary": {
+            "text": "游客从昌化镇沿街步行前往昌化古庙，途中经过售卖和晾晒海产干货的巷道；此处的主要体验是镇区生活气息。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年底的西线行程中到访；庙宇开放状态未记录。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "小型城镇人文点位；未将周边商业街巷误作古庙坐标。"
+        ]
+    },
+    {
+        "id": "changjiang-qizi-bay-small-cape-park",
+        "name": "棋子湾小角公园",
+        "region": "昌江黎族自治县",
+        "category": "海湾与海岸公园",
+        "summary": {
+            "text": "游客记录小角公园离昌化古庙步行约十分钟，但到访时遇到封闭施工；这只反映当次状况，当前是否开放未知。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年底到访；封闭施工为当次观察，不表示目前状态。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "精确位置及开放状态需要当地近期信息；小角与棋子湾大角分开记录。"
+        ]
+    },
+    {
+        "id": "changjiang-qizi-bay-grand-cape-park",
+        "name": "棋子湾大角公园",
+        "region": "昌江黎族自治县",
+        "category": "海湾与礁石海岸",
+        "summary": {
+            "text": "游客从昌化镇驾车前往大角，在通往海边的小路旁看到水果和小吃摊，并在海边观察礁石、浪花和垂钓者。",
+            "source_ids": [
+                "mafengwo-west-4day-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-west-4day-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "自驾出发啦｜昌江·儋州·临高 4 日行：棋子湾・东坡书院・临高角：海南西线续章",
+                "url": "https://www.mafengwo.cn/i/24702689.html",
+                "author": "风就是风",
+                "published_at": "2025-06-05",
+                "accessed_at": "2026-10-23",
+                "notes": "游客记录约二十分钟车程和海边体验；骑行距离及路面未由该文验证。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "无可靠地图要素匹配，暂不加坐标；应复核入口与海边通行路径。"
+        ]
+    },
+    {
+        "id": "changjiang-qizi-bay-glass-sea-road",
+        "name": "昌江棋子湾玻璃海公路",
+        "region": "昌江黎族自治县",
+        "category": "滨海骑行路线",
+        "summary": {
+            "text": "一位环岛骑行者将棋子湾玻璃海公路列为专程游览的海岸路段，称路况良好、沿海景色突出，公路蜿蜒下行至海边；作者同时提醒这段路线补给稀少。行程里程和路况仅为单次记录，未独立核实。",
+            "source_ids": [
+                "xiaohongshu-qizi-bay-to-dongfang-ride-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-qizi-bay-to-dongfang-ride-2025",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南岛骑行：儋州海花岛-东方",
+                "url": "https://www.xiaohongshu.com/explore/6953ce4500000000210303eb",
+                "author": "六亲不认的调色",
+                "published_at": "2025-12-30",
+                "accessed_at": "2026-10-23",
+                "notes": "作者以116公里、爬升742米描述当日海花岛至东方骑行段，并称棋子湾玻璃海公路景观突出；数据和当前道路条件尚未独立核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇骑行者路线体验；与棋子湾小角、大角公园的具体空间关系和骑行入口待核实。",
+            "未获得可靠路线入口坐标，不显示地图点；骑行距离、爬升和补给条件均需出行前复核。"
+        ]
+    },
+    {
+        "id": "changjiang-7th-rainbow-road-rest-stop",
+        "name": "昌江7号彩虹公路驿站",
+        "region": "昌江黎族自治县",
+        "category": "海岸骑行补给点",
+        "summary": {
+            "text": "一位环岛骑行者称，昌江7号彩虹公路驿站可休息并补充饮水和食物，提到有厕所、椰子售卖及可赶海的沙滩；作者称离开该点后较长路段补给稀少。设施、营业和沙滩进入条件均为当次观察，需现场复核。",
+            "source_ids": [
+                "xiaohongshu-qizi-bay-to-dongfang-ride-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-qizi-bay-to-dongfang-ride-2025",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南岛骑行：儋州海花岛-东方",
+                "url": "https://www.xiaohongshu.com/explore/6953ce4500000000210303eb",
+                "author": "六亲不认的调色",
+                "published_at": "2025-12-30",
+                "accessed_at": "2026-10-23",
+                "notes": "作者把此处列为儋州方向过来少数补给较充分的停靠点，提及厕所、椰子和沙滩；未提供可确认入口坐标，当前设施状态未知。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇骑行者的当次补给观察；点位入口、营业时间、服务项目和周边沙滩进入条件需核实。",
+            "未获得可靠地图入口坐标，不显示地图点；不将该路段的临时设施承诺为当前服务。"
+        ]
+    },
+    {
+        "id": "changjiang-haiwei-wetland-park",
+        "name": "昌江海尾湿地公园",
+        "region": "昌江黎族自治县",
+        "category": "滨海湿地与环岛路线停留点",
+        "summary": {
+            "text": "一位环岛自驾创作者发布从海花岛前往海尾湿地公园的路线视频；目前仅据标题确认该地为行程停留线索，不归纳湿地景观、设施或游客口碑。",
+            "source_ids": [
+                "bilibili-changjiang-haiwei-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-changjiang-haiwei-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Changjiang Lizu Autonomous County | Ocean Flower Island - Haiwei Wetland Park (HDR)",
+                "url": "https://www.bilibili.com/video/BV1rynq68EGJ/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-21",
+                "accessed_at": "2026-10-23",
+                "notes": "视频标题将海尾湿地公园列为环岛路线节点；页面标注未经作者授权禁止转载，未下载或缓存视频画面。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一创作者的路线视频；公园边界、实际停留、入口坐标和自行车通行方式待核实。",
+            "来源仅支持路线地点线索，不代表对公园的详细游览评价。"
+        ]
+    },
+    {
+        "id": "changjiang-bawangling-roadside-viewpoint",
+        "name": "昌江霸王岭路边观景台",
+        "region": "昌江黎族自治县",
+        "category": "山地观景点",
+        "summary": {
+            "text": "两篇小红书笔记将此处标为昌江霸王岭观景台。第二篇给出皇帝洞至宝山村路段左侧、昌江705县道的文字导航，并称附近有停车位和厕所；这些位置与设施信息尚未独立核实，第一篇也没有文字描述景观体验。",
+            "source_ids": [
+                "xiaohongshu-changjiang-bawangling-viewpoint",
+                "xiaohongshu-changjiang-bawangling-navigation"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-changjiang-bawangling-viewpoint",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "昌江小众打卡点｜霸王岭观景台",
+                "url": "https://www.xiaohongshu.com/explore/6abe63840000000018010965",
+                "author": "玖玖",
+                "accessed_at": "2026-10-23",
+                "notes": "笔记文字将地点标为海南昌江霸王岭观景台。评论提及其位于路边且停车位不多，但该信息未独立核实；笔记没有文字描述具体景观体验。"
+            },
+            {
+                "id": "xiaohongshu-changjiang-bawangling-navigation",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南小众秘境✨霸王岭观景台，俯瞰小桂林山水",
+                "url": "https://www.xiaohongshu.com/explore/6a17e249000000003700ee96",
+                "author": "蓝调Time",
+                "accessed_at": "2026-10-23",
+                "notes": "笔记给出昌江705县道皇帝洞至宝山村路段的左侧作为导航描述，并称旁边有停车位和厕所；年份未明确，位置、设施和道路状态需现场核验。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "两篇小红书笔记均为单平台材料，未据图片推断景观内容；独立实地交叉验证不足。",
+            "精确位置、道路入口、停车条件及是否位于保护地限制区域待核实；暂不设置坐标。"
+        ]
+    },
+    {
+        "id": "dongfang-yulinzhou-protected-coast",
+        "name": "东方鱼鳞洲自然风景保护区",
+        "region": "东方市",
+        "category": "海岸地貌与灯塔",
+        "summary": {
+            "text": "游客将鱼鳞洲列入东方至乐东一带的西线行程；另一位环岛创作者以鱼鳞洲灯塔为题发布视频。一篇环岛骑行日记还将鱼鳞洲自然风景保护区列为东方风车主题打卡点，但未详述此处沙滩体验。灯塔作为该海岸候选内部看点合并记录，具体游客可达性和游览体验仍待补充。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025",
+                "bilibili-dongfang-yulinzhou-2026",
+                "xiaohongshu-dongfang-windmill-coast-ride-2025"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "2026年环岛视频以鱼鳞洲灯塔为单独拍摄主题；仅证明创作者将其作为到访地点，不据此判断灯塔开放或允许登临。",
+                "source_ids": [
+                    "bilibili-dongfang-yulinzhou-2026"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "游记日程点名该处；当前开放和保护管理信息需另查。"
+            },
+            {
+                "id": "bilibili-dongfang-yulinzhou-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Dongfang | Yulinzhou Lighthouse (HDR)",
+                "url": "https://www.bilibili.com/video/BV1Bpn162Efx/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-22",
+                "accessed_at": "2026-10-23",
+                "notes": "视频页面以鱼鳞洲灯塔为题；灯塔按保护区内部看点合并，不单独计数。"
+            },
+            {
+                "id": "xiaohongshu-dongfang-windmill-coast-ride-2025",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "环海南岛Day4 - 风车海岸",
+                "url": "https://www.xiaohongshu.com/explore/6ad600460000000029018a70",
+                "author": "斌go",
+                "published_at": "2025-12-23",
+                "accessed_at": "2026-10-23",
+                "notes": "环岛Day4笔记将鱼鳞洲自然风景保护区列为东方风车主题打卡点；没有单独描述鱼鳞洲内部体验或确认灯塔开放状态。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "Nominatim同名结果误指三亚军事设施，故未用该结果；东方市精确坐标待核实。",
+            "鱼鳞洲灯塔作为保护区内部看点合并，当前不另设重复候选；保护区范围与灯塔开放情况待核实。",
+            "新增小红书路线来源仅确认作者把保护区列为风车主题打卡点，未证明未具名沙滩位于此处。"
+        ]
+    },
+    {
+        "id": "dongfang-baicha-village",
+        "name": "东方白查村船形屋",
+        "region": "东方市",
+        "category": "黎族村落与传统建筑",
+        "summary": {
+            "text": "一篇海南旅行游记单列白查村船形屋并配有相关照片，作为作者行程中到访和观察黎族传统民居的线索；正文没有细述当前村内可进入范围或居民生活体验。",
+            "source_ids": [
+                "mafengwo-dongfang-baicha-2021"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-dongfang-baicha-2021",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南 | 21（爱你）天荒地老，伴你天涯海角（5）儋州",
+                "url": "https://www.mafengwo.cn/i/23477672.html",
+                "author": "珍爷驾到",
+                "published_at": "2021-12-10",
+                "accessed_at": "2026-10-23",
+                "notes": "作者行程日期为2021-11-04；页面设有“白查村船形屋”段落和照片。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "来源较旧且正文介绍有限；村落保护要求、开放方式和骑行到达点需查近期游客记录。",
+            "不缓存游记图片，图片版权和当地拍摄规范需另行确认。"
+        ]
+    },
+    {
+        "id": "dongfang-hanma-fubo-well",
+        "name": "东方汉马伏波井",
+        "region": "东方市",
+        "category": "历史地标与泉井",
+        "sources": [
+            {
+                "id": "mafengwo-dongfang-fubo-well-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "2024年1月21日：经乐东，访海南最大海盐场～莺歌海盐场；到东方，观“天南第一泉”～汉马伏波井",
+                "url": "https://www.mafengwo.cn/i/24399923.html",
+                "author": "游妈",
+                "published_at": "2024-01-21",
+                "accessed_at": "2026-10-23",
+                "notes": "游记标题和目录将汉马伏波井列为东方到访点；网页正文未显示可核验的现场细节，故不推断泉水状态或历史背景。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "标题级到访线索；本轮未获得可归纳的现场体验、开放信息或可靠坐标。",
+            "历史名称、泉井位置和是否可进入均需进一步核实。"
+        ]
+    },
+    {
+        "id": "dongfang-haidongfang-beach-park",
+        "name": "东方海东方沙滩公园",
+        "region": "东方市",
+        "category": "海滨公园与骑行停留点",
+        "summary": {
+            "text": "一位环岛自驾创作者发布以东方海东方沙滩公园为题的视频；该条目仅作为作者到访拍摄的地点线索，不据标题推断设施、海况或游客评价。",
+            "source_ids": [
+                "bilibili-dongfang-haidongfang-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-dongfang-haidongfang-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" Dongfang | Hainan Dongfang Beach Park (HDR)",
+                "url": "https://www.bilibili.com/video/BV1axnz6nEwB/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-21",
+                "accessed_at": "2026-10-23",
+                "notes": "页面标题和地点标签指向东方海东方沙滩公园；页面标注未经作者授权禁止转载，未下载或缓存视频画面。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一创作者的地点视频；入口坐标、公共通行、补给及骑行路况尚未核实。",
+            "视频链接仅作溯源，不缓存未授权画面。"
+        ]
+    },
+    {
+        "id": "dongfang-windmill-coast",
+        "name": "东方风车海岸",
+        "region": "东方市",
+        "category": "海岸风电景观与骑行停留点",
+        "summary": {
+            "text": "一位环岛自驾创作者发布以东方风车海岸为题的视频；一篇环岛Day4笔记以此为主题，列出古海忆韵观景台、鱼鳞洲自然风景保护区和感恩角观景台三个风车打卡点，并提到当天曾到一片未具名海滩看日落。该笔记没有说明沙滩具体位置，不能据此把它归到某个具名海湾。",
+            "source_ids": [
+                "bilibili-dongfang-windmill-coast-2026",
+                "xiaohongshu-dongfang-windmill-coast-ride-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "bilibili-dongfang-windmill-coast-2026",
+                "platform": "哔哩哔哩",
+                "kind": "visitor_experience",
+                "title": "\"Around Hainan Island\" East | Windmill Coast (HDR)",
+                "url": "https://www.bilibili.com/video/BV1einm61Eg1/",
+                "author": "赵子清CN",
+                "published_at": "2026-10-22",
+                "accessed_at": "2026-10-23",
+                "notes": "页面标题和地点标签指向风车海岸；未经作者授权禁止转载，未下载或缓存视频画面。"
+            },
+            {
+                "id": "xiaohongshu-dongfang-windmill-coast-ride-2025",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "环海南岛Day4 - 风车海岸",
+                "url": "https://www.xiaohongshu.com/explore/6ad600460000000029018a70",
+                "author": "斌go",
+                "published_at": "2025-12-23",
+                "accessed_at": "2026-10-23",
+                "notes": "环岛Day4笔记将古海忆韵观景台、鱼鳞洲自然风景保护区和感恩角观景台列为风车主题打卡点；作者提到穿过树林到未具名沙滩看日落，但没有给出沙滩位置。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一创作者的地点视频；具体路段、公共观景点和风机管理边界尚未核实。",
+            "未获得可靠坐标，不显示地图点。",
+            "小红书日志补充了同一风车海岸主题下的具体打卡名，但这几个观景点是否属于同一地图区域、未具名沙滩的精确位置仍待核实；不据此重复建条目。"
+        ]
+    },
+    {
+        "id": "ledong-yinggehai-town",
+        "name": "莺歌海",
+        "region": "乐东黎族自治县",
+        "category": "滨海乡镇与渔港",
+        "latitude": 18.5122985,
+        "longitude": 108.693707,
+        "coordinate_source_id": "osm-yinggehai-town",
+        "summary": {
+            "text": "环岛骑行者将莺歌海列为路线节点；另一位骑行者建议经过莺歌海并走环岛旅游公路，称省道绕行会遇到较长的差路段。该路线评价来自单次行程，路况及替代路线应出发前核实。",
+            "source_ids": [
+                "mafengwo-hainan-loop-2024",
+                "xiaohongshu-ledong-yinggehai-road-advice"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-hainan-loop-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "暴风雨中的海南环岛骑行",
+                "url": "https://www.mafengwo.cn/i/24585930.html",
+                "author": "涉砚游茶",
+                "published_at": "2024-11-13",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年10月环岛骑行；莺歌海为日程路线节点。"
+            },
+            {
+                "id": "xiaohongshu-ledong-yinggehai-road-advice",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南环岛骑行一定要途径莺歌海！！！",
+                "url": "https://www.xiaohongshu.com/explore/697770bc000000001a0213ab",
+                "author": "吴名之辈🐯",
+                "accessed_at": "2026-10-23",
+                "notes": "作者分享路线选择和较差路段长度的个人观察，建议经过莺歌海并走环岛旅游公路；未据此确认当前道路状况或将路线建议视为普遍结论。"
+            },
+            {
+                "id": "osm-yinggehai-town",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "莺歌海镇地图要素",
+                "url": "https://www.openstreetmap.org/node/1941083612",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标对应 OSM 标注的莺歌海镇节点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "目前是乡镇和骑行节点候选，不代表已确认的单一景点。",
+            "需进一步筛选当地适合短暂停留的具体海岸或渔港点位。"
+        ]
+    },
+    {
+        "id": "ledong-jianfengling-heaven-lake",
+        "name": "尖峰岭天池",
+        "region": "乐东黎族自治县",
+        "category": "山地湖泊与森林步道",
+        "summary": {
+            "text": "游客沿景区道路开车较长一段后到达天池，并沿湖边栈道散步；作者指出前往天池的景区范围大、车程耗时。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年底游览；山路车程和景区开放需按实时信息核对。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "已检索到的OSM点名为天池避暑山庄而非天池本体，未使用该坐标；骑行登山路况待调研。"
+        ]
+    },
+    {
+        "id": "ledong-jianfengling-rainforest-valley",
+        "name": "尖峰岭雨林谷",
+        "region": "乐东黎族自治县",
+        "category": "热带雨林与溪谷步道",
+        "summary": {
+            "text": "游客把车停在雨林谷停车区后，沿河边栈道步行，记录到溪流、林木和沿途岩石；该体验来自一次短程徒步。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年底游览；步道状况及雨季通行需另核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与尖峰岭主景区相关的子路线；未验证自行车能否进入景区道路或步道。"
+        ]
+    },
+    {
+        "id": "ledong-jianfengling-general-rock",
+        "name": "尖峰岭将军岩",
+        "region": "乐东黎族自治县",
+        "category": "山地观景点",
+        "summary": {
+            "text": "游客返程时在将军岩停车观察尖峰岭主峰，并把当地人称作“金猴拜观音”的山形作为远眺景观；这是游客转述的地貌称呼。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年底短暂停车观景；不把地方口述名称当作正式地质名称。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "观景停车点位置和停车安全待核验；不要将机动车停车经历视为骑行设施证明。"
+        ]
+    },
+    {
+        "id": "ledong-yinggehai-saltworks",
+        "name": "乐东莺歌海盐场",
+        "region": "乐东黎族自治县",
+        "category": "盐田与工业遗产",
+        "summary": {
+            "text": "游客在盐场展示区看见旧盐田、仓库和铁路等遗存，并对部分人工布景提出疑问；适合把真实生产景观与展示设施分开核验。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "游客记录展示区体验；与基础目录的莺歌海海岸候选是不同范围的地点。"
+            },
+            {
+                "id": "mafengwo-dongfang-fubo-well-2024",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "2024年1月21日：经乐东，访海南最大海盐场～莺歌海盐场；到东方，观“天南第一泉”～汉马伏波井",
+                "url": "https://www.mafengwo.cn/i/24399923.html",
+                "author": "游妈",
+                "published_at": "2024-01-21",
+                "accessed_at": "2026-10-23",
+                "notes": "游记标题记录作者到访盐场；正文以一般介绍为主，不作为额外现场体验或运营信息依据。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与已有“莺歌海”区域性候选关联；本条特指盐场展示区，地图范围和开放状态待核实。"
+        ]
+    },
+    {
+        "id": "ledong-longmu-bay",
+        "name": "乐东龙沐湾",
+        "region": "乐东黎族自治县",
+        "category": "海湾与滨海骑行",
+        "summary": {
+            "text": "游客从莺歌海盐场一带继续西线行程时，把龙沐湾列为海岸停留点；该游记没有细分可进入的沙滩或观景位置。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "作为当日路线点名；具体停留和设施体验证据有限。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与西线海岸路线有关的宽泛候选；需另找可落图的公共入口或小型观景点。"
+        ]
+    },
+    {
+        "id": "ledong-jinyue-bay-white-chapel",
+        "name": "乐东金月湾白色礼堂",
+        "region": "乐东黎族自治县",
+        "category": "海岸建筑与摄影点",
+        "summary": {
+            "text": "游客行程把金月湾的白色礼堂作为海岸停留线索，并将其与附近海湾一并安排；礼堂目前是否开放进入未由游记确认。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "游客行程提及；公共通行权及拍摄限制未核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "小型海岸摄影点候选；地图未定位到确切礼堂，暂不设坐标。"
+        ]
+    },
+    {
+        "id": "ledong-lizhang-village",
+        "name": "乐东利章村",
+        "region": "乐东黎族自治县",
+        "category": "海边村落与渔村生活",
+        "summary": {
+            "text": "游客路线将利章村列作海岸行程中的一站，文中以渔村生活和村内猪只见闻作为停留线索；相关生活场景不应被当作表演项目。",
+            "source_ids": [
+                "mafengwo-ledong-east-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-ledong-east-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜乐东·东方2日行：尖峰岭雨林・莺歌海盐田・四更乳猪：海南西线三重奏",
+                "url": "https://www.mafengwo.cn/i/24699123.html",
+                "author": "风就是风",
+                "published_at": "2025-05-29",
+                "accessed_at": "2026-10-23",
+                "notes": "该村为游客路线中提及的社区；不将单篇见闻推广为全村常态。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "精确位置和访客适宜性待核实；尊重居民隐私，不建议把普通民居当作观景设施。"
+        ]
+    },
+    {
+        "id": "wuzhishan-scenic-area",
+        "name": "五指山景区",
+        "region": "五指山市",
+        "category": "山岳与热带雨林",
+        "summary": {
+            "text": "一位环岛骑行者专程从水满村前往五指山登山，记录了雾天、湿滑树根路和雨林步道；其游记指出登山路线当时缺少清楚指示。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "七日骑游记录；五指山登山体验为作者当时的个人经历，路线和设施信息较旧。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "有具体游客登山体验，但来源较旧，登山入口和步道现状须重新核实。",
+            "精确景区入口坐标尚待确认。"
+        ]
+    },
+    {
+        "id": "wuzhishan-rainforest-trail",
+        "name": "五指山雨林栈道",
+        "region": "五指山市",
+        "category": "雨林步道",
+        "summary": {
+            "text": "同一骑游者在五指山登山时选择雨林栈道，描述了雾气、湿润地面和高大林木，并记录途中遇到瀑布后折返寻找上山路线。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "五指山雨林步道记录来自作者约2019年的骑游；入口与路线信息需复核。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇且较旧的徒步体验，步道名称、开放状态及安全状况待现场核查。",
+            "尚无可确认的单独步道坐标。"
+        ]
+    },
+    {
+        "id": "wuzhishan-shuiman-village",
+        "name": "水满村",
+        "region": "五指山市",
+        "category": "乡村与登山起点",
+        "latitude": 18.8691632,
+        "longitude": 109.6585182,
+        "coordinate_source_id": "osm-shuiman-village",
+        "summary": {
+            "text": "骑行者在前往五指山时住在水满村，并记下村落规模较小、住宿和餐饮选择有限；该经历可作为安排登山前后住宿的线索。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "作者当次骑行住宿和登山行程记录；住宿供应信息较旧。"
+            },
+            {
+                "id": "osm-shuiman-village",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "水满村地图要素",
+                "url": "https://www.openstreetmap.org/node/13439969372",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标对应 OSM 村落节点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "一个具体游客住宿记录，住宿营业情况需更新。",
+            "坐标是村落节点，不代表某个民宿或登山入口。"
+        ]
+    },
+    {
+        "id": "wuzhishan-hainan-ethnic-museum",
+        "name": "海南省民族博物馆",
+        "region": "五指山市",
+        "category": "博物馆与民族文化",
+        "latitude": 18.7831317,
+        "longitude": 109.5189026,
+        "coordinate_source_id": "osm-wuzhishan-ethnic-museum",
+        "summary": {
+            "text": "游客游记记载在五指山市参观民族博物馆，并关注黎族纺织、民族历史及艺术展陈；此为个人参观印象。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜海南五指山寻踪记：云深不知处",
+                "url": "https://www.mafengwo.cn/i/24657771.html",
+                "author": "风就是风",
+                "published_at": "2025-03-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024-12-25到访；馆内开放和展览内容以出行前核实为准。"
+            },
+            {
+                "id": "mafengwo-wuzhishan-2025-0122",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南252｜五指山——南圣河、三月三广场、老州府",
+                "url": "https://www.mafengwo.cn/i/24624259.html",
+                "author": "珍宝游天下",
+                "published_at": "2025-01-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者写明在五指山市参观完民族博物馆后继续行程；此处仅作为到访记录，未扩展原有展陈体验。"
+            },
+            {
+                "id": "osm-wuzhishan-ethnic-museum",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "海南省民族博物馆地图要素",
+                "url": "https://www.openstreetmap.org/way/623246496",
+                "accessed_at": "2026-10-23",
+                "notes": "匹配海南省民族博物馆建筑要素；坐标用于定位，不代表入口。数据许可ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客体验；与海南省博物馆是不同馆。"
+        ]
+    },
+    {
+        "id": "wuzhishan-red-canyon",
+        "name": "五指山红峡谷景区",
+        "region": "五指山市",
+        "category": "峡谷与漂流",
+        "summary": {
+            "text": "游客去水满乡途中路过红峡谷景区，注意到此处有漂流项目；冬季到访时没有看到漂流活动，不能据此判断其他季节的开放情况。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜海南五指山寻踪记：云深不知处",
+                "url": "https://www.mafengwo.cn/i/24657771.html",
+                "author": "风就是风",
+                "published_at": "2025-03-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月底路过；项目开放、季节和安全规定需另查。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "中线骑行 detour 候选；未核实目前经营状态或自行车通行条件。"
+        ]
+    },
+    {
+        "id": "wuzhishan-maona-village",
+        "name": "五指山毛纳村",
+        "region": "五指山市",
+        "category": "黎族村落与乡村文化",
+        "summary": {
+            "text": "一篇游客记录描述乘车进入毛纳村后步行参观，看到游客中心周边的竹木建筑和广场，并赶上当地表演；入村交通限制是当次观察。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜海南五指山寻踪记：云深不知处",
+                "url": "https://www.mafengwo.cn/i/24657771.html",
+                "author": "风就是风",
+                "published_at": "2025-03-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月底到访；摆渡车及车辆管理按当日所见记录。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "Nominatim同名检索误命中儋州，故不录坐标；需先核对通什镇水满乡具体位置。"
+        ]
+    },
+    {
+        "id": "wuzhishan-ancestor-hall",
+        "name": "五指山黎祖大殿",
+        "region": "五指山市",
+        "category": "黎族文化与人文景观",
+        "summary": {
+            "text": "游客记载在水满乡住宿点对面看到黎祖大殿，但当时云雾遮挡，未能充分观察建筑；该条只作为沿线地点线索。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜海南五指山寻踪记：云深不知处",
+                "url": "https://www.mafengwo.cn/i/24657771.html",
+                "author": "风就是风",
+                "published_at": "2025-03-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月底路过并记下天气影响；宗教文化信息需独立核验。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "地图检索返回同名餐饮地点，未使用错误坐标；精确位置待确认。"
+        ]
+    },
+    {
+        "id": "wuzhishan-shuiman-view-platform",
+        "name": "水满乡观山平台",
+        "region": "五指山市",
+        "category": "山景观景点",
+        "summary": {
+            "text": "游客乘景区观光车到达观山平台，因雨雾只能隐约看到山体轮廓；能否看清五指山受天气影响明显。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜海南五指山寻踪记：云深不知处",
+                "url": "https://www.mafengwo.cn/i/24657771.html",
+                "author": "风就是风",
+                "published_at": "2025-03-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月底雨天到访；能见度描述只对应当次天气。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "属水满乡雨林景区内观景点；坐标及与景区入口的接驳待核实。"
+        ]
+    },
+    {
+        "id": "wuzhishan-nansheng-river-cityscape",
+        "name": "五指山市南圣河城市景观",
+        "region": "五指山市",
+        "category": "河岸与城市景观",
+        "summary": {
+            "text": "游客住在南圣河畔时，从酒店四楼临河露台航拍被河流环绕的五指山市区；这是酒店视点的个人观察，不等同于公共河岸观景设施。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025-0122"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025-0122",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南252｜五指山——南圣河、三月三广场、老州府",
+                "url": "https://www.mafengwo.cn/i/24624259.html",
+                "author": "珍宝游天下",
+                "published_at": "2025-01-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载2024-12-08在五指山市停留；观景点为所住酒店露台。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇记录且观察位置为酒店露台；公共河岸是否适合停留或骑行尚未核实。",
+            "无精确公共观景点坐标，不显示地图点。"
+        ]
+    },
+    {
+        "id": "wuzhishan-march-third-square",
+        "name": "五指山市三月三广场",
+        "region": "五指山市",
+        "category": "城市广场与地方文化",
+        "summary": {
+            "text": "一篇五指山游记记载作者离开前驾车到三月三广场短暂停留，提到广场牌坊外观；这是一条个人到访记录。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025-0122"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025-0122",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南252｜五指山——南圣河、三月三广场、老州府",
+                "url": "https://www.mafengwo.cn/i/24624259.html",
+                "author": "珍宝游天下",
+                "published_at": "2025-01-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载2024-12-09离开五指山市前到访；未核实当前活动安排。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源；广场活动、设施和骑行可达性需现场或近期信息确认。",
+            "不将牌坊外观描述扩写为节庆或文化活动评价。"
+        ]
+    },
+    {
+        "id": "wuzhishan-former-prefecture-office",
+        "name": "五指山老州府旧址",
+        "region": "五指山市",
+        "category": "历史建筑与城市文化",
+        "summary": {
+            "text": "同一篇游记记录老州府位于三月三广场旁，作者只能在外部观看，未能入内；建筑外观被描述为红黄配色并带有立柱。",
+            "source_ids": [
+                "mafengwo-wuzhishan-2025-0122"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wuzhishan-2025-0122",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南252｜五指山——南圣河、三月三广场、老州府",
+                "url": "https://www.mafengwo.cn/i/24624259.html",
+                "author": "珍宝游天下",
+                "published_at": "2025-01-22",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载2024-12-09到访；只能外观、不能入内是当次观察，不代表现状。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源；历史背景和建筑保护信息需用可靠资料另行核验。",
+            "游记称作者当次未能入内，不据此推断当前开放状态。"
+        ]
+    },
+    {
+        "id": "baoting-binglanggu",
+        "name": "槟榔谷黎苗文化旅游区",
+        "region": "保亭黎族苗族自治县",
+        "category": "黎苗文化与乡村",
+        "summary": {
+            "text": "携程环岛自驾作者将槟榔谷黎苗文化旅游区安排为保亭一日行程；当前候选尚无独立游客细节评价。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将景区列入保亭行程；具体游览体验尚未整理。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客路线安排，尚未形成真实体验摘要。",
+            "OSM 检索未能确认精确坐标，需继续核对。"
+        ]
+    },
+    {
+        "id": "baoting-qixianling-hot-spring-national-forest-park",
+        "name": "保亭七仙岭温泉国家森林公园",
+        "region": "保亭黎族苗族自治县",
+        "category": "山岳雨林与登山步道",
+        "summary": {
+            "text": "一篇游客游记记录作者乘坐七彩云梯上行后继续攀登台阶，在林下看到藤蔓、树抱石等景观；作者认为园内较难看到七仙岭全貌，并特别提醒公园本身没有温泉，附近温泉酒店另计。",
+            "source_ids": [
+                "mafengwo-baoting-qixianling-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-baoting-qixianling-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜七仙岭躺游记：懒人版登山攻略",
+                "url": "https://www.mafengwo.cn/i/24660156.html",
+                "author": "风就是风",
+                "published_at": "2025-03-26",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记录2024-12-27到访；云梯及步道体验为一次游客观察，设施和开放状态需核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一作者的游客记录；山路、云梯运营及季节性开放状态可能变化。",
+            "该作者也撰写了本目录中的其他海南游记，不构成独立多源共识。",
+            "未获得可与公园入口对应的可靠坐标，暂不显示地图点。"
+        ]
+    },
+    {
+        "id": "sanya-yalong-bay",
+        "name": "亚龙湾",
+        "region": "三亚市",
+        "category": "海湾与沙滩",
+        "summary": {
+            "text": "一位游客在阴云和较大海浪天气下到亚龙湾沙滩散步，记录细软沙滩不利快走、海浪较大且游客不少；天气会明显影响体验。",
+            "source_ids": [
+                "mafengwo-sanya-sunbay-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-sanya-sunbay-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南环岛自驾·Day10｜太阳湾骑行+泳池破冰太爽了 | 三亚湾的夜，一半喧嚣，一半惬意。",
+                "url": "https://www.mafengwo.cn/i/24792920.html",
+                "author": "傲慢的上校",
+                "published_at": "2025-12-10",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2025年12月一次阴天到访；沙滩感受和浪况为当日体验。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "一篇游客记录，沙滩可步行性受潮汐和天气影响。",
+            "Nominatim 本轮未确认亚龙湾边界坐标，暂不生成地图点。"
+        ]
+    },
+    {
+        "id": "sanya-sun-bay-road",
+        "name": "太阳湾路",
+        "region": "三亚市",
+        "category": "滨海骑行道路",
+        "summary": {
+            "text": "游客租电动车沿太阳湾路骑行，记下道路有明显上下坡，沿线一侧为热带植被、一侧可看海；作者认为这段路比当天原计划的森林公园更合其喜好。",
+            "source_ids": [
+                "mafengwo-sanya-sunbay-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-sanya-sunbay-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南环岛自驾·Day10｜太阳湾骑行+泳池破冰太爽了 | 三亚湾的夜，一半喧嚣，一半惬意。",
+                "url": "https://www.mafengwo.cn/i/24792920.html",
+                "author": "傲慢的上校",
+                "published_at": "2025-12-10",
+                "accessed_at": "2026-10-22",
+                "notes": "作者2025年12月租电动车骑行；不是自行车道路安全测评。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客体验；电动车体验不能直接当作自行车通行建议。",
+            "路段起终点及适合自行车的路权和交通情况待核实。"
+        ]
+    },
+    {
+        "id": "sanya-sun-bay-beach",
+        "name": "太阳湾沙滩",
+        "region": "三亚市",
+        "category": "海湾与礁石海岸",
+        "summary": {
+            "text": "太阳湾路骑行者在沙滩区域停留，提到沙质松软、海浪较大，旁边可看到礁石；游记还记下当时部分下海通道受到围栏限制。",
+            "source_ids": [
+                "mafengwo-sanya-sunbay-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-sanya-sunbay-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南环岛自驾·Day10｜太阳湾骑行+泳池破冰太爽了 | 三亚湾的夜，一半喧嚣，一半惬意。",
+                "url": "https://www.mafengwo.cn/i/24792920.html",
+                "author": "傲慢的上校",
+                "published_at": "2025-12-10",
+                "accessed_at": "2026-10-22",
+                "notes": "海滩和通道状态来自作者2025年12月到访，开放安排可能变化。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇到访记录；通道、围栏和海况均需重新核实。",
+            "未确认独立海滩要素的精确坐标。"
+        ]
+    },
+    {
+        "id": "sanya-luhuitou-cape",
+        "name": "鹿回头角",
+        "region": "三亚市",
+        "category": "海岸观景点",
+        "summary": {
+            "text": "游客在鹿回头角附近住宿时从高处看到三亚湾和市区景色；该记录来自酒店露台视角，并非鹿回头景区的徒步游览评价。",
+            "source_ids": [
+                "mafengwo-sanya-sunbay-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-sanya-sunbay-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南环岛自驾·Day10｜太阳湾骑行+泳池破冰太爽了 | 三亚湾的夜，一半喧嚣，一半惬意。",
+                "url": "https://www.mafengwo.cn/i/24792920.html",
+                "author": "傲慢的上校",
+                "published_at": "2025-12-10",
+                "accessed_at": "2026-10-22",
+                "notes": "作者在鹿回头角附近酒店露台观察三亚湾；不是景区游览记录。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "名称可能指向海角地貌而非鹿回头公园，地点边界和可进入性待核实。",
+            "没有将酒店视野当作公共观景点承诺。"
+        ]
+    },
+    {
+        "id": "sanya-bay",
+        "name": "三亚湾",
+        "region": "三亚市",
+        "category": "海湾与城市海岸",
+        "summary": {
+            "text": "游客在三亚湾附近住宿和夜间散步，记录海湾夜景、船只灯光，同时提到周边施工噪声和路面状况会影响体验。",
+            "source_ids": [
+                "mafengwo-sanya-sunbay-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-sanya-sunbay-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南环岛自驾·Day10｜太阳湾骑行+泳池破冰太爽了 | 三亚湾的夜，一半喧嚣，一半惬意。",
+                "url": "https://www.mafengwo.cn/i/24792920.html",
+                "author": "傲慢的上校",
+                "published_at": "2025-12-10",
+                "accessed_at": "2026-10-22",
+                "notes": "作者2025年12月住宿及晚间观察；施工状况是当时记录。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "一篇游客体验来源；施工与噪音属于时效性观察。",
+            "湾区范围大，待选定适合骑行路书的具体停靠点。"
+        ]
+    },
+    {
+        "id": "sanya-phoenix-island",
+        "name": "凤凰岛",
+        "region": "三亚市",
+        "category": "海湾地标与海景",
+        "summary": {
+            "text": "游记作者在三亚湾住宿时从岸边看到凤凰岛灯光和海上游船；记录是远观夜景，未涉及岛上设施或进入条件。",
+            "source_ids": [
+                "mafengwo-sanya-sunbay-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-sanya-sunbay-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "海南环岛自驾·Day10｜太阳湾骑行+泳池破冰太爽了 | 三亚湾的夜，一半喧嚣，一半惬意。",
+                "url": "https://www.mafengwo.cn/i/24792920.html",
+                "author": "傲慢的上校",
+                "published_at": "2025-12-10",
+                "accessed_at": "2026-10-22",
+                "notes": "凤凰岛为游记中的远眺地标，未记录上岛游览。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "仅有远观记录，不应解释为可进入或有公共游览设施。",
+            "岛屿准确地图点和骑行观景位置待核实。"
+        ]
+    },
+    {
+        "id": "sanya-wuzhizhou-island",
+        "name": "蜈支洲岛",
+        "region": "三亚市",
+        "category": "离岛与海上活动",
+        "latitude": 18.3113515,
+        "longitude": 109.761849,
+        "coordinate_source_id": "osm-wuzhizhou-island",
+        "summary": {
+            "text": "携程自驾游记安排蜈支洲岛一日游；本条只记录游客的路线选择，不将商业行程安排当作岛上体验评价。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将蜈支洲岛列入三亚一日行程。"
+            },
+            {
+                "id": "osm-wuzhizhou-island",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "蜈支洲岛地图要素",
+                "url": "https://www.openstreetmap.org/relation/11567453",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 岛屿要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "目前只有行程安排线索，岛上游览内容和价格未纳入。",
+            "坐标是岛屿代表点，不是码头。"
+        ]
+    },
+    {
+        "id": "sanya-tianya-haijiao",
+        "name": "天涯海角游览区",
+        "region": "三亚市",
+        "category": "海岸与地标",
+        "latitude": 18.2926242,
+        "longitude": 109.3450447,
+        "coordinate_source_id": "osm-tianya-haijiao",
+        "summary": {
+            "text": "携程环岛行程把天涯海角游览区列为三亚停留点；目前是游客路线信息，具体体验需要从原游记和其他游客记录中继续核实。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将游览区列入三亚行程。"
+            },
+            {
+                "id": "osm-tianya-haijiao",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "天涯海角地图要素",
+                "url": "https://www.openstreetmap.org/node/2272220538",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标对应 OSM 标注节点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客行程提及，尚无具体体验评价。",
+            "坐标是地图标注点，非入口或停车位置。"
+        ]
+    },
+    {
+        "id": "sanya-international-duty-free-city",
+        "name": "三亚国际免税城",
+        "region": "三亚市",
+        "category": "购物与城市停留",
+        "latitude": 18.3734864,
+        "longitude": 109.7465347,
+        "coordinate_source_id": "osm-sanya-duty-free-city",
+        "summary": {
+            "text": "携程自驾游记将免税城列入三亚行程；此候选是城市旅行停留点，不属于自然或历史景点体验。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将免税城作为三亚行程停留点。"
+            },
+            {
+                "id": "osm-sanya-duty-free-city",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "三亚国际免税城地图要素",
+                "url": "https://www.openstreetmap.org/way/1086121743",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 建筑要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇行程提及；营业和交通信息需另行核实。",
+            "商业停留点，用户可按兴趣决定是否纳入骑行路书。"
+        ]
+    },
+    {
+        "id": "sanya-west-island",
+        "name": "西岛",
+        "region": "三亚市",
+        "category": "离岛与渔村",
+        "latitude": 18.2362674,
+        "longitude": 109.3704323,
+        "coordinate_source_id": "osm-west-island",
+        "summary": {
+            "text": "携程游客将西岛列入环岛行程最后一天；现有证据只确认行程安排，没有单独描述岛上的游览体验。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将西岛安排在行程最后一天；未记录岛上细节。"
+            },
+            {
+                "id": "osm-west-island",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "西岛地图要素",
+                "url": "https://www.openstreetmap.org/relation/9443829",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 岛屿要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客路线安排，尚无体验评价。",
+            "坐标为岛屿代表点，不是上岛码头。"
+        ]
+    },
+    {
+        "id": "sanya-houhai-village",
+        "name": "后海村",
+        "region": "三亚市",
+        "category": "渔村与冲浪海岸",
+        "latitude": 18.2746668,
+        "longitude": 109.725606,
+        "coordinate_source_id": "osm-houhai-village",
+        "summary": {
+            "text": "亲子环岛自驾游记把后海列为三亚停留地，作者介绍了冲浪、海边活动和夜间小吃街等体验线索；相关体验由单篇游记提供。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年暑假到访后海；海况和商铺情况会随季节变化。"
+            },
+            {
+                "id": "osm-houhai-village",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "后海村地图要素",
+                "url": "https://www.openstreetmap.org/node/10862260080",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标对应 OSM 后海村节点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客体验；海况和水上活动安全以现场信息为准。",
+            "坐标为村落代表点，不是特定沙滩或冲浪店。"
+        ]
+    },
+    {
+        "id": "sanya-haitang-river-park-greenway",
+        "name": "三亚海棠河公园骑行绿道",
+        "region": "三亚市",
+        "category": "滨河公园与骑行绿道",
+        "summary": {
+            "text": "一位骑行者介绍海棠河公园新修绿道，称单程约10公里、往返约20公里，沿线车辆少且安静，适合拍照。该距离与路况为笔记中的个人记录；绿道起终点、开放状态及其与环岛骑行线的衔接尚待核实。",
+            "source_ids": [
+                "xiaohongshu-sanya-haitang-river-greenway"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-sanya-haitang-river-greenway",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "三亚新修的骑行绿道 海棠河公园",
+                "url": "https://www.xiaohongshu.com/explore/695df27b000000002103d343",
+                "author": "一而再、再而三",
+                "accessed_at": "2026-10-23",
+                "notes": "作者称绿道单程约10公里、往返约20公里，车辆少、安静；笔记日期仅显示01-07，未显示年份。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇骑行者体验；绿道具体起点、终点、开放状态和维护情况待核实。",
+            "未获得可靠地图入口坐标，不显示地图点；与环岛公路的实际连接及绕行距离未核实。"
+        ]
+    },
+    {
+        "id": "lingshui-nanwan-monkey-island",
+        "name": "南湾猴岛",
+        "region": "陵水黎族自治县",
+        "category": "海岛与海岸",
+        "latitude": 18.3980512,
+        "longitude": 109.9809403,
+        "coordinate_source_id": "osm-nanwan-monkey-island",
+        "summary": {
+            "text": "骑游团队到达猴岛后乘渡船上岛，作者记录岛上小路、海滩和露营停留；这是较早的个人经历，当前游览和露营规则需要复核。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录骑游期间乘渡船到岛及露营；游览制度可能已变化。"
+            },
+            {
+                "id": "osm-nanwan-monkey-island",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "南湾猴岛地图要素",
+                "url": "https://www.openstreetmap.org/node/4756299282",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标对应 OSM 景点节点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客体验且年代较早，渡船、营地和骑行携车规则须核实。",
+            "坐标为景点标注点，不是码头。"
+        ]
+    },
+    {
+        "id": "lingshui-fenjiezhou-island",
+        "name": "分界洲岛",
+        "region": "陵水黎族自治县",
+        "category": "离岛与海岸",
+        "summary": {
+            "text": "携程作者安排在岛上游览一整天；另一篇携程亲子研学行程也将分界洲岛列为目的地，当前候选仍按游客行程线索处理。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025",
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将分界洲岛安排为一日游目的地。"
+            },
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者2024年暑假亲子行程将分界洲岛列入陵水游览计划。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "两篇游客行程提及，但均需进一步提取具体体验。",
+            "OSM 同名查询未能可靠区分海南岛屿，暂不设坐标。"
+        ]
+    },
+    {
+        "id": "lingshui-daidai-island",
+        "name": "呆呆岛",
+        "region": "陵水黎族自治县",
+        "category": "海岛与沙滩",
+        "summary": {
+            "text": "携程游客把呆呆岛和南湾猴岛安排为同一天游览；现有记录确认的是行程搭配，具体海滩体验尚待补充。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将呆呆岛与南湾猴岛安排为一日行程。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客路线安排，游览体验和接驳交通待补充。",
+            "OSM 同名查询未匹配海南地点，暂不设坐标。"
+        ]
+    },
+    {
+        "id": "lingshui-danjia-museum",
+        "name": "海南疍家博物馆",
+        "region": "陵水黎族自治县",
+        "category": "博物馆与海洋民俗",
+        "summary": {
+            "text": "游客参观新村港边的疍家主题博物馆，记录了展馆以船居生活和疍家文化为主题的空间设计；展陈变动需以现场为准。",
+            "source_ids": [
+                "mafengwo-lingshui-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜陵水一日半：猴岛趣玩・渔港尝鲜・海滩慢逛",
+                "url": "https://www.mafengwo.cn/i/24692259.html",
+                "author": "风就是风",
+                "published_at": "2025-05-17",
+                "accessed_at": "2026-10-23",
+                "notes": "游客记录2024年12月到访；开馆和展览信息需出发前确认。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "新村港周边小型文化停留点；坐标待核验。"
+        ]
+    },
+    {
+        "id": "lingshui-danjia-floating-village",
+        "name": "陵水疍家海上村庄",
+        "region": "陵水黎族自治县",
+        "category": "渔排与海上聚落",
+        "summary": {
+            "text": "游客乘船往返新村港时看到成片连缀的疍家渔排，并从水道观察渔船和水上住居；这是乘船路线中的现场印象。",
+            "source_ids": [
+                "mafengwo-lingshui-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜陵水一日半：猴岛趣玩・渔港尝鲜・海滩慢逛",
+                "url": "https://www.mafengwo.cn/i/24692259.html",
+                "author": "风就是风",
+                "published_at": "2025-05-17",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月乘船观察；不把生活聚落当作可随意进入的游乐设施。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "属于生活中的渔排聚落，访问方式和当地居民隐私边界需要尊重；不设置猜测坐标。"
+        ]
+    },
+    {
+        "id": "lingshui-xincun-wharf",
+        "name": "陵水新村码头",
+        "region": "陵水黎族自治县",
+        "category": "渔港与渡船点",
+        "summary": {
+            "text": "游客从新村一侧乘公交船往返南湾码头，记录船班较频繁且航程短；票价和班次为当次信息，可能变化。",
+            "source_ids": [
+                "mafengwo-lingshui-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜陵水一日半：猴岛趣玩・渔港尝鲜・海滩慢逛",
+                "url": "https://www.mafengwo.cn/i/24692259.html",
+                "author": "风就是风",
+                "published_at": "2025-05-17",
+                "accessed_at": "2026-10-23",
+                "notes": "当次体验提到公交船和短途渡运；票价、运营时间需重新确认。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "OSM检索仅找到附近泛称陆地码头，无法确认具体渡船登船点，因此未加坐标。"
+        ]
+    },
+    {
+        "id": "lingshui-freedom-lighthouse",
+        "name": "陵水自由灯塔",
+        "region": "陵水黎族自治县",
+        "category": "海岸灯塔与打卡点",
+        "summary": {
+            "text": "一篇游客海岸行程把自由灯塔列为清水湾一带的停留点；灯塔具体可达路径和是否开放未由该行程说明。",
+            "source_ids": [
+                "mafengwo-lingshui-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜陵水一日半：猴岛趣玩・渔港尝鲜・海滩慢逛",
+                "url": "https://www.mafengwo.cn/i/24692259.html",
+                "author": "风就是风",
+                "published_at": "2025-05-17",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月将其列入清水湾行程；需进一步核实公共通行权。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "小型海岸打卡点；地图未检索到可靠灯塔要素，暂不设坐标。"
+        ]
+    },
+    {
+        "id": "lingshui-qingshui-bay-beach-park",
+        "name": "清水湾沙滩公园",
+        "region": "陵水黎族自治县",
+        "category": "沙滩与海岸公园",
+        "summary": {
+            "text": "游客把清水湾的沙滩公园作为行程停留点，并以草地、沙滩和海面的组合描述其空间层次；具体入口未在游记中定位。",
+            "source_ids": [
+                "mafengwo-lingshui-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜陵水一日半：猴岛趣玩・渔港尝鲜・海滩慢逛",
+                "url": "https://www.mafengwo.cn/i/24692259.html",
+                "author": "风就是风",
+                "published_at": "2025-05-17",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月游览；海况、开放和公共入口信息待核验。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "OSM未返回可信同名要素；先保留游客来源和名称，暂不画地图点。"
+        ]
+    },
+    {
+        "id": "lingshui-nanwan-village",
+        "name": "陵水南湾村",
+        "region": "陵水黎族自治县",
+        "category": "海岛村落与野生动物观察",
+        "latitude": 18.3984731,
+        "longitude": 109.9828308,
+        "coordinate_source_id": "osm-lingshui-nanwan-village",
+        "summary": {
+            "text": "游客步行经过南湾村时观察到道路附近有猴群活动；作者的低价步行路线与景区观光车服务并不相同，需尊重野生动物并遵守现场指引。",
+            "source_ids": [
+                "mafengwo-lingshui-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜陵水一日半：猴岛趣玩・渔港尝鲜・海滩慢逛",
+                "url": "https://www.mafengwo.cn/i/24692259.html",
+                "author": "风就是风",
+                "published_at": "2025-05-17",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月步行经过；猴群活动不保证每次可见。"
+            },
+            {
+                "id": "osm-lingshui-nanwan-village",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "陵水南湾村地图要素",
+                "url": "https://www.openstreetmap.org/node/1806984612",
+                "accessed_at": "2026-10-23",
+                "notes": "匹配陵水黎族自治县南湾村；坐标为村庄要素代表点，不是游览入口。数据许可ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "与已有南湾猴岛景区记录不是同一条目；地点为村庄代表点，访客通行和动物互动规则需现场确认。"
+        ]
+    },
+    {
+        "id": "lingshui-fuli-ocean-world",
+        "name": "陵水富力海洋欢乐世界",
+        "region": "陵水黎族自治县",
+        "category": "海洋主题乐园",
+        "summary": {
+            "text": "一篇家庭旅行游记记载作者在园内游玩近11小时，体验海豚互动及企鹅、鳐鱼、海龟、海牛和海豹等动物喂食；台风影响期间，部分室外游乐设施关闭，属于作者当次天气下的观察。",
+            "source_ids": [
+                "mafengwo-lingshui-fuli-ocean-world-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-fuli-ocean-world-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "20250926-1002 三亚陵水",
+                "url": "https://www.mafengwo.cn/i/24763956.html",
+                "author": "flyw4_yang",
+                "published_at": "2025-10-02",
+                "accessed_at": "2026-10-23",
+                "notes": "游记记录2025-09-27游园；闭园和设施受天气影响等情况仅代表当次行程。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇家庭游客记录；园内项目、动物互动安排、营业和天气应急政策需以出行时信息核实。",
+            "该来源只记录游园体验，不支持把台风期间关闭情况视为常态。",
+            "未获得可与入口对应的可靠坐标，暂不显示地图点。"
+        ]
+    },
+    {
+        "id": "lingshui-lingzai-bay",
+        "name": "陵水岭仔湾",
+        "region": "陵水黎族自治县",
+        "category": "海湾与潮间带体验点",
+        "summary": {
+            "text": "一篇陵水旅行游记记载作者从酒店前往岭仔湾赶海；作者当次去得较晚且遇雨，只提到看到海星、没有更多收获。该单次天气与时段体验不代表常态，也不构成采集海洋生物的建议。",
+            "source_ids": [
+                "mafengwo-lingshui-lingzai-bay-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-lingshui-lingzai-bay-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "20250926-1002 三亚陵水",
+                "url": "https://www.mafengwo.cn/i/24763956.html",
+                "author": "flyw4_yang",
+                "published_at": "2025-10-02",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载2025-09-26到访岭仔湾赶海；地点由正文称“岭仔湾”，具体海岸入口及潮汐条件未说明。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客的简短体验，名称在游记行程表中另写作“岭仔村”，正文称“岭仔湾”；具体点位和行政村关系待核实。",
+            "未获得可靠入口坐标；到访时间、天气和潮汐可能影响体验。"
+        ]
+    },
+    {
+        "id": "lingshui-hongjiaoling-coastal-viewpoint",
+        "name": "陵水红角岭海岸观景台",
+        "region": "陵水黎族自治县",
+        "category": "山地海岸观景点",
+        "summary": {
+            "text": "一篇2025年12月发布的小红书笔记记录作者到红角岭观景台看香水湾海岸线及日落，并提醒观景台与山顶天文台不是同一地点。作者描述进山道路窄且坡陡；这是当次自驾路线提示，不代表当前道路开放情况或适合骑行。",
+            "source_ids": [
+                "xiaohongshu-lingshui-hongjiaoling-viewpoint-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-lingshui-hongjiaoling-viewpoint-2025",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南这个超小众观景台，根本没法避雷❗️",
+                "url": "https://www.xiaohongshu.com/explore/69424374000000001e026749",
+                "author": "李拜一",
+                "published_at": "2025-12-18",
+                "accessed_at": "2026-10-23",
+                "notes": "笔记描述作者于2025年12月到访；指出山路窄陡、观景台位于天文台下方数百米处。开放、通行和安全状况需重新核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一小红书来源；位置来自笔记文字，尚未通过地图或其他来源核对具体入口。",
+            "笔记描述自驾到山顶，不证明可骑自行车通行；道路、土地权属、开放与步行路线待核实，暂不设置坐标。"
+        ]
+    },
+    {
+        "id": "lingshui-huling-jianling-coast",
+        "name": "陵水虎岭与尖岭海岸",
+        "region": "陵水黎族自治县",
+        "category": "海岸与礁石滩",
+        "summary": {
+            "text": "一篇自驾游记将虎岭和相邻尖岭列为作者在陵水游玩时最推荐的地点，描述虎岭椰林停车处、细沙海滩、礁石内侧较平静的浅水区，以及傍晚到尖岭看日落。停车、游泳、猴群与道路情况均为单次笔记所述，不代表当前状况或骑行可达性。",
+            "source_ids": [
+                "xiaohongshu-lingshui-huling-jianling-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-lingshui-huling-jianling-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "陵水虎岭，我心目中的海岛天花板！免费版",
+                "url": "https://www.xiaohongshu.com/explore/6ad5c29a000000002f032f8a",
+                "author": "匠拐拐",
+                "accessed_at": "2026-10-23",
+                "notes": "作者称其为自驾海南时游玩过的地点，并叙述虎岭与尖岭的海滩体验；未给出具体坐标，骑行通行与当前开放情况未核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇小红书亲历笔记。文中称尖岭与虎岭相距数百米，合并为相邻海岸游览点；具体边界和入口尚未通过独立来源核对。",
+            "作者描述来自自驾体验，不可据此推断自行车可达；道路、停车区管理、游泳安全和猴群情况需现场或近期来源核实。",
+            "未获得可靠地图坐标，不设置坐标。"
+        ]
+    },
+    {
+        "id": "wanning-dahuajiao",
+        "name": "大花角",
+        "region": "万宁市",
+        "category": "海岸与礁石滩",
+        "summary": {
+            "text": "骑游团队到大花角海岸停留和露营；作者特别记下当地以卵石为主的海滩，以及晴天时海水呈蓝色的观感。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "作者骑游途中在大花角停留露营；海岸通行和露营管理情况需复核。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客露营记录；此处没有可靠的精确海滩坐标，避免使用误命中的雷达站坐标。"
+        ]
+    },
+    {
+        "id": "wanning-xinglong-greenway",
+        "name": "兴隆绿道",
+        "region": "万宁市",
+        "category": "绿道与骑行路线",
+        "summary": {
+            "text": "一篇环岛骑游记录将兴隆绿道列为骑行路线段；具体入口、路面条件和作者实际停留体验在现有页面中不够明确。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "路线在兴隆停留，文中提到绿道；具体路线需复核。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇骑行路线线索，暂不视为已验证路线推荐。",
+            "绿道入口和坐标待核实。"
+        ]
+    },
+    {
+        "id": "wanning-riyue-bay",
+        "name": "日月湾",
+        "region": "万宁市",
+        "category": "海湾与冲浪海岸",
+        "summary": {
+            "text": "携程游客将日月湾安排为环岛东线住宿和游览停留点；文章指出当地海边道路停车不便，适合作为出行前检查路线与停车条件的线索。",
+            "source_ids": [
+                "ctrip-hainan-eastloop-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-eastloop-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "自驾海南环岛东线，从海口到三亚旅行，打卡万宁、陵水和保亭",
+                "url": "https://you.ctrip.com/travels/sanya61/4034446.html",
+                "published_at": "2025-03-02",
+                "accessed_at": "2026-10-22",
+                "notes": "作者将日月湾列入行程；停车观察来自其自驾体验。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客行程体验，冲浪条件和交通需另行核查。",
+            "OSM 同名查询出现外地误匹配，暂不设坐标。"
+        ]
+    },
+    {
+        "id": "wanning-shenzhou-peninsula",
+        "name": "神州半岛",
+        "region": "万宁市",
+        "category": "半岛与海岸",
+        "latitude": 18.6779739,
+        "longitude": 110.3479262,
+        "coordinate_source_id": "osm-shenzhou-peninsula",
+        "summary": {
+            "text": "亲子旅行游记记录了半岛海岸和红白灯塔，并提到入口到灯塔还有一段距离，作者建议为电动车游览预留时间；距离信息需以当前路线核实。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年暑假自驾；半岛和灯塔体验为当次记录。"
+            },
+            {
+                "id": "osm-shenzhou-peninsula",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "神州半岛地图要素",
+                "url": "https://www.openstreetmap.org/way/281774543",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 半岛要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "一篇亲子游客记录；道路、停车和进入限制需复核。",
+            "坐标为半岛代表点，不是灯塔入口。"
+        ]
+    },
+    {
+        "id": "wanning-shenzhou-lighthouse",
+        "name": "神州半岛灯塔",
+        "region": "万宁市",
+        "category": "灯塔与海岸观景",
+        "summary": {
+            "text": "游客游记将半岛红白灯塔作为海岸地标，记录从景区入口到灯塔仍需一段路程；灯塔周边能否骑行到达需核实。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者2024年暑假到访神州半岛并记录灯塔及接驳距离。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客观察；道路是否允许自行车进入需查现场规定。",
+            "未获得独立灯塔地图要素坐标，暂不设地图点。"
+        ]
+    },
+    {
+        "id": "wanning-shimei-bay",
+        "name": "石梅湾",
+        "region": "万宁市",
+        "category": "海湾与沙滩",
+        "summary": {
+            "text": "亲子自驾游记将石梅湾列为万宁海岸停留点，作者记下沙滩和海湾景观，也提醒当地海域存在暗流、不宜贸然下海。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年暑假到访；水上活动风险说明为游记中的个人记录，需以现场提示为准。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源；潮汐、暗流和游泳区域以现场安全标识为准。",
+            "Nominatim 仅返回酒店点位而非海湾，暂不使用该坐标。"
+        ]
+    },
+    {
+        "id": "wanning-jiajing-island",
+        "name": "加井岛",
+        "region": "万宁市",
+        "category": "离岛与海上活动",
+        "latitude": 18.6503327,
+        "longitude": 110.2869958,
+        "coordinate_source_id": "osm-jiajing-island",
+        "summary": {
+            "text": "亲子自驾游记将加井岛记为石梅湾对岸的无人岛，并提到当时主要通过游艇或指定海域开展水上活动；上岛权限和活动安排需重新核实。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者2024年暑假在石梅湾对岸观察加井岛；游记对准入和浮潜的描述需复核。"
+            },
+            {
+                "id": "osm-jiajing-island",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "加井岛地图要素",
+                "url": "https://www.openstreetmap.org/way/389174634",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 岛屿要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游记线索；保护规定、登岛和水上活动许可需提前核实。",
+            "坐标是岛屿代表点，不是出发码头。"
+        ]
+    },
+    {
+        "id": "wanning-shimei-bay-observation-pavilion",
+        "name": "万宁石梅湾观海亭",
+        "region": "万宁市",
+        "category": "海湾观景点",
+        "summary": {
+            "text": "游客沿石梅湾向东到观海亭，从亭上看海湾、沙滩和椰树的整体景观；这是小型观景停留点，行程未说明自行车停放情况。",
+            "source_ids": [
+                "mafengwo-wanning-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wanning-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜万宁II：石梅湾·兴隆美食·巴厘村",
+                "url": "https://www.mafengwo.cn/i/24690580.html",
+                "author": "风就是风",
+                "published_at": "2025-05-14",
+                "accessed_at": "2026-10-23",
+                "notes": "作者于2024年12月到访；海湾步道和亭子公共通行条件需核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源；与石梅湾景区候选有关联但记录具体观海亭；坐标待查。"
+        ]
+    },
+    {
+        "id": "wanning-shanqin-bay-swallow-cave",
+        "name": "万宁山钦湾·燕子洞",
+        "region": "万宁市",
+        "category": "小众海岸与海蚀洞",
+        "summary": {
+            "text": "一篇小红书骑行攻略介绍了到燕子洞的推车与接驳方案，作者在评论中称自己选择搭车上坡。文中描述洞前约500米沙滩路不易推车、回程坡道陡且沙多；这些是该篇笔记的路线观察，路况、接驳服务与价格均需出发前核实。",
+            "source_ids": [
+                "xiaohongshu-swallow-cave-cycling-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-swallow-cave-cycling-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "骑行环海南都给我来燕子洞拍照🤳",
+                "url": "https://www.xiaohongshu.com/explore/69a524cd000000002603e4a8",
+                "author": "Haoola",
+                "accessed_at": "2026-10-23",
+                "notes": "笔记给出推车下坡或搭车接驳两种方案；作者在评论中称自己选择搭车上坡。约500米沙滩路、坡度和20-30元接驳报价均为笔记中的描述，可能过时，需现场核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "用户特别指定纳入的小众骑友打卡候选；目前只有一篇小红书路线攻略及作者评论，尚无多来源交叉验证，不代表普遍路况或推荐结论。",
+            "坐标、洞穴可达性、潮汐/浪况风险、海岸步道和骑行接驳均待可靠来源核实；在此之前不显示地图点。"
+        ]
+    },
+    {
+        "id": "wanning-xinglong-bali-village",
+        "name": "万宁兴隆巴厘村",
+        "region": "万宁市",
+        "category": "归侨文化与主题景区",
+        "summary": {
+            "text": "一篇游客游记记载作者游览巴厘村的归侨文化展示、手工作坊及印尼歌舞表演，并认为园区更适合轻量文化体验而非深度游览；作者估计核心区域约需2至3小时。",
+            "source_ids": [
+                "mafengwo-wanning-bali-village-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wanning-bali-village-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜万宁II：石梅湾·兴隆美食·巴厘村",
+                "url": "https://www.mafengwo.cn/i/24690580.html",
+                "author": "风就是风",
+                "published_at": "2025-05-14",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载2024-12-23到访；文中对建筑风格的评价为个人感受。该作者也撰写了本目录中的其他海南游记，不能视作独立多源共识。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一作者的游客记录；展陈、表演安排及游览时长可能变化，未核实当前开放情况。",
+            "未获得可与入口对应的可靠坐标，暂不显示地图点。"
+        ]
+    },
+    {
+        "id": "wanning-chicun-houhai-beach",
+        "name": "万宁赤村后海沙滩",
+        "region": "万宁市",
+        "category": "海滩与乡村骑行停留点",
+        "summary": {
+            "text": "一篇小红书骑行记录描述从神州半岛骑行约12公里到赤村后海沙滩，作者称途中坡度不大、补给点很少，终点为人少且缺少管理的野沙滩。文中提到附近一家户外店似乎提供冲浪板租借；距离、路况、补给和服务均为单篇笔记信息，需现场复核。",
+            "source_ids": [
+                "xiaohongshu-wanning-chicun-houhai-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-wanning-chicun-houhai-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "万宁🚴‍♀️骑行好风景都在村子里",
+                "url": "https://www.xiaohongshu.com/explore/69c29f470000000022002abd",
+                "author": "阿圆不打卡",
+                "accessed_at": "2026-10-23",
+                "notes": "作者写明从神州半岛骑到赤村后海沙滩约12公里，并描述沿线补给少、终点为野沙滩。结果页日期仅显示03-24，年份不明；不保存图片。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇小红书骑行记录，未核实沙滩入口、与其他海滩的边界、路线现状或自行车可达性。",
+            "笔记称附近户外店似乎提供冲浪板租借，非当前服务保证；不设置未核实坐标。"
+        ]
+    },
+    {
+        "id": "qionghai-boao-town",
+        "name": "博鳌风情小镇",
+        "region": "琼海市",
+        "category": "滨海小镇与骑行停留点",
+        "summary": {
+            "text": "骑游文章记录小组到博鳌停留，作者写到亲水平台、海风和沿海骑行；此为个人旅途记录，未形成对全镇的整体评价。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "作者七日骑游期间的停留记录；不是对官方景区的介绍。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客停留线索，具体亲水平台位置待核实。",
+            "当前尚无可靠坐标。"
+        ]
+    },
+    {
+        "id": "qionghai-yudai-beach",
+        "name": "玉带滩",
+        "region": "琼海市",
+        "category": "沙洲与海岸景观",
+        "latitude": 19.1430315,
+        "longitude": 110.5789695,
+        "coordinate_source_id": "osm-yudai-beach",
+        "summary": {
+            "text": "骑游者到访玉带滩，记录了开阔海面和连续海浪的观感；其描述来自一次到访，乘船交通与开放情况需另行核实。",
+            "source_ids": [
+                "ctrip-hainan-cycle-2020"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-cycle-2020",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南游记 | 我们活生生把骑游演成了电视剧",
+                "url": "https://you.ctrip.com/travels/haikou37/3961391.html",
+                "author": "洁琳（行走20岁）",
+                "published_at": "2020-08-03",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记载骑行停留玉带滩；乘船和游览安排可能已变化。"
+            },
+            {
+                "id": "osm-yudai-beach",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "玉带滩地图要素",
+                "url": "https://www.openstreetmap.org/way/1460883593",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 沙洲要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇体验来源且记录距今较久，船班及游览条件待更新。",
+            "坐标为狭长沙洲代表点，不是上岛码头。"
+        ]
+    },
+    {
+        "id": "qionghai-red-stone-beach",
+        "name": "琼海红石滩",
+        "region": "琼海市",
+        "category": "海岸礁石与地貌景观",
+        "summary": {
+            "text": "一位海南环岛游客记录从博鳌沿环岛旅游公路到达红石滩，看到红褐色礁石与沙滩相连；作者到访时天气阴，入口附近栈桥挂有封闭提示。礁石成因是作者查阅资料后的说法，尚未独立核实。",
+            "source_ids": [
+                "toutiao-qionghai-red-stone-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "toutiao-qionghai-red-stone-2025",
+                "platform": "今日头条",
+                "kind": "visitor_experience",
+                "title": "海南环岛游（之五十八）——琼海红石滩、潭门港、任意门",
+                "url": "https://www.toutiao.com/article/7503483058214011411/",
+                "author": "密码忘了",
+                "published_at": "2025-05-14",
+                "accessed_at": "2026-10-23",
+                "notes": "作者的环岛行程记录；栈桥关闭仅为当次观察，不代表当前开放状态。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单一游客来源；红石滩具体边界、骑行公路到海滩的接驳和现场安全条件待核实。",
+            "未获得可靠入口坐标，不显示地图点。"
+        ]
+    },
+    {
+        "id": "qionghai-tanmen-fishing-harbor",
+        "name": "琼海潭门港",
+        "region": "琼海市",
+        "category": "渔港与沿海路线停留点",
+        "summary": {
+            "text": "同一篇海南环岛游记记载作者从红石滩继续前往潭门港，并将当时港区描述为渔业码头；作者到达时为正午，街上行人较少。该记录提供路线停留线索，不代表当前港区开放范围或日常客流。",
+            "source_ids": [
+                "toutiao-qionghai-red-stone-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "toutiao-qionghai-red-stone-2025",
+                "platform": "今日头条",
+                "kind": "visitor_experience",
+                "title": "海南环岛游（之五十八）——琼海红石滩、潭门港、任意门",
+                "url": "https://www.toutiao.com/article/7503483058214011411/",
+                "author": "密码忘了",
+                "published_at": "2025-05-14",
+                "accessed_at": "2026-10-23",
+                "notes": "作者将潭门港作为环岛路线停留点；只记录其当次正午所见。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇路线记录，港区游客可进入范围和自行车停放条件待核实。",
+            "未获得可靠游客入口坐标，不显示地图点。"
+        ]
+    },
+    {
+        "id": "qionghai-paigang-village-seaside-door",
+        "name": "琼海潭门排港村海边任意门",
+        "region": "琼海市",
+        "category": "海边小众打卡点与骑行补给标识",
+        "summary": {
+            "text": "一位环岛游客按导航来到潭门镇排港村海边，记录了彩色风车、蓝白木船和石头门框组成的拍照背景；附近堤坝标有海南环岛旅游公路骑行补给点。作者称此处可免费停车，但当前停车、补给服务和设施状态待核实。",
+            "source_ids": [
+                "toutiao-qionghai-red-stone-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "toutiao-qionghai-red-stone-2025",
+                "platform": "今日头条",
+                "kind": "visitor_experience",
+                "title": "海南环岛游（之五十八）——琼海红石滩、潭门港、任意门",
+                "url": "https://www.toutiao.com/article/7503483058214011411/",
+                "author": "密码忘了",
+                "published_at": "2025-05-14",
+                "accessed_at": "2026-10-23",
+                "notes": "作者明确将打卡点定位在潭门镇排港村；停车场和骑行补给点标识为当次观察。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "作为非正式的小型海边打卡点收录；“任意门”是作者对石头门框的称呼，不代表正式景区名称。",
+            "单篇游客来源；设施是否仍在、是否可停车及补给点是否提供服务待核实。",
+            "未获得可靠位置坐标，不显示地图点。"
+        ]
+    },
+    {
+        "id": "tunchang-muse-lake",
+        "name": "屯昌木色湖",
+        "region": "屯昌县",
+        "category": "湖泊与自然景观",
+        "summary": {
+            "text": "一篇海南环岛游记记录作者退房后前往木色湖，称景色不错；笔记没有描述具体岸线、入口或停留细节。",
+            "source_ids": [
+                "xiaohongshu-tunchang-muse-lake-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-tunchang-muse-lake-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "海南环岛Day2:屯昌到琼中",
+                "url": "https://www.xiaohongshu.com/explore/6a03425c00000000060228c8",
+                "author": "咪崽",
+                "accessed_at": "2026-10-23",
+                "notes": "作者记载退房后前往木色湖并作简短正面评价；页面日期显示05-12，未据此推断年份。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇环岛游记的简短亲历记录；没有具体湖岸停留点、游览路线或骑行路况信息。",
+            "未获得可靠入口坐标；不要将短评扩写为景区设施或活动介绍。"
+        ]
+    },
+    {
+        "id": "tunchang-meiheyuan-bamboo-grove",
+        "name": "屯昌美鹤园竹林",
+        "region": "屯昌县",
+        "category": "村落竹林与自然体验点",
+        "summary": {
+            "text": "一篇小红书笔记记录作者在美鹤园竹林停留片刻，感受到竹林遮阴、凉爽和安静；这是一篇单次体验，具体竹林范围和入口尚未说明。",
+            "source_ids": [
+                "xiaohongshu-tunchang-meiheyuan-bamboo-2026"
+            ]
+        },
+        "sources": [
+            {
+                "id": "xiaohongshu-tunchang-meiheyuan-bamboo-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "屯昌|美鹤园竹林|绿意满🍃",
+                "url": "https://www.xiaohongshu.com/explore/6a2cc44c000000002100b005",
+                "author": "团团团团团子.",
+                "accessed_at": "2026-10-23",
+                "notes": "作者描述自己在竹林停留片刻；笔记日期显示06-13，未推断年份。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇小红书现场体验；地点依据笔记标题和屯昌标签，具体村落位置、竹林边界和入口仍待独立核实。",
+            "未获得可靠地图坐标；笔记不支持骑行可达或设施现状声明。"
+        ]
+    },
+    {
+        "id": "tunchang-leigongtan-rocky-river",
+        "name": "屯昌雷公滩红石河谷",
+        "region": "屯昌县",
+        "category": "河谷地貌与溪流",
+        "sources": [
+            {
+                "id": "xiaohongshu-tunchang-leigongtan-rock-2026",
+                "platform": "小红书",
+                "kind": "visitor_experience",
+                "title": "雷公滩的红石头，比瀑布更值得看",
+                "url": "https://www.xiaohongshu.com/explore/6ab7c2eb000000001303f627",
+                "author": "Moment",
+                "accessed_at": "2026-10-23",
+                "notes": "笔记以7月5日照片为叙述背景，并将位置指向屯昌县枫木镇木色湖雷公滩河谷上段；作者未明确说明亲自到访，位置仍待核实。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单条小红书笔记提供待核地点线索；其文字描述河床裸露、岩石颜色和小落差水流，但作者未明确说明亲访，不视作已验证体验。",
+            "野外入口、河谷边界、道路通行和降雨后的风险均未核实；不设置坐标或骑行可达声明。"
+        ]
+    },
+    {
+        "id": "wenchang-tongguling",
+        "name": "铜鼓岭",
+        "region": "文昌市",
+        "category": "山海观景与自然地貌",
+        "latitude": 19.67,
+        "longitude": 111.0186286,
+        "coordinate_source_id": "osm-tongguling",
+        "summary": {
+            "text": "一篇文昌游记称登顶后可俯瞰月亮湾一带，作者认为观景视野开阔；路线包含观光车和登阶，体力与时间安排需考虑。",
+            "source_ids": [
+                "mafengwo-wenchang-2025"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "作者记录山顶可观海湾与海岸线，适合把登高观景作为主要体验。",
+                "source_ids": [
+                    "mafengwo-wenchang-2025"
+                ]
+            },
+            {
+                "text": "同一篇游记还记到景区内的揽月台、望京亭、风动石、月亮石、仙姑庵、伏波窑、伏波古道和山盟石；作者从揽月台俯看月亮湾与淇水湾，并称沿伏波古道下行时林木较密。这些名称和观察属于单次到访记录。",
+                "source_ids": [
+                    "mafengwo-wenchang-2025"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌III：铜鼓岭·石头公园·东郊椰林",
+                "url": "https://www.mafengwo.cn/i/24668793.html",
+                "author": "风就是风",
+                "published_at": "2025-04-08",
+                "accessed_at": "2026-10-22",
+                "notes": "正文记录的出游日期为2024-12-17。单篇体验，且包含门票与运营信息，需出发前复核。"
+            },
+            {
+                "id": "osm-tongguling",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "铜鼓岭地图要素",
+                "url": "https://www.openstreetmap.org/node/2647881189",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标来自 OSM Nominatim 检索；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "只有一篇游客游记来源，尚未达到三条独立体验来源。",
+            "门票和开放时间会变化，本文记录的金额和时刻不作为当前运营承诺。",
+            "揽月台、望京亭、风动石、月亮石、仙姑庵、伏波窑、伏波古道和山盟石作为景区内部看点合并记录；其精确位置和现状尚待核实。",
+            "铜鼓岭到石头公园为明显绕行/游览段，需路线引擎计算实际骑行距离与爬升。"
+        ]
+    },
+    {
+        "id": "wenchang-stone-park",
+        "name": "文昌石头公园",
+        "region": "文昌市",
+        "category": "海岸地貌与海滩",
+        "latitude": 19.6363088,
+        "longitude": 111.0295905,
+        "coordinate_source_id": "osm-stone-park",
+        "summary": {
+            "text": "作者偏爱这里的自然海岸景观，提到海蚀礁石与清澈浅水；同时提醒沙滩较粗、设施有限，礁石湿滑时需谨慎。",
+            "source_ids": [
+                "mafengwo-wenchang-2025"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "作者更喜欢这里的自然岸线，并记录礁石地貌、浅水观察和海浪景观。",
+                "source_ids": [
+                    "mafengwo-wenchang-2025"
+                ]
+            },
+            {
+                "text": "同篇游记还在石头公园游览段提到海誓石；将其作为公园内部礁石看点，不另计为独立海滩入口。",
+                "source_ids": [
+                    "mafengwo-wenchang-2025"
+                ]
+            }
+        ],
+        "drawbacks": [
+            {
+                "text": "沙滩颗粒偏粗、人工设施较少；靠近礁石活动应留意湿滑和浪况。",
+                "source_ids": [
+                    "mafengwo-wenchang-2025"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌III：铜鼓岭·石头公园·东郊椰林",
+                "url": "https://www.mafengwo.cn/i/24668793.html",
+                "author": "风就是风",
+                "published_at": "2025-04-08",
+                "accessed_at": "2026-10-22",
+                "notes": "正文记录的出游日期为2024-12-17。单篇体验。"
+            },
+            {
+                "id": "osm-stone-park",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "石头公园地图要素",
+                "url": "https://www.openstreetmap.org/node/8201699520",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标来自 OSM Nominatim 检索；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "只有一篇游客游记来源，尚未达到三条独立体验来源。",
+            "礁石区游览需关注潮汐、浪况和湿滑风险；本文不替代现场安全提示。",
+            "铜鼓岭到石头公园为明显绕行/游览段，需路线引擎计算实际骑行距离。"
+        ]
+    },
+    {
+        "id": "wenchang-dongjiao-coconut-grove",
+        "name": "东郊椰林风景区",
+        "region": "文昌市",
+        "category": "椰林与海岸",
+        "summary": {
+            "text": "一篇文昌游记记录了椰林一号观景台的林间小道、海滩和海景，以及椰林2号2-1观景台较安静的环境与黑白相间的沙滩。两处观景点合并作为东郊椰林的游览线索。",
+            "source_ids": [
+                "mafengwo-wenchang-2025"
+            ]
+        },
+        "highlights": [
+            {
+                "text": "作者喜欢沿椰林小道步行到海边；另一处观景台更安静，适合看海和散步。",
+                "source_ids": [
+                    "mafengwo-wenchang-2025"
+                ]
+            }
+        ],
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌III：铜鼓岭·石头公园·东郊椰林",
+                "url": "https://www.mafengwo.cn/i/24668793.html",
+                "author": "风就是风",
+                "published_at": "2025-04-08",
+                "accessed_at": "2026-10-22",
+                "notes": "正文记录的出游日期为2024-12-17；一篇游记分别写到两个观景点，仍属于单一游客来源。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "目前只有一篇游客游记来源，尚未达到三条独立体验来源。",
+            "本轮未能从 OSM 检索到足够精确的景区坐标；椰林1号和2号2-1观景台也尚未分别定位。",
+            "文昌市区至东郊海岸存在绕行，需路线计算后再判断是否适合骑行日程。"
+        ]
+    },
+    {
+        "id": "wenchang-qishui-bay",
+        "name": "淇水湾",
+        "region": "文昌市",
+        "category": "海湾与沙滩",
+        "latitude": 19.63405,
+        "longitude": 110.9984756,
+        "coordinate_source_id": "osm-qishui-bay",
+        "summary": {
+            "text": "携程亲子自驾游记把淇水湾作为文昌停留点，作者描述了宽阔海滩、近海礁石和椰林步道，并提及当地可远观火箭发射。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年暑假亲子自驾；海滩和观礼体验为其当次观察。"
+            },
+            {
+                "id": "osm-qishui-bay",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "淇水湾地图要素",
+                "url": "https://www.openstreetmap.org/node/9915313439",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标对应 OSM 淇水湾节点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源，海滩管理和发射观礼条件需核实。",
+            "坐标为湾区标注点，具体骑行入口待确认。"
+        ]
+    },
+    {
+        "id": "wenchang-chunguang-coconut-kingdom",
+        "name": "春光椰子王国",
+        "region": "文昌市",
+        "category": "椰子文化与工厂参观",
+        "summary": {
+            "text": "亲子自驾游记记载作者参观椰子主题工厂，并提到通过生产参观了解椰子加工；入场、参观内容和预约条件可能变化。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年暑假亲子旅行；工厂参观体验来自当次行程。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客体验，需确认目前是否仍对散客开放及预约方式。",
+            "Nominatim 同名结果误匹配外地地点，暂不设坐标。"
+        ]
+    },
+    {
+        "id": "wenchang-city-museum",
+        "name": "文昌市博物馆",
+        "region": "文昌市",
+        "category": "博物馆与侨乡历史",
+        "summary": {
+            "text": "文昌游记作者到访市博物馆，记录了旧建筑的拱形门窗和地方历史文化展陈；此处以游客实地观察为线索，展览内容可能更新。",
+            "source_ids": [
+                "mafengwo-wenchang-iv-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-iv-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌IV：市区慢行——茶点、古迹与烟火气",
+                "url": "https://www.mafengwo.cn/i/24682387.html",
+                "author": "风就是风",
+                "published_at": "2025-05-01",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年12月18日文昌市区行程。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇到访记录；开馆时间和展览内容需复核。",
+            "本轮没有确认独立的OSM建筑坐标。"
+        ]
+    },
+    {
+        "id": "wenchang-wennan-old-street",
+        "name": "文南老街",
+        "region": "文昌市",
+        "category": "骑楼街区与侨乡文化",
+        "latitude": 19.6170526,
+        "longitude": 110.7483069,
+        "coordinate_source_id": "osm-wennan-old-street",
+        "summary": {
+            "text": "游客从市博物馆步行到文南老街，描述街区临河、保留骑楼立面，并注意到仍在营业的日常商铺和小吃摊；这是个人市区慢行体验。",
+            "source_ids": [
+                "mafengwo-wenchang-iv-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-iv-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌IV：市区慢行——茶点、古迹与烟火气",
+                "url": "https://www.mafengwo.cn/i/24682387.html",
+                "author": "风就是风",
+                "published_at": "2025-05-01",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年12月18日市区步行游览。"
+            },
+            {
+                "id": "osm-wennan-old-street",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "文南老街地图要素",
+                "url": "https://www.openstreetmap.org/way/317374321",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 街区要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "一篇游客市区步行记录；店铺经营情况会变化。",
+            "坐标为街区代表点，不是入口或具体店铺。"
+        ]
+    },
+    {
+        "id": "wenchang-confucius-temple",
+        "name": "文昌孔庙",
+        "region": "文昌市",
+        "category": "历史建筑与人文景点",
+        "latitude": 19.619133,
+        "longitude": 110.749147,
+        "coordinate_source_id": "osm-wenchang-confucius-temple",
+        "summary": {
+            "text": "市区游记作者将文昌孔庙列为文南老街之后的步行站点，并记录了院落布局和馆内展陈；此处仍是单篇游客体验。",
+            "source_ids": [
+                "mafengwo-wenchang-iv-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-iv-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌IV：市区慢行——茶点、古迹与烟火气",
+                "url": "https://www.mafengwo.cn/i/24682387.html",
+                "author": "风就是风",
+                "published_at": "2025-05-01",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年12月18日参观。"
+            },
+            {
+                "id": "osm-wenchang-confucius-temple",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "文昌孔庙地图要素",
+                "url": "https://www.openstreetmap.org/way/1031045601",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 建筑要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客参观记录；开放和预约信息需复核。",
+            "坐标是建筑要素代表点，不是售票入口。"
+        ]
+    },
+    {
+        "id": "wenchang-park",
+        "name": "文昌公园",
+        "region": "文昌市",
+        "category": "城市公园",
+        "latitude": 19.6186861,
+        "longitude": 110.7513518,
+        "coordinate_source_id": "osm-wenchang-park",
+        "summary": {
+            "text": "文昌市区游记将文昌公园列为当天古迹慢行路线的收尾站；现有来源没有详细介绍园内设施或停留时长。",
+            "source_ids": [
+                "mafengwo-wenchang-iv-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-iv-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌IV：市区慢行——茶点、古迹与烟火气",
+                "url": "https://www.mafengwo.cn/i/24682387.html",
+                "author": "风就是风",
+                "published_at": "2025-05-01",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年12月18日的市区路线安排。"
+            },
+            {
+                "id": "osm-wenchang-park",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "文昌公园地图要素",
+                "url": "https://www.openstreetmap.org/way/1031045577",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 公园要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "游记提及路线但无具体园内评价，需补充更多游客体验。",
+            "坐标为公园代表点，不是入口。"
+        ]
+    },
+    {
+        "id": "wenchang-song-ancestral-home",
+        "name": "宋氏祖居",
+        "region": "文昌市",
+        "category": "历史建筑与侨乡文化",
+        "summary": {
+            "text": "一篇文昌游记记录作者参观宋氏祖居和陈列馆，关注到传统民居空间及展品；参观时长和展陈是个人当次体验。",
+            "source_ids": [
+                "mafengwo-wenchang-ii-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "mafengwo-wenchang-ii-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌II：宋氏祖居·火箭观礼",
+                "url": "https://www.mafengwo.cn/i/24667734.html",
+                "author": "风就是风",
+                "published_at": "2025-04-07",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年12月16日文昌一日游。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "单篇游客来源；门票、开放时间和展陈需出发前复核。",
+            "本轮未取得可确认的OSM坐标。"
+        ]
+    },
+    {
+        "id": "wenchang-aerospace-science-center",
+        "name": "文昌航天科普中心",
+        "region": "文昌市",
+        "category": "航天科普与亲子参观",
+        "latitude": 19.6526881,
+        "longitude": 110.9375928,
+        "coordinate_source_id": "osm-wenchang-aerospace-science-center",
+        "summary": {
+            "text": "两篇游客游记对科普中心的经历不同：一位记录了亲子参观和讲解体验；另一位在2024年12月到访时遇到升级改造、暂不开放。开放状态需以出发前核实为准。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025",
+                "mafengwo-wenchang-ii-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年暑假亲子参观科普中心。"
+            },
+            {
+                "id": "mafengwo-wenchang-ii-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌II：宋氏祖居·火箭观礼",
+                "url": "https://www.mafengwo.cn/i/24667734.html",
+                "author": "风就是风",
+                "published_at": "2025-04-07",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年12月到访时中心升级改造、未对外开放。"
+            },
+            {
+                "id": "osm-wenchang-aerospace-science-center",
+                "platform": "OpenStreetMap",
+                "kind": "objective_reference",
+                "title": "文昌航天科普中心地图要素",
+                "url": "https://www.openstreetmap.org/way/1444792495",
+                "accessed_at": "2026-10-22",
+                "notes": "坐标为 OSM 建筑要素代表点；数据许可 ODbL，展示需署名。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "两篇游客记录在不同日期显示开放情况可能变化，必须核实当前运营状态。",
+            "坐标为建筑代表点，不是入口或停车点。"
+        ]
+    },
+    {
+        "id": "wenchang-launch-center",
+        "name": "文昌航天发射中心",
+        "region": "文昌市",
+        "category": "航天与观礼",
+        "summary": {
+            "text": "两篇游客游记记录了在文昌观看火箭发射的经历：有作者在发射中心入口附近拍照，也有作者从科普中心或龙楼镇观礼点远观发射。进入限制和观礼地点需严格按现场管理核实。",
+            "source_ids": [
+                "ctrip-hainan-study-trip-2025",
+                "mafengwo-wenchang-ii-2025"
+            ]
+        },
+        "sources": [
+            {
+                "id": "ctrip-hainan-study-trip-2025",
+                "platform": "携程旅行",
+                "kind": "visitor_experience",
+                "title": "海南自驾研学之旅",
+                "url": "https://you.ctrip.com/travels/hainan100001/4154469.html",
+                "published_at": "2025-01-18",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年8月在科普中心及观礼点观看发射。"
+            },
+            {
+                "id": "mafengwo-wenchang-ii-2025",
+                "platform": "马蜂窝",
+                "kind": "visitor_experience",
+                "title": "我在马蜂窝写游记第三期｜文昌II：宋氏祖居·火箭观礼",
+                "url": "https://www.mafengwo.cn/i/24667734.html",
+                "author": "风就是风",
+                "published_at": "2025-04-07",
+                "accessed_at": "2026-10-22",
+                "notes": "作者记录2024年12月在文昌观看发射；进入中心受现场管理限制。"
+            }
+        ],
+        "status": "candidate",
+        "research_notes": [
+            "发射场不是默认开放景点，严禁将游客远观误写为可进入场区。",
+            "官方发射计划和道路管制均可能变化；暂不设置未经确认的访客入口坐标。"
+        ]
+    }
+]
