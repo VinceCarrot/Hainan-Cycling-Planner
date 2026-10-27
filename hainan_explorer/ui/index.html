@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hainan Explorer</title>
+<link rel="stylesheet" href="/static/vendor/leaflet.css">
+<link rel="stylesheet" href="/static/vendor/MarkerCluster.css">
+<link rel="stylesheet" href="/static/vendor/MarkerCluster.Default.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark">HN</div>
+      <div>
+        <div class="brand-name">Hainan Explorer</div>
+        <div class="brand-sub">环岛骑行 · 地点发现与图片审核</div>
+      </div>
+    </div>
+    <nav class="nav" id="nav">
+      <a href="#/review" data-page="review">审核网格<span class="nav-badge" id="badge-undecided"></span></a>
+      <a href="#/map" data-page="map">地图</a>
+      <a href="#/duplicates" data-page="duplicates">去重审核<span class="nav-badge" id="badge-dups"></span></a>
+      <a href="#/leads" data-page="leads">图片线索</a>
+      <a href="#/jobs" data-page="jobs">任务与数据源<span class="nav-badge" id="badge-jobs"></span></a>
+      <a href="#/data" data-page="data">导入 · 导出 · 备份</a>
+    </nav>
+    <div class="side-stats" id="side-stats"></div>
+    <div class="side-foot">
+      <div>地图数据 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> 贡献者（ODbL）</div>
+      <div>条目数据 Wikidata（CC0）· 维基百科文字 CC BY-SA 4.0 · 图片以每张图各自许可为准</div>
+      <div><a href="/api/policy" target="_blank">数据来源与图片政策</a> · <a href="/api/docs" target="_blank">API</a></div>
+      <div class="keys">快捷键：<kbd>1</kbd>想去 <kbd>2</kbd>也许 <kbd>3</kbd>跳过 <kbd>4</kbd>待研究 <kbd>U</kbd>撤销 <kbd>J</kbd>/<kbd>K</kbd>移动 <kbd>Enter</kbd>详情 <kbd>Esc</kbd>关闭</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- Review grid -->
+    <section class="page" data-page="review">
+      <header class="toolbar">
+        <div class="toolbar-row">
+          <input id="f-q" class="input" type="search" placeholder="搜索名称 / 别名 / 描述" aria-label="搜索">
+          <select id="f-region" class="input"><option value="">全部市县</option></select>
+          <select id="f-category" class="input"><option value="">全部类别</option></select>
+          <select id="f-interest" class="input">
+            <option value="">全部状态</option>
+            <option value="undecided">未决定</option>
+            <option value="want_to_visit">想去</option>
+            <option value="maybe">也许</option>
+            <option value="skip">跳过</option>
+            <option value="needs_research">待研究</option>
+          </select>
+          <select id="f-image" class="input">
+            <option value="">图片：不限</option>
+            <option value="local">有本地图片</option>
+            <option value="remote">仅远程/链接图片</option>
+            <option value="none">无图</option>
+          </select>
+          <select id="f-sort" class="input">
+            <option value="unreviewed">排序：未审核优先</option>
+            <option value="score">综合发现分</option>
+            <option value="novelty">小众优先</option>
+            <option value="route">靠近环岛走廊</option>
+            <option value="images">图片优先</option>
+            <option value="confidence">置信度</option>
+            <option value="recent">最新发现</option>
+            <option value="region">按环岛顺序</option>
+            <option value="name">名称</option>
+          </select>
+        </div>
+        <div class="toolbar-row toolbar-row-2">
+          <label class="chk"><input type="checkbox" id="f-undecided"> 只看未决定</label>
+          <label class="chk"><input type="checkbox" id="f-coastal"> 只看海岸相关</label>
+          <label class="chk"><input type="checkbox" id="f-coords"> 只看有坐标</label>
+          <label class="chk"><input type="checkbox" id="f-seeds"> 包含村镇种子</label>
+          <label class="chk">走廊 ≤ <input type="number" id="f-route" class="input input-xs" min="0" step="1" placeholder="km"> km</label>
+          <label class="chk">来源 ≥ <input type="number" id="f-sources" class="input input-xs" min="0" step="1" placeholder="n"></label>
+          <span class="spacer"></span>
+          <button class="btn" id="btn-undo" title="撤销最近一次决定 (U)">撤销</button>
+          <button class="btn" id="btn-select-mode">批量选择</button>
+          <div class="bulk hidden" id="bulk-bar">
+            <span id="bulk-count">0 项</span>
+            <button class="btn btn-want" data-bulk="want_to_visit">想去</button>
+            <button class="btn btn-maybe" data-bulk="maybe">也许</button>
+            <button class="btn btn-skip" data-bulk="skip">跳过</button>
+            <button class="btn btn-research" data-bulk="needs_research">待研究</button>
+            <button class="btn" id="bulk-clear">清除</button>
+          </div>
+        </div>
+        <div class="result-line"><span id="result-count">加载中…</span><span id="result-note" class="muted"></span></div>
+      </header>
+      <div id="grid" class="grid" aria-live="polite"></div>
+      <div class="pager"><button class="btn" id="pg-prev">上一页</button><span id="pg-info"></span><button class="btn" id="pg-next">下一页</button></div>
+    </section>
+
+    <!-- Map -->
+    <section class="page" data-page="map" hidden>
+      <header class="toolbar">
+        <div class="toolbar-row">
+          <select id="m-interest" class="input">
+            <option value="">全部状态</option>
+            <option value="want_to_visit,maybe">想去 + 也许</option>
+            <option value="want_to_visit">想去</option>
+            <option value="undecided">未决定</option>
+            <option value="needs_research">待研究</option>
+          </select>
+          <select id="m-category" class="input"><option value="">全部类别</option></select>
+          <select id="m-region" class="input"><option value="">全部市县</option></select>
+          <label class="chk"><input type="checkbox" id="m-corridor" checked> 显示粗略走廊（估算）</label>
+          <label class="chk"><input type="checkbox" id="m-seeds"> 村镇种子</label>
+          <span class="muted" id="m-count"></span>
+        </div>
+      </header>
+      <div id="map" class="map"></div>
+      <p class="muted small">坐标精度：实心点=精确；空心点=近似/质心。走廊线是城镇连线的粗略估算，距离为直线距离，不是骑行距离。</p>
+    </section>
+
+    <!-- Duplicates -->
+    <section class="page" data-page="duplicates" hidden>
+      <header class="toolbar"><div class="toolbar-row"><h2 class="h2">待审核的重复候选</h2><span class="muted">保守策略：系统只在证据非常强时自动合并，其余交给你判断。合并可撤销。</span></div></header>
+      <div id="dups" class="dups"></div>
+    </section>
+
+    <!-- Image leads -->
+    <section class="page" data-page="leads" hidden>
+      <header class="toolbar"><div class="toolbar-row"><h2 class="h2">带坐标但尚未匹配到地点的图片</h2><span class="muted">来自 Commons 坐标扫描的线索：摄影师去过但目录里还没有名字的地方。点击“从图片建地点”会创建一条待地理核实的候选。</span></div></header>
+      <div id="leads" class="leads"></div>
+    </section>
+
+    <!-- Jobs -->
+    <section class="page" data-page="jobs" hidden>
+      <header class="toolbar">
+        <div class="toolbar-row">
+          <h2 class="h2">任务</h2>
+          <button class="btn" data-job="discover_wikidata">Wikidata 全岛发现</button>
+          <button class="btn" data-job="discover_osm">OSM 全岛发现</button>
+          <button class="btn" data-job="discover_wikipedia" data-payload='{"lang":"zh"}'>中文维基 geosearch</button>
+          <button class="btn" data-job="discover_wikipedia" data-payload='{"lang":"en"}'>英文维基 geosearch</button>
+          <button class="btn" data-job="commons_sweep">Commons 坐标扫描</button>
+          <button class="btn" data-job="images_batch" data-payload='{"only_without_images":true}'>为无图地点找图</button>
+          <button class="btn" data-job="research_batch" data-payload='{"pending_only":true}'>重新研究未研究地点</button>
+          <button class="btn" data-job="download_pending">补下载未完成的合规图片</button>
+          <button class="btn" data-job="build_corridor">重建粗略走廊</button>
+          <button class="btn" id="btn-retry-failed">重试失败任务</button>
+        </div>
+        <div class="toolbar-row">
+          <input id="url-input" class="input grow" placeholder="粘贴一个公开网页 URL（游记/博客），系统按 robots 与域名策略抓取并提取地名">
+          <button class="btn" id="btn-url">提交网页线索</button>
+        </div>
+      </header>
+      <div class="two-col">
+        <div>
+          <h3 class="h3">任务列表</h3>
+          <div id="jobs-list" class="jobs"></div>
+        </div>
+        <div>
+          <h3 class="h3">数据源与覆盖</h3>
+          <div id="providers" class="providers"></div>
+          <h3 class="h3">各市县覆盖</h3>
+          <div id="coverage" class="coverage"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data -->
+    <section class="page" data-page="data" hidden>
+      <header class="toolbar"><div class="toolbar-row"><h2 class="h2">导入 · 导出 · 备份</h2></div></header>
+      <div class="two-col">
+        <div>
+          <h3 class="h3">导出</h3>
+          <div class="row">
+            <select id="ex-format" class="input"><option value="csv">CSV</option><option value="json">JSON</option><option value="geojson">GeoJSON</option></select>
+            <select id="ex-interest" class="input"><option value="">全部地点</option><option value="want_to_visit">仅想去</option><option value="want_to_visit,maybe">想去 + 也许</option></select>
+            <button class="btn btn-primary" id="btn-export">导出</button>
+          </div>
+          <div id="exports" class="list"></div>
+          <h3 class="h3">导入</h3>
+          <p class="muted small">把 CSV（列：name, latitude, longitude, category, county, description, url, aliases）或 GPX/GeoJSON 路线放到 <code>data/imports/</code>，然后在下方选择。</p>
+          <div class="row"><select id="im-file" class="input"></select><button class="btn" id="btn-im-preview">预览 CSV</button><button class="btn" id="btn-im-apply">导入 CSV</button><button class="btn" id="btn-im-corridor">作为走廊导入 (GPX/GeoJSON)</button></div>
+          <pre id="im-result" class="pre"></pre>
+        </div>
+        <div>
+          <h3 class="h3">备份</h3>
+          <div class="row"><button class="btn btn-primary" id="btn-backup">立即备份数据库</button></div>
+          <div id="backups" class="list"></div>
+          <p class="muted small">恢复前会先自动备份当前数据库；本地图片目录 <code>data/images</code> 不会被删除。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Detail drawer -->
+  <aside class="drawer" id="drawer" hidden>
+    <div class="drawer-head">
+      <button class="btn btn-ghost" id="drawer-close" aria-label="关闭">✕</button>
+      <div class="drawer-title" id="d-title"></div>
+      <div class="drawer-actions">
+        <button class="btn btn-want" data-decide="want_to_visit">想去 <kbd>1</kbd></button>
+        <button class="btn btn-maybe" data-decide="maybe">也许 <kbd>2</kbd></button>
+        <button class="btn btn-skip" data-decide="skip">跳过 <kbd>3</kbd></button>
+        <button class="btn btn-research" data-decide="needs_research">待研究 <kbd>4</kbd></button>
+      </div>
+    </div>
+    <div class="drawer-body" id="d-body"></div>
+  </aside>
+  <div class="toast" id="toast" hidden></div>
+</div>
+<script src="/static/vendor/leaflet.js"></script>
+<script src="/static/vendor/leaflet.markercluster.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

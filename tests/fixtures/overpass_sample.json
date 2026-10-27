@@ -1,0 +1,12 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API (fixture)",
+  "osm3s": {"copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."},
+  "elements": [
+    {"type": "node", "id": 5313721639, "lat": 18.5066265, "lon": 108.68888, "tags": {"man_made": "lighthouse", "name": "莺歌咀灯塔", "name:en": "Yingge Zui Lighthouse"}},
+    {"type": "node", "id": 100, "lat": 18.5122, "lon": 108.6901, "tags": {"natural": "cape", "name": "莺歌嘴"}},
+    {"type": "way", "id": 200, "center": {"lat": 19.1012, "lon": 108.6101}, "nodes": [1, 2, 3], "tags": {"natural": "cape", "name": "鱼鳞洲", "wikidata": "Q11138700", "tourism": "attraction"}},
+    {"type": "node", "id": 300, "lat": 19.9, "lon": 110.3, "tags": {"shop": "bakery"}},
+    {"type": "relation", "id": 400, "center": {"lat": 19.6, "lon": 110.9}, "tags": {"leisure": "nature_reserve", "name": "铜鼓岭国家级自然保护区", "protect_class": "4"}}
+  ]
+}

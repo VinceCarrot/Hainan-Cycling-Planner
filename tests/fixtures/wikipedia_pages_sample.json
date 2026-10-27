@@ -1,0 +1,29 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "1001": {
+        "pageid": 1001, "ns": 0, "title": "铜鼓岭",
+        "extract": "铜鼓岭位于中国海南省文昌市龙楼镇东部海滨，是海南岛东北部的制高点之一，主峰海拔约338米。山体由花岗岩构成，东面临海，有陡峭的海蚀崖。保护区内有热带季雨林和多种野生动物。",
+        "coordinates": [{"lat": 19.6666, "lon": 111.0333, "primary": "", "globe": "earth"}],
+        "pageprops": {"wikibase_item": "Q11138700"},
+        "fullurl": "https://zh.wikipedia.org/wiki/%E9%93%9C%E9%BC%93%E5%B2%AD",
+        "pageimage": "Tonggu_Ridge_view.jpg",
+        "original": {"source": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Tonggu_Ridge_view.jpg", "width": 2048, "height": 1365}
+      },
+      "1002": {
+        "pageid": 1002, "ns": 0, "title": "铜鼓岭 (消歧义)",
+        "extract": "铜鼓岭可以指：",
+        "pageprops": {"disambiguation": ""},
+        "fullurl": "https://zh.wikipedia.org/wiki/x"
+      },
+      "1003": {
+        "pageid": 1003, "ns": 0, "title": "文昌中学",
+        "extract": "文昌中学是海南省文昌市的一所中学。",
+        "coordinates": [{"lat": 19.61, "lon": 110.75, "primary": ""}],
+        "pageprops": {"wikibase_item": "Q999"},
+        "fullurl": "https://zh.wikipedia.org/wiki/y"
+      }
+    }
+  }
+}

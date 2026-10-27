@@ -1,17 +1,31 @@
-.conda/
+# Python
 .venv/
+.conda/
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Secrets and local config
 .env
 .env.*
 !.env.example
-/instance/
-/data/private/
-/data/media/
+config/sources.yaml
 
+# Local data that is NOT versioned: SQLite side files, backups, exports, imports, logs.
+# The database itself, the licensed image copies, thumbnails, the region cache and the
+# image credits file ARE versioned (user decision, 2026-10-27).
+data/explorer.db-wal
+data/explorer.db-shm
+data/explorer.db-journal
+data/exports/
+data/backups/
+data/imports/
+data/private/
+data/media/
+*.part
+logs/
 
 # Claude Code local state and credentials
 .claude/

@@ -1,0 +1,84 @@
+# Hainan Explorer configuration (safe example; no secrets).
+# Copy to config/sources.yaml to customise. Secrets go in environment variables
+# (or a local, git-ignored .env file) and are referenced as ${VAR_NAME}.
+
+data_dir: data            # relative to the project root unless absolute
+db_file: explorer.db
+
+app:
+  host: 127.0.0.1         # never expose to the LAN unless you know what you are doing
+  port: 8765
+  # Identify yourself to API operators (Wikimedia and OSM policies require a
+  # descriptive User-Agent with contact information).
+  user_agent: "HainanExplorer/0.2 (personal cycling research; contact: ${HAINAN_EXPLORER_CONTACT})"
+
+# south, west, north, east  — Hainan Island plus near-shore islets
+bbox: [18.10, 108.55, 20.18, 111.10]
+
+providers:
+  overpass:
+    enabled: true
+    endpoint: https://overpass-api.de/api/interpreter
+    # Mirrors are tried in order when the primary fails. overpass.openstreetmap.fr answered
+    # "only available to white-listed usage" (HTTP 403) on 2026-10-27, so it is not listed.
+    fallback_endpoints: []
+    min_interval_seconds: 6.0      # one query at a time, be gentle
+    timeout_seconds: 240
+    max_attempts: 4
+  wikidata:
+    enabled: true
+    endpoint: https://query.wikidata.org/sparql
+    api_endpoint: https://www.wikidata.org/w/api.php
+    min_interval_seconds: 1.0
+    timeout_seconds: 120
+  wikipedia:
+    enabled: true
+    languages: [zh, en]
+    min_interval_seconds: 0.5
+    timeout_seconds: 60
+  commons:
+    enabled: true
+    endpoint: https://commons.wikimedia.org/w/api.php
+    min_interval_seconds: 0.5
+    timeout_seconds: 60
+    geosearch_radius_m: 1500
+  nominatim:
+    enabled: true
+    endpoint: https://nominatim.openstreetmap.org
+    min_interval_seconds: 1.1      # Nominatim policy: max 1 request/second
+    timeout_seconds: 30
+  web_search:
+    # Pluggable documented search API. Disabled until you supply a key.
+    enabled: false
+    kind: brave                     # brave | serper | custom
+    endpoint: https://api.search.brave.com/res/v1/web/search
+    api_key: ${BRAVE_SEARCH_API_KEY}
+    min_interval_seconds: 1.2
+    max_results_per_query: 20
+  web_pages:
+    # Fetching public web pages found by search / pasted by the user.
+    enabled: true
+    min_interval_seconds: 3.0
+    respect_robots: true
+    disabled_domains:
+      - xiaohongshu.com
+      - douyin.com
+      - weibo.com
+      - mafengwo.cn
+
+license_policy:
+  # License identifiers (lower-case prefix match) that permit a local copy.
+  local_copy_allowed: ["cc0", "cc-by", "cc-by-sa", "pd", "public domain", "fal", "attribution"]
+  blocked_markers: ["-nc", "-nd", "fair use", "non-free", "copyrighted"]
+  max_download_bytes: 15728640
+  download_width: 1600
+  thumbnail_width: 480
+  max_images_per_place: 8
+  min_match_score: 2.5   # geotag-only matches within 400 m (score 2.0) are kept out; name or <150 m evidence qualifies
+
+map_tiles:
+  # Any Leaflet-compatible XYZ template. The default OSM tile server is for light
+  # personal use only (see https://operations.osmfoundation.org/policies/tiles/).
+  url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  max_zoom: 19

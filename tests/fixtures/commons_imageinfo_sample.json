@@ -1,0 +1,55 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 74503571, "ns": 6, "title": "File:Tonggu Ridge view (122209187).jpg", "imagerepository": "local",
+        "coordinates": [{"lat": 19.663926823413, "lon": 111.02096557617, "primary": true, "globe": "earth"}],
+        "imageinfo": [{
+          "size": 1220808, "width": 2048, "height": 1365, "mime": "image/jpeg", "sha1": "abc",
+          "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Tonggu_Ridge_view_%28122209187%29.jpg/1600px-Tonggu_Ridge_view_%28122209187%29.jpg",
+          "thumbwidth": 1600, "thumbheight": 1066,
+          "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Tonggu_Ridge_view_%28122209187%29.jpg",
+          "descriptionurl": "https://commons.wikimedia.org/wiki/File:Tonggu_Ridge_view_(122209187).jpg",
+          "extmetadata": {
+            "DateTimeOriginal": {"value": "10 July 2013, 19:55:20 (UTC)", "source": "commons-desc-page"},
+            "Categories": {"value": "July 2013 China photographs|Tonggu Ridge", "source": "commons-categories"},
+            "Artist": {"value": "<div class=\"fn value\"><a rel=\"nofollow\" class=\"external text\" href=\"https://500px.com/feichaun\">肥川</a></div>", "source": "commons-desc-page"},
+            "ImageDescription": {"value": "<div class=\"description\">China Hainan Province Tonggu Ridge</div>", "source": "commons-desc-page"},
+            "LicenseShortName": {"value": "CC BY-SA 4.0", "source": "commons-desc-page", "hidden": ""},
+            "LicenseUrl": {"value": "https://creativecommons.org/licenses/by-sa/4.0", "source": "commons-desc-page", "hidden": ""},
+            "Copyrighted": {"value": "True", "source": "commons-desc-page", "hidden": ""},
+            "GPSLatitude": {"value": "19.663927", "source": "commons-desc-page"},
+            "GPSLongitude": {"value": "111.020966", "source": "commons-desc-page"}
+          }
+        }]
+      },
+      {
+        "pageid": 2, "ns": 6, "title": "File:Haikou sunset NC.jpg", "imagerepository": "local",
+        "imageinfo": [{
+          "size": 100, "width": 1200, "height": 800, "mime": "image/jpeg",
+          "thumburl": "https://upload.wikimedia.org/x/thumb/Haikou_sunset_NC.jpg/1600px-Haikou_sunset_NC.jpg",
+          "url": "https://upload.wikimedia.org/x/Haikou_sunset_NC.jpg",
+          "descriptionurl": "https://commons.wikimedia.org/wiki/File:Haikou_sunset_NC.jpg",
+          "extmetadata": {
+            "LicenseShortName": {"value": "CC BY-NC 2.0", "source": "commons-desc-page"},
+            "LicenseUrl": {"value": "https://creativecommons.org/licenses/by-nc/2.0", "source": "commons-desc-page"},
+            "Artist": {"value": "Someone", "source": "commons-desc-page"}
+          }
+        }]
+      },
+      {
+        "pageid": 3, "ns": 6, "title": "File:Mystery.jpg", "imagerepository": "local",
+        "imageinfo": [{
+          "size": 100, "width": 800, "height": 600, "mime": "image/jpeg",
+          "url": "https://upload.wikimedia.org/x/Mystery.jpg", "descriptionurl": "https://commons.wikimedia.org/wiki/File:Mystery.jpg",
+          "extmetadata": {"Copyrighted": {"value": "True", "source": "commons-desc-page"}}
+        }]
+      },
+      {
+        "pageid": 4, "ns": 6, "title": "File:Not an image.pdf", "imagerepository": "local",
+        "imageinfo": [{"size": 100, "mime": "application/pdf", "url": "https://upload.wikimedia.org/x/Not_an_image.pdf", "extmetadata": {"LicenseShortName": {"value": "CC0"}}}]
+      }
+    ]
+  }
+}

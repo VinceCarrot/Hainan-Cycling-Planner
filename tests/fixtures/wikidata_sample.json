@@ -1,0 +1,43 @@
+{
+  "head": {"vars": ["item", "itemLabel", "itemDescription", "zhLabel", "enLabel", "lat", "lon", "classes", "classLabels", "image", "commonsCat", "zhwiki", "enwiki", "adminLabel", "aliases"]},
+  "results": {
+    "bindings": [
+      {
+        "item": {"type": "uri", "value": "http://www.wikidata.org/entity/Q10942215"},
+        "itemLabel": {"xml:lang": "zh", "type": "literal", "value": "鱼鳞洲"},
+        "itemDescription": {"xml:lang": "zh", "type": "literal", "value": "海南省东方市的海角"},
+        "zhLabel": {"xml:lang": "zh", "type": "literal", "value": "鱼鳞洲"},
+        "enLabel": {"xml:lang": "en", "type": "literal", "value": "Yulin Zhou"},
+        "lat": {"datatype": "http://www.w3.org/2001/XMLSchema#double", "type": "literal", "value": "19.1012"},
+        "lon": {"datatype": "http://www.w3.org/2001/XMLSchema#double", "type": "literal", "value": "108.6101"},
+        "classes": {"type": "literal", "value": "Q185113"},
+        "classLabels": {"type": "literal", "value": "海角"},
+        "image": {"type": "uri", "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Yulin_Zhou.jpg"},
+        "commonsCat": {"type": "literal", "value": "Yulinzhou"},
+        "zhwiki": {"type": "uri", "value": "https://zh.wikipedia.org/wiki/%E9%B1%BC%E9%B3%9E%E6%B4%B2"},
+        "adminLabel": {"xml:lang": "zh", "type": "literal", "value": "东方市"},
+        "aliases": {"type": "literal", "value": "鱼鳞角"}
+      },
+      {
+        "item": {"type": "uri", "value": "http://www.wikidata.org/entity/Q999001"},
+        "itemLabel": {"xml:lang": "zh", "type": "literal", "value": "某人"},
+        "lat": {"type": "literal", "value": "19.5"}, "lon": {"type": "literal", "value": "110.0"},
+        "classes": {"type": "literal", "value": "Q5"}, "classLabels": {"type": "literal", "value": "人类"}, "aliases": {"type": "literal", "value": ""}
+      },
+      {
+        "item": {"type": "uri", "value": "http://www.wikidata.org/entity/Q999002"},
+        "itemLabel": {"xml:lang": "zh", "type": "literal", "value": "海南大学"},
+        "zhLabel": {"xml:lang": "zh", "type": "literal", "value": "海南大学"},
+        "lat": {"type": "literal", "value": "20.06"}, "lon": {"type": "literal", "value": "110.33"},
+        "classes": {"type": "literal", "value": "Q3918"}, "classLabels": {"type": "literal", "value": "大学"}, "aliases": {"type": "literal", "value": ""}
+      },
+      {
+        "item": {"type": "uri", "value": "http://www.wikidata.org/entity/Q999003"},
+        "itemLabel": {"xml:lang": "zh", "type": "literal", "value": "松涛水库"},
+        "zhLabel": {"xml:lang": "zh", "type": "literal", "value": "松涛水库"},
+        "lat": {"type": "literal", "value": "19.4"}, "lon": {"type": "literal", "value": "109.6"},
+        "classes": {"type": "literal", "value": "Q131681"}, "classLabels": {"type": "literal", "value": "水库"}, "aliases": {"type": "literal", "value": ""}
+      }
+    ]
+  }
+}
