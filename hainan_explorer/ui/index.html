@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/static/vendor/leaflet.css">
 <link rel="stylesheet" href="/static/vendor/MarkerCluster.css">
 <link rel="stylesheet" href="/static/vendor/MarkerCluster.Default.css">
-<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/app.css?v=20261028c">
 </head>
 <body>
 <div class="shell">
@@ -59,14 +59,14 @@
             <option value="none">无图</option>
           </select>
           <select id="f-sort" class="input">
-            <option value="unreviewed">排序：未审核优先</option>
+            <option value="region">排序：环岛顺序（海口出发逆时针）</option>
+            <option value="unreviewed">未审核优先</option>
             <option value="score">综合发现分</option>
             <option value="novelty">小众优先</option>
             <option value="route">靠近环岛走廊</option>
             <option value="images">图片优先</option>
             <option value="confidence">置信度</option>
             <option value="recent">最新发现</option>
-            <option value="region">按环岛顺序</option>
             <option value="name">名称</option>
           </select>
         </div>
@@ -209,6 +209,6 @@
 </div>
 <script src="/static/vendor/leaflet.js"></script>
 <script src="/static/vendor/leaflet.markercluster.js"></script>
-<script src="/static/app.js"></script>
+<script src="/static/app.js?v=20261028c"></script>
 </body>
 </html>

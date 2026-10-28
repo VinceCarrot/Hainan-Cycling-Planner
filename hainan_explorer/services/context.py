@@ -28,7 +28,7 @@ class AppContext:
                     self.http.set_rate(host, provider.min_interval_seconds)
         # Wikimedia hosts share a polite default even if not configured individually
         for host in ("commons.wikimedia.org", "zh.wikipedia.org", "en.wikipedia.org", "www.wikidata.org"):
-            self.http.set_rate(host, max(0.5, self.config.provider("commons").min_interval_seconds))
+            self.http.set_rate(host, max(1.5, self.config.provider("commons").min_interval_seconds))
         self.http.set_rate("query.wikidata.org", max(1.0, self.config.provider("wikidata").min_interval_seconds))
         self.http.set_rate("nominatim.openstreetmap.org", max(1.1, self.config.provider("nominatim").min_interval_seconds))
         self.http.set_rate("upload.wikimedia.org", 0.3)

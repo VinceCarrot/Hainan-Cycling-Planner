@@ -88,7 +88,7 @@ def list_places(
     duplicates_only: bool = False,
     undecided_only: bool = False,
     include_seeds: bool = False,
-    sort: str = "unreviewed",
+    sort: str = "region",
     limit: int = Query(default=60, ge=1, le=500),
     offset: int = Query(default=0, ge=0),
 ) -> dict[str, Any]:

@@ -24,6 +24,15 @@ class RateLimitedError(Exception):
     pass
 
 
+class HostCooldownError(Exception):
+    """The host answered 503/429 repeatedly; calls are refused until the cooldown expires."""
+
+    def __init__(self, host: str, until: float):
+        self.host = host
+        self.until = until
+        super().__init__(f"{host} is cooling down for {max(0, int(until - time.monotonic()))}s after repeated 503/429")
+
+
 class HttpStatusError(Exception):
     """Non-2xx response; the message carries the redacted URL only (no query string / keys)."""
 
@@ -67,6 +76,28 @@ class HttpClient:
         self._throttles: dict[str, HostThrottle] = {}
         self._lock = threading.Lock()
         self.stats: dict[str, dict[str, int]] = {}
+        self._cooldown_until: dict[str, float] = {}
+        self._consecutive_5xx: dict[str, int] = {}
+        self.cooldown_seconds = 120.0
+        self.cooldown_after_failures = 3
+
+    def cooldown_remaining(self, host: str) -> float:
+        with self._lock:
+            return max(0.0, self._cooldown_until.get(host, 0.0) - time.monotonic())
+
+    def _note_unavailable(self, host: str, retry_after: float | None) -> None:
+        with self._lock:
+            n = self._consecutive_5xx.get(host, 0) + 1
+            self._consecutive_5xx[host] = n
+            if n >= self.cooldown_after_failures:
+                wait = max(self.cooldown_seconds, retry_after or 0.0)
+                self._cooldown_until[host] = time.monotonic() + wait
+                self._consecutive_5xx[host] = 0
+                log.warning("host %s unavailable %d times in a row; cooling down for %.0fs", host, n, wait)
+
+    def _note_ok(self, host: str) -> None:
+        with self._lock:
+            self._consecutive_5xx[host] = 0
 
     def set_rate(self, host: str, min_interval: float) -> None:
         with self._lock:
@@ -102,6 +133,10 @@ class HttpClient:
     ) -> httpx.Response:
         attempt = 0
         last_exc: Exception | None = None
+        host = urlsplit(url).hostname or url
+        remaining = self.cooldown_remaining(host)
+        if remaining > 0:
+            raise HostCooldownError(host, time.monotonic() + remaining)
         while attempt < max_attempts:
             attempt += 1
             self._throttle(url).wait()
@@ -116,11 +151,22 @@ class HttpClient:
                 last_exc = exc
                 self._bump(url, "errors")
                 log.warning("HTTP %s %s attempt %d failed: %s", method, _redact(url), attempt, exc.__class__.__name__)
+                if isinstance(exc, (httpx.ConnectError, httpx.ConnectTimeout)):
+                    # No connection at all (offline / DNS down): open the breaker quickly.
+                    self._note_unavailable(host, None)
+                    if self.cooldown_remaining(host) > 0:
+                        raise HostCooldownError(host, time.monotonic() + self.cooldown_remaining(host)) from exc
                 self._sleep_backoff(attempt)
                 continue
             if resp.status_code in RETRYABLE_STATUS:
                 self._bump(url, "rate_limited" if resp.status_code == 429 else "errors")
                 retry_after = _retry_after_seconds(resp)
+                if resp.status_code in (429, 503):
+                    self._note_unavailable(host, retry_after)
+                    if self.cooldown_remaining(host) > 0:
+                        if stream:
+                            resp.close()
+                        raise HostCooldownError(host, time.monotonic() + self.cooldown_remaining(host))
                 if stream:
                     resp.close()
                 log.warning("HTTP %s %s -> %s (attempt %d)", method, _redact(url), resp.status_code, attempt)
@@ -130,6 +176,7 @@ class HttpClient:
                     resp.raise_for_status()
                 self._sleep_backoff(attempt, retry_after)
                 continue
+            self._note_ok(host)
             return resp
         if last_exc:
             raise last_exc

@@ -35,6 +35,14 @@ def create_app(ctx: AppContext | None = None, *, start_worker: bool = True) -> F
     app.state.jobs = jobs
     app.include_router(router)
 
+    @app.middleware("http")
+    async def no_cache_for_ui(request, call_next):
+        # The UI is edited in place; make browsers revalidate instead of using heuristic caching.
+        response = await call_next(request)
+        if request.url.path == "/" or request.url.path.startswith("/static/"):
+            response.headers["Cache-Control"] = "no-cache"
+        return response
+
     app.mount("/media/images", StaticFiles(directory=str(ctx.config.images_dir)), name="images")
     app.mount("/media/thumbnails", StaticFiles(directory=str(ctx.config.thumbnails_dir)), name="thumbnails")
     app.mount("/static", StaticFiles(directory=str(UI_DIR / "static")), name="static")

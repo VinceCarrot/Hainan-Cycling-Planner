@@ -26,8 +26,8 @@
   }
   function esc(s) { return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
   function el(html) { const t = document.createElement("template"); t.innerHTML = html.trim(); return t.content.firstElementChild; }
-  function loadFilters() { try { return JSON.parse(localStorage.getItem("hx.filters") || "{}"); } catch (_) { return {}; } }
-  function saveFilters() { try { localStorage.setItem("hx.filters", JSON.stringify(state.filters)); } catch (_) {} }
+  function loadFilters() { try { const f = JSON.parse(localStorage.getItem("hx.filters.v2") || "{}"); if (!f.sort) f.sort = "region"; return f; } catch (_) { return { sort: "region" }; } }
+  function saveFilters() { try { localStorage.setItem("hx.filters.v2", JSON.stringify(state.filters)); } catch (_) {} }
   function commonsThumb(url, width) { if (!url) return null; const m = /^(https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/.+\/)(\d+)px-([^/?]+)(\?.*)?$/.exec(url); return m ? `${m[1]}${width}px-${m[3]}` : url; }
   function fmtKm(v) { return v == null ? "—" : `${Number(v).toFixed(1)} km`; }
 
@@ -239,6 +239,14 @@
       L.tileLayer(state.meta.map_tiles.url, { attribution: state.meta.map_tiles.attribution, maxZoom: state.meta.map_tiles.max_zoom || 19 }).addTo(state.miniMap);
       L.circleMarker([p.latitude, p.longitude], { radius: 8, color: "#0e6b74", fillOpacity: p.coordinate_precision === "exact" ? 0.9 : 0.2 }).addTo(state.miniMap);
       for (const n of p.nearby) L.circleMarker([n.latitude, n.longitude], { radius: 4, color: "#888" }).addTo(state.miniMap).bindTooltip(n.canonical_name);
+      // Leaflet measures its container once at creation; the drawer is still laying out (images, fonts)
+      // at that moment, so re-measure after paint, whenever the container resizes, and after gallery images load.
+      const mm = state.miniMap;
+      const fix = () => { if (state.miniMap === mm) mm.invalidateSize(); };
+      requestAnimationFrame(fix); setTimeout(fix, 250); setTimeout(fix, 1000);
+      if (window.ResizeObserver) { const ro = new ResizeObserver(fix); ro.observe($("#mini-map")); mm.once("remove", () => ro.disconnect()); }
+      $$("#d-body .gimg img").forEach((img) => img.addEventListener("load", fix, { once: true }));
+      $("#d-body").addEventListener("scroll", fix, { passive: true });
     }
   }
   function renderGalleryImage(i) {

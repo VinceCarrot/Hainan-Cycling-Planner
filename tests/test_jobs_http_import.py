@@ -4,7 +4,7 @@ import threading
 import httpx
 import pytest
 
-from hainan_explorer.http import HttpClient, RateLimitedError
+from hainan_explorer.http import HostCooldownError, HttpClient, RateLimitedError
 from hainan_explorer.services.importer import import_corridor, import_csv, import_legacy_catalog
 from hainan_explorer.services.jobs import JobCancelled, JobService
 from hainan_explorer.services.places import PlaceService
@@ -38,8 +38,28 @@ def test_http_gives_up_after_max_attempts(monkeypatch):
     monkeypatch.setattr("hainan_explorer.http.time.sleep", lambda s: None)
     client = _client_with_transport(lambda req: httpx.Response(429))
     client.set_rate("api.test", 0)
+    client.cooldown_after_failures = 10  # keep the circuit breaker out of this test
     with pytest.raises(RateLimitedError):
         client.get("https://api.test/x", max_attempts=3)
+
+
+def test_http_cooldown_after_repeated_503(monkeypatch):
+    monkeypatch.setattr("hainan_explorer.http.time.sleep", lambda s: None)
+    calls = {"n": 0}
+
+    def handler(request):
+        calls["n"] += 1
+        return httpx.Response(503, headers={"Retry-After": "40"})
+
+    client = _client_with_transport(handler)
+    client.set_rate("api.test", 0)
+    with pytest.raises(HostCooldownError):
+        client.get("https://api.test/x", max_attempts=4)
+    assert calls["n"] == 3  # the third consecutive 503 opens the breaker
+    assert client.cooldown_remaining("api.test") >= 100  # max(cooldown_seconds, Retry-After)
+    with pytest.raises(HostCooldownError):
+        client.get("https://api.test/y")
+    assert calls["n"] == 3  # refused without a request while cooling down
 
 
 def test_http_sends_identifying_user_agent_and_redacts_query(monkeypatch):

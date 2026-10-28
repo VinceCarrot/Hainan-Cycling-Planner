@@ -14,7 +14,7 @@ from .discovery.osm import discover_osm_category, nearby_features, search_osm_by
 from .discovery.wikidata import WikidataClient, binding_to_candidate, discover_wikidata
 from .discovery.wikipedia import search_wikipedia_for_name, sweep_geosearch
 from .geo import grid_points, haversine_km, in_bbox
-from .http import ProviderDisabledError
+from .http import HostCooldownError, ProviderDisabledError
 from .normalize import contains_name, name_variants, normalize_name, similarity
 from .regions import REGION_BY_KEY, region_from_text
 from .services.common import dumps, loads, now_iso
@@ -33,6 +33,22 @@ NON_PHOTO_MARKERS = ("map", "地图", "flag", "logo", "locator", "diagram", "sea
 
 
 # ----------------------------------------------------------------------------- helpers
+WIKIMEDIA_HOSTS = ("commons.wikimedia.org", "www.wikidata.org", "zh.wikipedia.org", "en.wikipedia.org")
+
+
+def wait_for_wikimedia(run: JobRun) -> None:
+    """If any Wikimedia API host is cooling down after 503/429, pause the job (cancellable) until it ends."""
+    import time as _time
+
+    while True:
+        remaining = max(run.ctx.http.cooldown_remaining(h) for h in WIKIMEDIA_HOSTS)
+        if remaining <= 0:
+            return
+        run.progress(stage=f"waiting for Wikimedia ({int(remaining)}s cooldown)")
+        step = min(30.0, remaining)
+        _time.sleep(step)
+        run.check_cancelled()
+
 def _ingest_many(ctx: AppContext, cands: list[Candidate], run: JobRun | None = None, label: str = "") -> dict[str, int]:
     ingestor = Ingestor(ctx)
     stats = {"created": 0, "updated": 0, "linked": 0, "merged": 0, "duplicate_relations": 0}
@@ -328,6 +344,7 @@ def job_images_batch(run: JobRun) -> dict[str, Any]:
     totals = {"places": len(ids), "associated": 0, "downloaded": 0, "failed_places": 0}
     for i, pid in enumerate(ids):
         run.check_cancelled()
+        wait_for_wikimedia(run)
         try:
             res = pipeline.process_place(pid, download=run.payload.get("download", True))
             totals["associated"] += res.get("associated", 0)
@@ -543,6 +560,8 @@ class ResearchPipeline:
         errors = [s for s in report["steps"] if any(k.endswith("_error") for k in s)]
         successes = [s for s in report["steps"] if not any(k.endswith("_error") for k in s)]
         status = "failed" if errors and not successes else "done"
+        if any("cooling down" in str(v) for s in errors for v in s.values()):
+            status = "pending"  # interrupted by a Wikimedia cooldown: redo this place later
         report["research_status"] = status
         with self.ctx.db.transaction() as conn:
             confidence = min(1.0, 0.3 + 0.15 * min(4, place.get("source_count", 0)) + (0.2 if place.get("latitude") is not None else 0))
@@ -646,6 +665,7 @@ def job_research_batch(run: JobRun) -> dict[str, Any]:
     totals = {"places": len(ids), "located": 0, "images": 0, "failed": 0, "merged": 0}
     for i, pid in enumerate(ids):
         run.check_cancelled()
+        wait_for_wikimedia(run)
         try:
             rep = pipeline.research(pid, with_images=run.payload.get("with_images", True))
             final = rep.get("final") or {}

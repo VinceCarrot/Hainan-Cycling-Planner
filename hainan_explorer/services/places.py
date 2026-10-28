@@ -50,7 +50,7 @@ class PlaceService:
         duplicates_only: bool = False,
         undecided_only: bool = False,
         include_seeds: bool = False,
-        sort: str = "unreviewed",
+        sort: str = "region",
         limit: int = 60,
         offset: int = 0,
     ) -> dict[str, Any]:
@@ -109,17 +109,20 @@ class PlaceService:
             where.append(
                 "EXISTS (SELECT 1 FROM place_relations r WHERE r.review_status='pending' AND (r.place_id_a=p.id OR r.place_id_b=p.id))"
             )
-        order = SORT_OPTIONS.get(sort, SORT_OPTIONS["unreviewed"])
+        order = SORT_OPTIONS.get(sort, SORT_OPTIONS["region"])
         region_case = " ".join(f"WHEN '{r.name}' THEN {r.route_order}" for r in REGIONS)
         sql = f"""
             SELECT p.*, (CASE p.county {region_case} ELSE 99 END) AS region_order,
-                   (SELECT i.thumbnail_path FROM place_images pi JOIN images i ON i.id=pi.image_id
-                     WHERE pi.place_id=p.id AND pi.association_status!='rejected' AND i.thumbnail_path IS NOT NULL
-                     ORDER BY pi.is_primary DESC, pi.verified_by_user DESC, pi.match_score DESC LIMIT 1) AS primary_thumbnail,
-                   (SELECT i.display_url FROM place_images pi JOIN images i ON i.id=pi.image_id
-                     WHERE pi.place_id=p.id AND pi.association_status!='rejected' AND i.local_path IS NULL AND i.display_url IS NOT NULL
-                       AND i.permission_status IN ('link_only','api_display_only','local_copy_allowed')
-                     ORDER BY pi.is_primary DESC, pi.match_score DESC LIMIT 1) AS primary_remote_url,
+                   (SELECT i.thumbnail_path FROM images i WHERE i.id = (
+                       SELECT pi.image_id FROM place_images pi JOIN images i2 ON i2.id=pi.image_id
+                        WHERE pi.place_id=p.id AND pi.association_status!='rejected'
+                          AND (i2.thumbnail_path IS NOT NULL OR (i2.display_url IS NOT NULL AND i2.permission_status IN ('link_only','api_display_only','local_copy_allowed')))
+                        ORDER BY pi.verified_by_user DESC, pi.match_score DESC, (i2.thumbnail_path IS NOT NULL) DESC LIMIT 1)) AS primary_thumbnail,
+                   (SELECT i.display_url FROM images i WHERE i.id = (
+                       SELECT pi.image_id FROM place_images pi JOIN images i2 ON i2.id=pi.image_id
+                        WHERE pi.place_id=p.id AND pi.association_status!='rejected'
+                          AND (i2.thumbnail_path IS NOT NULL OR (i2.display_url IS NOT NULL AND i2.permission_status IN ('link_only','api_display_only','local_copy_allowed')))
+                        ORDER BY pi.verified_by_user DESC, pi.match_score DESC, (i2.thumbnail_path IS NOT NULL) DESC LIMIT 1)) AS primary_remote_url,
                    (SELECT MAX(pi.match_score) FROM place_images pi WHERE pi.place_id=p.id AND pi.association_status!='rejected') AS best_image_score,
                    (SELECT MAX(pi.verified_by_user) FROM place_images pi WHERE pi.place_id=p.id) AS any_image_verified,
                    (SELECT COUNT(*) FROM place_relations r WHERE r.review_status='pending' AND (r.place_id_a=p.id OR r.place_id_b=p.id)) AS pending_duplicates
@@ -180,7 +183,7 @@ class PlaceService:
         d["images"] = [self._image_dict(r) for r in conn.execute(
             """SELECT i.*, pi.is_primary, pi.association_status, pi.match_score, pi.match_reasons_json, pi.verified_by_user, pi.notes AS association_notes
                FROM place_images pi JOIN images i ON i.id=pi.image_id WHERE pi.place_id=?
-               ORDER BY pi.association_status='rejected', pi.is_primary DESC, pi.verified_by_user DESC, pi.match_score DESC""",
+               ORDER BY pi.association_status='rejected', pi.verified_by_user DESC, pi.match_score DESC, (i.local_path IS NOT NULL) DESC""",
             (place_id,),
         ).fetchall()]
         d["reviews"] = rows_to_dicts(conn.execute("SELECT * FROM reviews WHERE place_id=? ORDER BY reviewed_at DESC LIMIT 50", (place_id,)).fetchall())

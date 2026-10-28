@@ -34,12 +34,12 @@ providers:
   wikipedia:
     enabled: true
     languages: [zh, en]
-    min_interval_seconds: 0.5
+    min_interval_seconds: 1.5
     timeout_seconds: 60
   commons:
     enabled: true
     endpoint: https://commons.wikimedia.org/w/api.php
-    min_interval_seconds: 0.5
+    min_interval_seconds: 1.5   # Wikimedia answered 503 + Retry-After after sustained faster use (2026-10-28)
     timeout_seconds: 60
     geosearch_radius_m: 1500
   nominatim:
