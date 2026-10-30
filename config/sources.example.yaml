@@ -71,9 +71,9 @@ license_policy:
   local_copy_allowed: ["cc0", "cc-by", "cc-by-sa", "pd", "public domain", "fal", "attribution"]
   blocked_markers: ["-nc", "-nd", "fair use", "non-free", "copyrighted"]
   max_download_bytes: 15728640
-  download_width: 1600
+  download_width: 1024   # 1024 px is enough for review and is usually pre-rendered by Commons (faster)
   thumbnail_width: 480
-  max_images_per_place: 8
+  max_images_per_place: 4
   min_match_score: 2.5   # geotag-only matches within 400 m (score 2.0) are kept out; name or <150 m evidence qualifies
 
 map_tiles:

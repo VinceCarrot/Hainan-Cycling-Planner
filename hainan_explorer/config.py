@@ -49,9 +49,9 @@ class LicensePolicy:
         default_factory=lambda: ["-nc", "-nd", "fair use", "non-free", "copyrighted"]
     )
     max_download_bytes: int = 15 * 1024 * 1024
-    download_width: int = 1600
+    download_width: int = 1024
     thumbnail_width: int = 480
-    max_images_per_place: int = 8
+    max_images_per_place: int = 4
     min_match_score: float = 2.5
 
 
