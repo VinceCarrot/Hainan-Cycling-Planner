@@ -15,6 +15,7 @@ from ..services.coverage import CoverageService
 from ..services.export import BackupService, ExportService
 from ..services.images import ImageService
 from ..services.importer import import_corridor, import_csv
+from ..services.routes import RouteService
 from ..services.jobs import JobService
 from ..services.places import INTEREST_STATUSES, PlaceService
 from ..taxonomy import CATEGORIES, CATEGORY_LABELS_ZH
@@ -82,6 +83,7 @@ def list_places(
     min_sources: int | None = Query(default=None, ge=0),
     min_confidence: float | None = Query(default=None, ge=0, le=1),
     max_route_km: float | None = Query(default=None, ge=0),
+    day: int | None = Query(default=None, ge=1),
     coastal: bool | None = None,
     has_coords: bool | None = None,
     needs_geo: bool | None = None,
@@ -94,7 +96,7 @@ def list_places(
 ) -> dict[str, Any]:
     return PlaceService(ctx).list_places(
         q=q, region=region, category=category, interest=interest, discovery_status=discovery_status, image_state=image_state,
-        min_sources=min_sources, min_confidence=min_confidence, max_route_km=max_route_km, coastal=coastal, has_coords=has_coords,
+        min_sources=min_sources, min_confidence=min_confidence, max_route_km=max_route_km, day=day, coastal=coastal, has_coords=has_coords,
         needs_geo=needs_geo, duplicates_only=duplicates_only, undecided_only=undecided_only, include_seeds=include_seeds,
         sort=sort, limit=limit, offset=offset,
     )
@@ -294,6 +296,68 @@ def corridor(ctx: AppContext = Depends(ctx_dep)) -> dict[str, Any]:
     return CorridorService(ctx).active() or {}
 
 
+# ------------------------------------------------------------------ route book
+@router.get("/routes")
+def routes_summary(ctx: AppContext = Depends(ctx_dep)) -> dict[str, Any]:
+    return RouteService(ctx).summary() or {}
+
+
+@router.get("/routes/geojson")
+def routes_geojson(ctx: AppContext = Depends(ctx_dep)) -> dict[str, Any]:
+    return RouteService(ctx).geojson()
+
+
+@router.post("/import/routes")
+def import_routes_endpoint(subdir: str = "routes", name: str | None = None, crs: schemas.RouteCrs | None = None, ctx: AppContext = Depends(ctx_dep)) -> dict[str, Any]:
+    """Import every GPX in data/<subdir>/ (one file per day) as the active route book. `crs` says which
+    coordinate system the files were drawn in (wgs84 | gcj02 | bd09); default is the current setting."""
+    base = ctx.config.data_dir.resolve()
+    directory = (base / Path(subdir)).resolve()
+    if not str(directory).startswith(str(base)) or not directory.is_dir():
+        raise HTTPException(404, f"directory data/{subdir} not found")
+    try:
+        return RouteService(ctx).import_directory(directory, name=name, crs=crs)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+
+
+@router.post("/routes/crs")
+def set_route_crs(body: schemas.RouteCrsRequest, ctx: AppContext = Depends(ctx_dep)) -> dict[str, Any]:
+    """Re-interpret the imported GPX coordinates as another system; display geometry and place detours are rebuilt."""
+    try:
+        return RouteService(ctx).set_crs(body.crs)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+
+
+@router.post("/export/trip-plan")
+def export_trip_plan(ctx: AppContext = Depends(ctx_dep)) -> dict[str, Any]:
+    """Build the phone-friendly trip page from manual_planning.txt (project root) into data/exports/."""
+    from ..trip_plan import TripPlanBuilder
+
+    plan = ctx.config.data_dir.parent / "manual_planning.txt"
+    if not plan.exists():
+        raise HTTPException(404, "manual_planning.txt not found next to the data directory")
+    try:
+        result = TripPlanBuilder(ctx).build(plan, title="海南环岛 2026")
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+    name = Path(result["path"]).name
+    return {**result, "name": name, "download_url": f"/api/export/files/{name}"}
+
+
+@router.post("/export/gpx")
+def export_gpx(body: schemas.GpxExportRequest, ctx: AppContext = Depends(ctx_dep)) -> dict[str, Any]:
+    try:
+        paths = RouteService(ctx).export_gpx(day=body.day, interests=body.interest, max_detour_km=body.max_detour_km)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+    return {
+        "files": [{"name": p.name, "download_url": f"/api/export/files/{p.name}"} for p in paths],
+        "note": "航点来自你的决定；沿途公里数与偏离距离为直线估算。轨迹保持路书原坐标系，航点已转换到同一坐标系。Garmin Connect 对 GPX 航点的处理需在导入后核对。",
+    }
+
+
 @router.get("/map/places")
 def map_places(
     ctx: AppContext = Depends(ctx_dep),
@@ -301,6 +365,7 @@ def map_places(
     category: str | None = None,
     region: str | None = None,
     include_seeds: bool = False,
+    day: int | None = Query(default=None, ge=1),
     limit: int = Query(default=5000, ge=1, le=20000),
 ) -> dict[str, Any]:
     conn = ctx.db.conn()
@@ -308,6 +373,9 @@ def map_places(
     params: list[Any] = []
     if not include_seeds:
         where.append("discovery_status!='seed'")
+    if day is not None:
+        where.append("route_day=?")
+        params.append(day)
     if interest:
         vals = interest.split(",")
         where.append("interest_status IN (%s)" % ",".join("?" for _ in vals))
@@ -324,7 +392,7 @@ def map_places(
             where.append("county=?")
             params.append(reg.name)
     rows = conn.execute(
-        f"SELECT id, canonical_name, category, county, latitude, longitude, interest_status, image_count, local_image_count, coordinate_precision, discovery_score, route_distance_km FROM places WHERE {' AND '.join(where)} LIMIT ?",
+        f"SELECT id, canonical_name, category, county, latitude, longitude, interest_status, image_count, local_image_count, coordinate_precision, discovery_score, route_distance_km, route_day, route_day_km FROM places WHERE {' AND '.join(where)} LIMIT ?",
         (*params, limit),
     ).fetchall()
     features = [
@@ -345,7 +413,7 @@ def export(body: schemas.ExportRequest, ctx: AppContext = Depends(ctx_dep)) -> d
 @router.get("/export/files")
 def export_files(ctx: AppContext = Depends(ctx_dep)) -> list[dict[str, Any]]:
     out = []
-    for p in sorted(ctx.config.exports_dir.glob("places-*"), reverse=True):
+    for p in sorted([*ctx.config.exports_dir.glob("places-*"), *ctx.config.exports_dir.glob("route-*.gpx"), *ctx.config.exports_dir.glob("trip-*.html")], key=lambda x: x.stat().st_mtime, reverse=True):
         out.append({"name": p.name, "bytes": p.stat().st_size, "download_url": f"/api/export/files/{p.name}"})
     return out
 

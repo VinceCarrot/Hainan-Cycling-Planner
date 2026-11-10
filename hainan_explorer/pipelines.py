@@ -504,6 +504,9 @@ class ResearchPipeline:
                         sim = max(similarity(normalize_name(hit_name), normalize_name(n)) for n in names)
                         if sim < 80 or h.get("osm_type") not in ("node", "way", "relation"):
                             continue
+                        if not nominatim_hit_compatible(place.get("category"), h):
+                            report["steps"].append({"geocode_skipped": f"{h.get('osm_type')}/{h.get('osm_id')} is {h.get('category') or h.get('class')}={h.get('type')}, not a {place.get('category')}"})
+                            continue
                         cand = _nominatim_to_candidate(h, hit_name)
                         if cand:
                             located = self._attach_or_relate(place, cand, min_similarity=80) or located
@@ -571,10 +574,13 @@ class ResearchPipeline:
             )
             Ingestor.refresh_counters(conn, place_id)
         if place.get("latitude") is not None:
-            d = self.corridor.distance_for(place["latitude"], place["longitude"])
-            if d is not None:
-                with self.ctx.db.transaction() as conn:
-                    conn.execute("UPDATE places SET route_distance_km=? WHERE id=?", (d, place_id))
+            from .services.routes import RouteService
+
+            if RouteService(self.ctx).position_place(place_id) is None:
+                d = self.corridor.distance_for(place["latitude"], place["longitude"])
+                if d is not None:
+                    with self.ctx.db.transaction() as conn:
+                        conn.execute("UPDATE places SET route_distance_km=? WHERE id=?", (d, place_id))
         report["final"] = {"latitude": place.get("latitude"), "longitude": place.get("longitude"), "sources": place.get("source_count"), "images": place.get("image_count")}
         return report
 
@@ -602,6 +608,21 @@ class ResearchPipeline:
                 (place["id"], res.place_id, round(sim / 100, 2), dumps([f"research_hit_via_{cand.provider}", f"name_similarity_{sim:.0f}"])),
             )
         return False
+
+
+# Nominatim classes that describe infrastructure, not a destination. A hit of one of these classes may
+# only locate a place whose own category is infrastructure-like; "棋子湾" the bay must not be pinned to
+# "棋子湾" the railway station just because the names match.
+_INFRASTRUCTURE_CLASSES = {"railway", "highway", "building", "aeroway", "public_transport", "office", "shop"}
+_INFRASTRUCTURE_OK_CATEGORIES = {"transport", "bridge", "architecture", "attraction", "other", "unknown"}
+
+
+def nominatim_hit_compatible(place_category: str | None, hit: dict[str, Any]) -> bool:
+    """False when a Nominatim hit is infrastructure (station, road, building) and the place is not."""
+    cls = (hit.get("category") or hit.get("class") or "").lower()
+    if cls not in _INFRASTRUCTURE_CLASSES:
+        return True
+    return (place_category or "unknown") in _INFRASTRUCTURE_OK_CATEGORIES
 
 
 def _nominatim_to_candidate(h: dict[str, Any], name: str) -> Candidate | None:

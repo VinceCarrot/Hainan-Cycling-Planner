@@ -24,6 +24,9 @@ SORT_OPTIONS = {
     "name": "p.canonical_name ASC",
     "region": "region_order ASC, p.discovery_score DESC",
     "images": "p.local_image_count DESC, p.image_count DESC, p.discovery_score DESC",
+    # Route-book sorts: by day, then by detour (straight-line distance to that day's track) or by km along the day.
+    "day_detour": "CASE WHEN p.route_day IS NULL THEN 1 ELSE 0 END, p.route_day ASC, p.route_distance_km ASC, p.discovery_score DESC",
+    "day_km": "CASE WHEN p.route_day IS NULL THEN 1 ELSE 0 END, p.route_day ASC, p.route_day_km ASC, p.route_distance_km ASC",
 }
 
 
@@ -44,6 +47,7 @@ class PlaceService:
         min_sources: int | None = None,
         min_confidence: float | None = None,
         max_route_km: float | None = None,
+        day: int | None = None,
         coastal: bool | None = None,
         has_coords: bool | None = None,
         needs_geo: bool | None = None,
@@ -96,6 +100,9 @@ class PlaceService:
         if max_route_km is not None:
             where.append("p.route_distance_km IS NOT NULL AND p.route_distance_km <= ?")
             params.append(max_route_km)
+        if day is not None:
+            where.append("p.route_day = ?")
+            params.append(day)
         if coastal is not None:
             where.append("p.is_coastal = ?")
             params.append(1 if coastal else 0)
@@ -190,7 +197,8 @@ class PlaceService:
         d["relations"] = self.relations_for(place_id)
         d["nearby"] = self.nearby(place_id, radius_km=3.0, limit=12)
         d["merged_children"] = rows_to_dicts(conn.execute("SELECT id, canonical_name FROM places WHERE merged_into_place_id=?", (place_id,)).fetchall())
-        d["facts"] = self._facts(d)
+        corridor = conn.execute("SELECT is_estimated FROM route_corridors WHERE is_active=1 ORDER BY id DESC LIMIT 1").fetchone()
+        d["facts"] = self._facts(d, corridor_is_estimated=bool(corridor["is_estimated"]) if corridor else True)
         return d
 
     @staticmethod
@@ -203,7 +211,7 @@ class PlaceService:
         return d
 
     @staticmethod
-    def _facts(d: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    def _facts(d: dict[str, Any], corridor_is_estimated: bool = True) -> dict[str, list[dict[str, Any]]]:
         """Separate sourced facts, derived estimates and unknowns for the detail panel."""
         sourced: list[dict[str, Any]] = []
         derived: list[dict[str, Any]] = []
@@ -217,8 +225,16 @@ class PlaceService:
             derived.append({"label": "所属市县", "value": d["county"], "note": "由坐标落入行政边界或名称推断"})
         else:
             unknown.append({"label": "所属市县", "value": "未知"})
-        if d.get("route_distance_km") is not None:
-            derived.append({"label": "到粗略环岛走廊的直线距离", "value": f"约 {d['route_distance_km']:.1f} km", "note": "直线距离估算，不是骑行距离"})
+        if d.get("route_day") is not None and d.get("route_distance_km") is not None:
+            detour = d["route_distance_km"]
+            derived.append({
+                "label": "路书位置",
+                "value": f"Day {d['route_day']} 第 {d['route_day_km']:.1f} km 附近，偏离路线约 {detour:.1f} km（往返约 {2 * detour:.1f} km）",
+                "note": "按轨迹直线几何估算，不是路网骑行距离",
+            })
+        elif d.get("route_distance_km") is not None:
+            label = "到路书路线的直线距离" if not corridor_is_estimated else "到粗略环岛走廊的直线距离"
+            derived.append({"label": label, "value": f"约 {d['route_distance_km']:.1f} km", "note": "直线距离估算，不是骑行距离"})
         else:
             unknown.append({"label": "到环岛走廊距离", "value": "未计算"})
         unknown.append({"label": "是否开放/可进入", "value": "未知，需现场或资料核实"})
@@ -336,7 +352,19 @@ class PlaceService:
                 conn.execute("INSERT INTO reviews (place_id, decision, reason) VALUES (?, 'coordinates', ?)", (place_id, f"{row['latitude']},{row['longitude']} -> {latitude},{longitude}"))
             sets = ", ".join(f"{k}=?" for k in updates)
             conn.execute(f"UPDATE places SET {sets} WHERE id=?", (*updates.values(), place_id))
+        if latitude is not None and longitude is not None:
+            self._position_on_route(place_id, latitude, longitude)
         return self.get_place(place_id) or {}
+
+    def _position_on_route(self, place_id: int, latitude: float, longitude: float) -> None:
+        """Manually pinned coordinates get the same route-book fields (day, km, detour) as discovered ones."""
+        from .corridor import CorridorService
+        from .routes import RouteService
+
+        if RouteService(self.ctx).position_place(place_id) is None:
+            d = CorridorService(self.ctx).distance_for(latitude, longitude)
+            with self.ctx.db.transaction() as conn:
+                conn.execute("UPDATE places SET route_distance_km=?, route_day=NULL, route_day_km=NULL WHERE id=?", (d, place_id))
 
     def bulk_decide(self, place_ids: list[int], decision: str) -> int:
         count = 0

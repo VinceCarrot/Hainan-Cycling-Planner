@@ -7,8 +7,11 @@
   const PERM = { local_copy_allowed: "许可允许本地保存", link_only: "仅链接（许可不允许保存）", api_display_only: "仅 API 展示", unknown: "许可未知（不保存）", blocked: "禁止" };
   const state = {
     meta: null, page: "review", filters: loadFilters(), offset: 0, limit: 60, items: [], total: 0, focusIndex: -1,
-    selectMode: false, selected: new Set(), currentPlace: null, map: null, cluster: null, corridorLayer: null, miniMap: null, jobsTimer: null,
+    selectMode: false, selected: new Set(), currentPlace: null, map: null, cluster: null, corridorLayer: null, routeLayers: [], miniMap: null, jobsTimer: null,
+    routes: null,
   };
+  const DAY_COLORS = ["#b9684b", "#0e6b74", "#8a6d1f", "#4b5d9e", "#1f7a4d", "#7a3a3a", "#5c6a6c", "#c08a2e", "#2f7f8f", "#9a5239", "#3f6667", "#6b4e9b"];
+  const dayColor = (d) => DAY_COLORS[(Number(d) - 1) % DAY_COLORS.length];
 
   // ------------------------------------------------------------ utilities
   async function api(path, opts = {}) {
@@ -30,6 +33,10 @@
   function saveFilters() { try { localStorage.setItem("hx.filters.v2", JSON.stringify(state.filters)); } catch (_) {} }
   function commonsThumb(url, width) { if (!url) return null; const m = /^(https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/.+\/)(\d+)px-([^/?]+)(\?.*)?$/.exec(url); return m ? `${m[1]}${width}px-${m[3]}` : url; }
   function fmtKm(v) { return v == null ? "—" : `${Number(v).toFixed(1)} km`; }
+  function routeChip(p) {
+    if (p.route_day == null) return p.route_distance_km != null ? `<span>· 偏离 ${fmtKm(p.route_distance_km)}</span>` : "";
+    return `<span class="route-chip" style="--day:${dayColor(p.route_day)}" title="Day ${p.route_day} 第 ${Number(p.route_day_km).toFixed(1)} km 附近，偏离路线约 ${Number(p.route_distance_km).toFixed(1)} km（直线估算，往返约 ${(2 * p.route_distance_km).toFixed(1)} km）">D${p.route_day} · ${Number(p.route_day_km).toFixed(0)} km 处 · 偏离 ${fmtKm(p.route_distance_km)}</span>`;
+  }
 
   // ------------------------------------------------------------ routing
   function route() {
@@ -54,7 +61,50 @@
     const catOpts = state.meta.categories.map((c) => `<option value="${c.key}">${esc(c.label)}</option>`).join("");
     for (const id of ["#f-region", "#m-region"]) $(id).insertAdjacentHTML("beforeend", regionOpts);
     for (const id of ["#f-category", "#m-category"]) $(id).insertAdjacentHTML("beforeend", catOpts);
+    await loadRoutes();
     applyFiltersToControls();
+  }
+  async function routeGeo() {
+    if (!state.routes) return null;
+    if (!state.routeGeo) { try { state.routeGeo = await api("/api/routes/geojson"); } catch (_) { return null; } }
+    return state.routeGeo;
+  }
+  // Closest point on a [lon, lat] line to (lat, lon): returns {lat, lon, km} using the same equirectangular projection as the server.
+  function nearestOnLine(lat, lon, coords) {
+    const t = Math.PI / 180, R = 6371.0088, cos0 = Math.cos(lat * t);
+    const px = lon * t * R * cos0, py = lat * t * R;
+    let best = Infinity, bx = 0, by = 0;
+    for (let i = 0; i < coords.length - 1; i++) {
+      const x1 = coords[i][0] * t * R * cos0, y1 = coords[i][1] * t * R, x2 = coords[i + 1][0] * t * R * cos0, y2 = coords[i + 1][1] * t * R;
+      const dx = x2 - x1, dy = y2 - y1, len2 = dx * dx + dy * dy;
+      const s = len2 === 0 ? 0 : Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / len2));
+      const cx = x1 + s * dx, cy = y1 + s * dy, d = Math.hypot(px - cx, py - cy);
+      if (d < best) { best = d; bx = cx; by = cy; }
+    }
+    return { lat: by / R / t, lon: bx / (R * cos0) / t, km: best };
+  }
+  async function drawRouteOnMiniMap(p, mm) {
+    const geo = await routeGeo();
+    if (!geo || state.miniMap !== mm) return;
+    for (const f of geo.features) {
+      const d = f.properties.day, active = p.route_day == null || d === p.route_day;
+      L.geoJSON(f, { style: { color: dayColor(d), weight: active ? 4 : 2, opacity: active ? 0.9 : 0.3 }, interactive: false }).addTo(mm);
+      if (d === p.route_day) {
+        const n = nearestOnLine(p.latitude, p.longitude, f.geometry.coordinates);
+        L.polyline([[p.latitude, p.longitude], [n.lat, n.lon]], { color: "#7a3a3a", weight: 2, dashArray: "4 4", opacity: 0.9 })
+          .bindTooltip(`偏离 Day ${d} 路线约 ${n.km.toFixed(1)} km（直线）`, { sticky: true }).addTo(mm);
+        L.circleMarker([n.lat, n.lon], { radius: 4, color: "#fff", weight: 1.5, fillColor: dayColor(d), fillOpacity: 1 }).addTo(mm);
+      }
+    }
+  }
+  async function loadRoutes() {
+    state.routeGeo = null;
+    try { const r = await api("/api/routes"); state.routes = r && r.days ? r : null; } catch (_) { state.routes = null; }
+    const days = state.routes ? state.routes.days : [];
+    const opts = days.map((d) => `<option value="${d.day}">Day ${d.day} · ${Number(d.distance_km).toFixed(0)} km</option>`).join("");
+    for (const id of ["#f-day", "#m-day", "#gpx-day"]) { const sel = $(id); const keep = sel.value; sel.querySelectorAll("option:not(:first-child)").forEach((o) => o.remove()); sel.insertAdjacentHTML("beforeend", opts); sel.value = keep; }
+    $("#f-day").disabled = $("#m-day").disabled = $("#gpx-day").disabled = !days.length;
+    $("#f-day").title = days.length ? "只看路书某一天附近的地点" : "尚未导入路书（导入 · 导出 · 备份 页）";
   }
   async function refreshSummary() {
     try {
@@ -64,7 +114,8 @@
         <div>有坐标 <b>${s.with_coords}</b></div><div>待核实 <b>${s.needs_geo}</b></div>
         <div>有图 <b>${s.with_images}</b></div><div>本地图 <b>${s.with_local_images}</b></div>
         <div>想去 <b>${s.by_interest.want_to_visit || 0}</b></div><div>也许 <b>${s.by_interest.maybe || 0}</b></div>
-        <div>图片 <b>${s.images_total}</b></div><div>本地文件 <b>${s.images_local}</b></div>`;
+        <div>图片 <b>${s.images_total}</b></div><div>本地文件 <b>${s.images_local}</b></div>
+        ${state.routes ? `<div class="side-route">路书 <b>${state.routes.days.length}</b> 天 · <b>${Number(state.routes.total_km).toFixed(0)}</b> km</div>` : `<div class="side-route muted">未导入路书</div>`}`;
       $("#badge-undecided").textContent = s.by_interest.undecided || "";
       $("#badge-dups").textContent = s.pending_duplicates || "";
       const active = (s.jobs.running || 0) + (s.jobs.queued || 0) + (s.jobs.retry_wait || 0);
@@ -73,14 +124,17 @@
   }
 
   // ------------------------------------------------------------ filters
-  const FILTER_IDS = { q: "#f-q", region: "#f-region", category: "#f-category", interest: "#f-interest", image_state: "#f-image", sort: "#f-sort", max_route_km: "#f-route", min_sources: "#f-sources" };
+  const FILTER_IDS = { q: "#f-q", region: "#f-region", category: "#f-category", interest: "#f-interest", image_state: "#f-image", sort: "#f-sort", max_route_km: "#f-route", min_sources: "#f-sources", day: "#f-day" };
   const FILTER_CHECKS = { undecided_only: "#f-undecided", coastal: "#f-coastal", has_coords: "#f-coords", include_seeds: "#f-seeds" };
   function applyFiltersToControls() {
     for (const [k, id] of Object.entries(FILTER_IDS)) $(id).value = state.filters[k] ?? "";
     for (const [k, id] of Object.entries(FILTER_CHECKS)) $(id).checked = !!state.filters[k];
   }
   function readFilters() {
+    const prevDay = state.filters.day;
     for (const [k, id] of Object.entries(FILTER_IDS)) { const v = $(id).value; if (v === "") delete state.filters[k]; else state.filters[k] = v; }
+    // Picking a day switches to the within-day detour order unless the user already chose a route sort.
+    if (state.filters.day && state.filters.day !== prevDay && !["day_detour", "day_km"].includes(state.filters.sort)) { state.filters.sort = "day_detour"; $("#f-sort").value = "day_detour"; }
     for (const [k, id] of Object.entries(FILTER_CHECKS)) { if ($(id).checked) state.filters[k] = true; else delete state.filters[k]; }
     saveFilters();
   }
@@ -124,7 +178,7 @@
       <div class="card-img">${imageBlock(p)}<div class="card-tags">${tags.join("")}</div>${status}</div>
       <div class="card-body">
         <div class="card-name">${esc(p.canonical_name)}</div>
-        <div class="card-meta"><span>${esc(p.county || "市县未知")}</span><span>· ${esc(p.category_label)}</span><span>· 来源 ${p.source_count}</span>${p.route_distance_km != null ? `<span>· 走廊 ${fmtKm(p.route_distance_km)}</span>` : ""}</div>
+        <div class="card-meta"><span>${esc(p.county || "市县未知")}</span><span>· ${esc(p.category_label)}</span><span>· 来源 ${p.source_count}</span>${routeChip(p)}</div>
         ${p.description ? `<div class="card-desc">${esc(p.description)}</div>` : `<div class="card-desc muted">尚无描述（${esc(p.discovery_reason)}）</div>`}
       </div>
       <div class="card-foot">
@@ -239,6 +293,7 @@
       L.tileLayer(state.meta.map_tiles.url, { attribution: state.meta.map_tiles.attribution, maxZoom: state.meta.map_tiles.max_zoom || 19 }).addTo(state.miniMap);
       L.circleMarker([p.latitude, p.longitude], { radius: 8, color: "#0e6b74", fillOpacity: p.coordinate_precision === "exact" ? 0.9 : 0.2 }).addTo(state.miniMap);
       for (const n of p.nearby) L.circleMarker([n.latitude, n.longitude], { radius: 4, color: "#888" }).addTo(state.miniMap).bindTooltip(n.canonical_name);
+      drawRouteOnMiniMap(p, state.miniMap);
       // Leaflet measures its container once at creation; the drawer is still laying out (images, fonts)
       // at that moment, so re-measure after paint, whenever the container resizes, and after gallery images load.
       const mm = state.miniMap;
@@ -288,20 +343,55 @@
     if ($("#m-category").value) p.set("category", $("#m-category").value);
     if ($("#m-region").value) p.set("region", $("#m-region").value);
     if ($("#m-seeds").checked) p.set("include_seeds", "true");
-    const [geo, corridor] = await Promise.all([api(`/api/map/places?${p}`), api("/api/corridor")]);
+    const day = $("#m-day").value;
+    if (day) p.set("day", day);
+    const [geo, corridor, routes] = await Promise.all([api(`/api/map/places?${p}`), api("/api/corridor"), routeGeo()]);
     state.cluster.clearLayers();
     for (const f of geo.features) {
       const pr = f.properties; const [lon, lat] = f.geometry.coordinates;
       const icon = L.divIcon({ className: "", html: `<div class="pin ${pr.interest_status} ${pr.coordinate_precision === "exact" ? "" : "approx"}"></div>`, iconSize: [12, 12] });
       const m = L.marker([lat, lon], { icon });
-      m.bindPopup(`<div class="popup-name">${esc(pr.canonical_name)}</div><div>${esc(pr.county || "")} · ${esc(pr.category_label)} · ${LABELS[pr.interest_status]}</div><div>图片 ${pr.image_count}（本地 ${pr.local_image_count}）${pr.route_distance_km != null ? ` · 走廊直线 ${fmtKm(pr.route_distance_km)}` : ""}</div><div><a href="#/review/${pr.id}">查看详情</a></div>`);
+      m.bindPopup(`<div class="popup-name">${esc(pr.canonical_name)}</div><div>${esc(pr.county || "")} · ${esc(pr.category_label)} · ${LABELS[pr.interest_status]}</div><div>图片 ${pr.image_count}（本地 ${pr.local_image_count}）</div>${pr.route_day != null ? `<div>Day ${pr.route_day} 第 ${Number(pr.route_day_km).toFixed(1)} km 附近 · 偏离 ${fmtKm(pr.route_distance_km)}（直线）</div>` : (pr.route_distance_km != null ? `<div>偏离路线 ${fmtKm(pr.route_distance_km)}（直线）</div>` : "")}<div><a href="#/review/${pr.id}">查看详情</a></div>`);
       state.cluster.addLayer(m);
     }
     $("#m-count").textContent = `${geo.features.length} 个有坐标的地点`;
     if (state.corridorLayer) { state.map.removeLayer(state.corridorLayer); state.corridorLayer = null; }
-    if ($("#m-corridor").checked && corridor && corridor.geometry) {
-      state.corridorLayer = L.geoJSON(corridor.geometry, { style: { color: "#b9684b", weight: 3, dashArray: "6 6", opacity: 0.7 } }).bindTooltip(`${corridor.name}（估算）`).addTo(state.map);
+    for (const l of state.routeLayers) state.map.removeLayer(l);
+    state.routeLayers = [];
+    const legend = $("#map-legend");
+    const showLines = $("#m-corridor").checked;
+    if (showLines && routes && routes.features.length) {
+      // One coloured line per day; the selected day stays solid while the others fade.
+      let selectedLayer = null;
+      for (const f of routes.features) {
+        const d = f.properties.day; const active = !day || String(d) === day;
+        const layer = L.geoJSON(f, { style: { color: dayColor(d), weight: active ? 4 : 2.5, opacity: active ? 0.9 : 0.25 } })
+          .bindTooltip(`Day ${d} · ${esc(f.properties.name || "")} · ${Number(f.properties.distance_km).toFixed(0)} km${f.properties.elevation_gain_m != null ? ` · 爬升约 ${f.properties.elevation_gain_m} m` : ""}`, { sticky: true });
+        layer.addTo(state.map); state.routeLayers.push(layer);
+        if (day && String(d) === day) selectedLayer = layer;
+      }
+      // Start / end markers for the selected day so lodging anchors are visible.
+      if (selectedLayer) {
+        const info = state.routes.days.find((x) => String(x.day) === day);
+        if (info) {
+          for (const [pt, label] of [[info.start, "起点"], [info.end, "终点"]]) {
+            const m = L.circleMarker(pt, { radius: 7, color: "#fff", weight: 2, fillColor: dayColor(day), fillOpacity: 1 }).bindTooltip(`Day ${day} ${label}`, { permanent: true, direction: "right", className: "day-label" });
+            m.addTo(state.map); state.routeLayers.push(m);
+          }
+        }
+        state.map.fitBounds(selectedLayer.getBounds().pad(0.15));
+      }
+      legend.hidden = false;
+      legend.innerHTML = `<b>${esc(state.routes.name)}</b>` + state.routes.days.map((d) => `<div class="${day && String(d.day) !== day ? "dim" : ""}"><i style="background:${dayColor(d.day)}"></i>Day ${d.day} <span class="muted">${Number(d.distance_km).toFixed(0)} km · 1 km 内 ${d.within_1km} · 想去 ${d.want}</span></div>`).join("");
+    } else if (showLines && corridor && corridor.geometry) {
+      state.corridorLayer = L.geoJSON(corridor.geometry, { style: { color: "#b9684b", weight: 3, dashArray: "6 6", opacity: 0.7 } }).bindTooltip(`${corridor.name}${corridor.is_estimated ? "（估算）" : ""}`).addTo(state.map);
+      legend.hidden = true;
+    } else {
+      legend.hidden = true;
     }
+    $("#map-note").textContent = state.routes
+      ? "坐标精度：实心点=精确；空心点=近似/质心。路线为你导入的路书轨迹；偏离距离为到轨迹的直线距离，不是路网骑行距离。"
+      : "坐标精度：实心点=精确；空心点=近似/质心。走廊线是城镇连线的粗略估算，距离为直线距离，不是骑行距离。";
   }
 
   // ------------------------------------------------------------ duplicates
@@ -383,6 +473,13 @@
     $("#backups").innerHTML = backups.map((b) => `<div class="list-item"><span>${esc(b.name)}</span><span class="muted">${(b.bytes / 1024).toFixed(0)} KB · ${esc(b.modified_at)}</span><button class="btn" data-restore="${esc(b.name)}">恢复</button></div>`).join("") || "<div class='muted small'>尚无备份</div>";
     $$("#backups [data-restore]").forEach((b) => b.onclick = async () => { if (!window.confirm(`恢复 ${b.dataset.restore}？当前数据库会先自动备份。`)) return; const r = await api("/api/restore", { method: "POST", body: { backup_name: b.dataset.restore } }); toast(`已恢复，恢复前备份：${r.pre_restore_backup}`); refreshSummary(); });
     $("#im-file").innerHTML = files.map((f) => `<option>${esc(f)}</option>`).join("") || "<option value=''>（data/imports 为空）</option>";
+    renderRoutesBlock();
+  }
+  function renderRoutesBlock() {
+    const r = state.routes;
+    $("#routes-status").textContent = r ? `当前路书：${r.name} · ${r.days.length} 天 · ${Number(r.total_km).toFixed(0)} km · 坐标系 ${r.crs_label}${r.crs !== "wgs84" ? "（显示时已转换为 WGS-84）" : ""}` : "尚未导入路书";
+    if (r && r.crs) $("#routes-crs").value = r.crs;
+    $("#routes-days").innerHTML = r ? `<table class="cov-table"><tr><th>天</th><th>名称</th><th>里程</th><th>爬升(估)</th><th>1 km 内</th><th>3 km 内</th><th>5 km 内</th><th>想去</th><th>也许</th><th>未决定</th></tr>${r.days.map((d) => `<tr><td><i class="dot" style="background:${dayColor(d.day)}"></i>Day ${d.day}</td><td>${esc(d.name || "")}</td><td>${Number(d.distance_km).toFixed(0)} km</td><td>${d.elevation_gain_m != null ? d.elevation_gain_m + " m" : "—"}</td><td>${d.within_1km}</td><td>${d.within_3km}</td><td>${d.within_5km}</td><td>${d.want}</td><td>${d.maybe}</td><td>${d.undecided}</td></tr>`).join("")}</table><div class="muted small">${esc(r.distance_note)}</div>` : "";
   }
 
   // ------------------------------------------------------------ keyboard
@@ -413,7 +510,33 @@
     $("#bulk-clear").onclick = () => { state.selected.clear(); $("#bulk-count").textContent = "0 项"; $$("#grid .card.selected").forEach((c) => c.classList.remove("selected")); };
     $("#drawer-close").onclick = closeDrawer;
     $$("#drawer [data-decide]").forEach((b) => b.onclick = () => state.currentPlace && decide(state.currentPlace.id, b.dataset.decide));
-    for (const id of ["#m-interest", "#m-category", "#m-region", "#m-corridor", "#m-seeds"]) $(id).addEventListener("change", loadMapData);
+    for (const id of ["#m-interest", "#m-category", "#m-region", "#m-day", "#m-corridor", "#m-seeds"]) $(id).addEventListener("change", loadMapData);
+    $("#btn-im-routes").onclick = async () => {
+      const b = $("#btn-im-routes"); b.disabled = true; $("#routes-status").textContent = "正在导入并计算每个地点的所属天数…";
+      try { const r = await api(`/api/import/routes?subdir=routes&crs=${$("#routes-crs").value}`, { method: "POST" }); toast(`已导入 ${r.days.length} 天路书，更新 ${r.places_updated} 个地点`); await loadRoutes(); renderRoutesBlock(); refreshSummary(); }
+      catch (e) { $("#routes-status").textContent = `导入失败：${e.message}`; toast(e.message); }
+      finally { b.disabled = false; }
+    };
+    $("#routes-crs").onchange = async () => {
+      if (!state.routes) return; // nothing imported yet: the choice is applied by the next import
+      const crs = $("#routes-crs").value;
+      if (crs === state.routes.crs) return;
+      $("#routes-status").textContent = "正在按新坐标系转换路线并重新计算每个地点的偏离距离…";
+      try { const r = await api("/api/routes/crs", { method: "POST", body: { crs } }); toast(`路线已按 ${r.crs_label} 转换，更新 ${r.places_updated} 个地点；请到地图页核对`); await loadRoutes(); renderRoutesBlock(); refreshSummary(); }
+      catch (e) { toast(e.message); await loadRoutes(); renderRoutesBlock(); }
+    };
+    $("#btn-trip-plan").onclick = async () => {
+      $("#trip-plan-status").textContent = "正在生成…";
+      try { const r = await api("/api/export/trip-plan", { method: "POST" }); $("#trip-plan-status").textContent = `已生成 ${r.name}（${(r.bytes / 1024).toFixed(0)} KB，${r.days} 天，${r.attractions_located}/${r.attractions} 个景点有坐标${r.lodging_warnings.length ? `，${r.lodging_warnings.length} 天住宿待确认` : ""}）`; toast("行程页已生成"); loadData(); }
+      catch (e) { $("#trip-plan-status").textContent = `失败：${e.message}`; toast(e.message); }
+    };
+    $("#btn-export-gpx").onclick = async () => {
+      const day = $("#gpx-day").value ? Number($("#gpx-day").value) : null;
+      const interest = $("#gpx-interest").value.split(",");
+      const detour = $("#gpx-detour").value ? Number($("#gpx-detour").value) : null;
+      try { const r = await api("/api/export/gpx", { method: "POST", body: { day, interest, max_detour_km: detour } }); toast(`已导出 ${r.files.length} 个 GPX`); loadData(); }
+      catch (e) { toast(e.message); }
+    };
     $$("[data-page='jobs'] [data-job]").forEach(bindJobButton);
     $("#btn-retry-failed").onclick = async () => { const r = await api("/api/jobs/retry-failed", { method: "POST" }); toast(`已重新排队 ${r.requeued} 个任务`); loadJobs(); };
     $("#btn-url").onclick = async () => { const url = $("#url-input").value.trim(); if (!url) return; try { const r = await api("/api/leads/url", { method: "POST", body: { url } }); toast(`已加入抓取任务 #${r.job_id}`); $("#url-input").value = ""; loadJobs(); } catch (e) { toast(e.message); } };

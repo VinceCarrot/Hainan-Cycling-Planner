@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/static/vendor/leaflet.css">
 <link rel="stylesheet" href="/static/vendor/MarkerCluster.css">
 <link rel="stylesheet" href="/static/vendor/MarkerCluster.Default.css">
-<link rel="stylesheet" href="/static/app.css?v=20261028c">
+<link rel="stylesheet" href="/static/app.css?v=20261108c">
 </head>
 <body>
 <div class="shell">
@@ -52,6 +52,7 @@
             <option value="skip">跳过</option>
             <option value="needs_research">待研究</option>
           </select>
+          <select id="f-day" class="input" title="只看路书某一天附近的地点"><option value="">全部天数</option></select>
           <select id="f-image" class="input">
             <option value="">图片：不限</option>
             <option value="local">有本地图片</option>
@@ -63,7 +64,9 @@
             <option value="unreviewed">未审核优先</option>
             <option value="score">综合发现分</option>
             <option value="novelty">小众优先</option>
-            <option value="route">靠近环岛走廊</option>
+            <option value="day_detour">按天 → 偏离路线最近优先</option>
+            <option value="day_km">按天 → 沿途公里顺序</option>
+            <option value="route">靠近路线（不分天）</option>
             <option value="images">图片优先</option>
             <option value="confidence">置信度</option>
             <option value="recent">最新发现</option>
@@ -75,7 +78,7 @@
           <label class="chk"><input type="checkbox" id="f-coastal"> 只看海岸相关</label>
           <label class="chk"><input type="checkbox" id="f-coords"> 只看有坐标</label>
           <label class="chk"><input type="checkbox" id="f-seeds"> 包含村镇种子</label>
-          <label class="chk">走廊 ≤ <input type="number" id="f-route" class="input input-xs" min="0" step="1" placeholder="km"> km</label>
+          <label class="chk">偏离 ≤ <input type="number" id="f-route" class="input input-xs" min="0" step="0.5" placeholder="km"> km</label>
           <label class="chk">来源 ≥ <input type="number" id="f-sources" class="input input-xs" min="0" step="1" placeholder="n"></label>
           <span class="spacer"></span>
           <button class="btn" id="btn-undo" title="撤销最近一次决定 (U)">撤销</button>
@@ -108,13 +111,14 @@
           </select>
           <select id="m-category" class="input"><option value="">全部类别</option></select>
           <select id="m-region" class="input"><option value="">全部市县</option></select>
-          <label class="chk"><input type="checkbox" id="m-corridor" checked> 显示粗略走廊（估算）</label>
+          <select id="m-day" class="input" title="高亮某一天的路线并只显示其附近地点"><option value="">全部天数</option></select>
+          <label class="chk"><input type="checkbox" id="m-corridor" checked> 显示路线</label>
           <label class="chk"><input type="checkbox" id="m-seeds"> 村镇种子</label>
           <span class="muted" id="m-count"></span>
         </div>
       </header>
-      <div id="map" class="map"></div>
-      <p class="muted small">坐标精度：实心点=精确；空心点=近似/质心。走廊线是城镇连线的粗略估算，距离为直线距离，不是骑行距离。</p>
+      <div class="map-wrap"><div id="map" class="map"></div><div id="map-legend" class="map-legend" hidden></div></div>
+      <p class="muted small" id="map-note">坐标精度：实心点=精确；空心点=近似/质心。偏离距离为到轨迹的直线距离，不是路网骑行距离。</p>
     </section>
 
     <!-- Duplicates -->
@@ -176,6 +180,30 @@
             <button class="btn btn-primary" id="btn-export">导出</button>
           </div>
           <div id="exports" class="list"></div>
+          <h3 class="h3">路书（按天 GPX）</h3>
+          <p class="muted small">把每天一个的 GPX 放到 <code>data/routes/</code>（文件名含 Day1、Day2…），点击导入。导入后路线替代粗略走廊：每个地点会得到所属天数、沿途公里和偏离距离，审核网格与地图可按天筛选。</p>
+          <div class="row">
+            <label class="chk">GPX 坐标系
+              <select id="routes-crs" class="input">
+                <option value="wgs84">WGS-84（GPS / OSM，不转换）</option>
+                <option value="gcj02">GCJ-02（火星坐标：高德、腾讯、佳明中国）</option>
+                <option value="bd09">BD-09（百度坐标）</option>
+              </select>
+            </label>
+            <button class="btn btn-primary" id="btn-im-routes">导入 data/routes 路书</button>
+            <span class="muted small" id="routes-status"></span>
+          </div>
+          <p class="muted small">在佳明中国网页版、高德或腾讯地图上规划的路线通常是 GCJ-02，百度地图是 BD-09；这些坐标画在 OSM 底图上会偏离道路几百米。选择正确的坐标系后，路线会转换为 WGS-84 显示并重新计算每个地点的偏离距离与排序；你的 GPX 文件本身不会被修改。切换坐标系后，到地图页核对路线是否压在道路上。</p>
+          <div id="routes-days" class="routes-days"></div>
+          <div class="row" style="margin-top:8px">
+            <select id="gpx-day" class="input"><option value="">全部天数</option></select>
+            <select id="gpx-interest" class="input"><option value="want_to_visit">仅想去</option><option value="want_to_visit,maybe">想去 + 也许</option></select>
+            <label class="chk">偏离 ≤ <input type="number" id="gpx-detour" class="input input-xs" min="0" step="0.5" placeholder="不限"> km</label>
+            <button class="btn" id="btn-export-gpx">导出带航点的 GPX</button>
+          </div>
+          <p class="muted small">导出的 GPX 含当天轨迹和你选中的地点航点。Garmin Connect 导入 GPX 时对航点的处理因版本而异，导入后请在网页版路线编辑器里核对 course points。</p>
+          <div class="row" style="margin-top:8px"><button class="btn" id="btn-trip-plan">生成手机行程页（manual_planning.txt）</button><span class="muted small" id="trip-plan-status"></span></div>
+          <p class="muted small">生成单文件 <code>trip-plan.html</code>：计划、路线地图（已做坐标系转换）、住宿与补给、每日到站/出发清单；在下方导出文件列表里下载后传到手机打开。</p>
           <h3 class="h3">导入</h3>
           <p class="muted small">把 CSV（列：name, latitude, longitude, category, county, description, url, aliases）或 GPX/GeoJSON 路线放到 <code>data/imports/</code>，然后在下方选择。</p>
           <div class="row"><select id="im-file" class="input"></select><button class="btn" id="btn-im-preview">预览 CSV</button><button class="btn" id="btn-im-apply">导入 CSV</button><button class="btn" id="btn-im-corridor">作为走廊导入 (GPX/GeoJSON)</button></div>
@@ -209,6 +237,6 @@
 </div>
 <script src="/static/vendor/leaflet.js"></script>
 <script src="/static/vendor/leaflet.markercluster.js"></script>
-<script src="/static/app.js?v=20261028c"></script>
+<script src="/static/app.js?v=20261109a"></script>
 </body>
 </html>
