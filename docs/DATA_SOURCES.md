@@ -50,6 +50,17 @@ Global HTTP behaviour (`hainan_explorer/http.py`, `services/context.py`):
 | Policy | https://operations.osmfoundation.org/policies/nominatim/ |
 | Last checked | 2026-10-27 |
 
+## Basemaps in the phone trip page (`trip-plan.html`)
+
+| Provider | URL pattern | Terms / notes (recorded 2026-11-09, re-check before heavy use) |
+| --- | --- | --- |
+| CARTO Voyager (default) | `https://{s}.basemaps.cartocdn.com/rapid/{z}/{x}/{y}{r}.png` | OSM-derived; CARTO basemaps are offered free for non-commercial use with attribution "© OpenStreetMap contributors © CARTO" (https://carto.com/basemaps/). Light personal use only. |
+| 天地图 | `https://t{0-7}.tianditu.gov.cn/DataServer?T=vec_w|cva_w&x&y&l&tk=` | Requires a free personal browser-side key from https://console.tianditu.gov.cn/ ; the key is typed into the page and stored only in the phone's localStorage. CGCS2000 ≈ WGS-84. Terms at https://www.tianditu.gov.cn/ (service agreement). |
+| Esri World Street Map | `https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}` | ArcGIS Online public basemap; attribution "Tiles © Esri — Esri, HERE, Garmin, OpenStreetMap contributors"; Esri master agreement https://www.esri.com/en-us/legal/terms/full-master-agreement . |
+| OpenStreetMap | as below | Blocked for pages opened from `file://` (no Referer); see https://operations.osmfoundation.org/policies/tiles/ . |
+
+The page never caches or bulk-downloads tiles; `none` disables the basemap entirely.
+
 ## OSM tiles (map background)
 
 | | |

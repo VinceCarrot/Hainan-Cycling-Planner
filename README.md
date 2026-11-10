@@ -112,7 +112,11 @@ All commands: `.\.venv\Scripts\python.exe -m hainan_explorer [--config PATH] [-v
 | `summary` | Print catalogue statistics as JSON. |
 | `import-legacy [path]` | Import the old catalogue as leads (default `data/attractions.json`). |
 | `import-csv PATH [--apply]` | Import places from CSV; dry-run preview unless `--apply`. |
-| `import-corridor PATH` | Use a GPX or GeoJSON line as the route corridor. |
+| `import-corridor PATH` | Use a single GPX or GeoJSON line as the route corridor (clears any route book). |
+| `import-routes [DIR] [--name N] [--crs wgs84\|gcj02\|bd09]` | Import a directory of per-day GPX files (default `data/routes/`, file names containing `Day1`, `Day2`, …) as the route book; assigns every place a day, km-along-day and detour distance. `--crs` names the coordinate system the files were drawn in. |
+| `build-trip-plan [--plan manual_planning.txt] [--out …] [--title …]` | Build `data/exports/trip-plan.html`: a single-file, phone-friendly trip page (plan, per-day attractions resolved against the catalog, lodging on the route's day endpoints, supplies, arrival/departure checklists, Leaflet map with the WGS-84-converted route book). |
+| `route-crs wgs84\|gcj02\|bd09` | Re-interpret the imported route book's coordinates (e.g. a course drawn on Garmin Connect China is GCJ-02) and rebuild the display geometry and every place's detour. The GPX files are not modified. |
+| `export-gpx [--day N] [--interest …] [--max-detour-km X]` | Write one GPX per day to `data/exports/`: the day's track plus your chosen places as waypoints. |
 | `enqueue JOB_TYPE [--payload JSON] [--priority N]` | Queue a job for the server worker. |
 | `run JOB_TYPE [--payload JSON]` | Queue and run one job synchronously in this process. |
 | `run-jobs [--max N]` | Drain queued jobs synchronously. |
@@ -143,13 +147,13 @@ attribution and links to the policy document and API.
 
 | Page | Hash | What you do there |
 |---|---|---|
-| 审核网格 (review grid) | `#/review` | Card grid with image, name, county, category, source count, image-verification badge, corridor distance. Filters: search, 市县, 类别, 状态, 图片 (本地 / 仅远程 / 无图), sort (未审核优先, 综合发现分, 小众优先, 靠近环岛走廊, 图片优先, 置信度, 最新发现, 按环岛顺序, 名称), 只看未决定, 只看海岸相关, 只看有坐标, 包含村镇种子, 走廊 ≤ km, 来源 ≥ n. 批量选择 for bulk decisions; 撤销 undoes the last decision. Filters persist in the browser. |
+| 审核网格 (review grid) | `#/review` | Card grid with image, name, county, category, source count, image-verification badge and, once a route book is imported, a route chip (`D3 · 42 km 处 · 偏离 0.8 km`). Filters: search, 市县, 类别, 天数 (route day), 状态, 图片 (本地 / 仅远程 / 无图), sort (未审核优先, 综合发现分, 小众优先, 按天 → 偏离路线最近优先, 按天 → 沿途公里顺序, 靠近路线, 图片优先, 置信度, 最新发现, 按环岛顺序, 名称), 只看未决定, 只看海岸相关, 只看有坐标, 包含村镇种子, 偏离 ≤ km, 来源 ≥ n. Choosing a day switches the sort to 按天 → 偏离 automatically. 批量选择 for bulk decisions; 撤销 undoes the last decision. Filters persist in the browser. |
 | Detail drawer | `#/review/<id>` or click a card | Gallery with attribution, license link, match reasons and 确认是此地 / 不是此地 / 报告问题 / 删除本地副本; 有来源的事实 / 推断·估算 / 未知; aliases, category, scores, 核实状态; 重新研究此地点, 扩展周边地物, 为此地点找图; mini map (or manual coordinate entry); 来源证据 with excerpts and links; 关系与重复候选 with 合并（可撤销）/ 不是重复 / 撤销合并; 附近 3 km 内的候选; 我的笔记; 审核历史. |
-| 地图 | `#/map` | Leaflet map with clustering; filter by status, category, county; toggle the rough corridor (dashed, labelled 估算) and village seeds. Solid dots = exact coordinates, hollow = approximate/centroid. |
+| 地图 | `#/map` | Leaflet map with clustering; filter by status, category, county and route day; toggle the route lines and village seeds. With a route book imported each day is a coloured line with a legend; selecting a day fades the other days, marks that day's start/end (your lodging anchors), zooms to it and shows only places assigned to it. Without a route book the dashed rough corridor (估算) is drawn instead. Solid dots = exact coordinates, hollow = approximate/centroid. |
 | 去重审核 | `#/duplicates` | Pending duplicate pairs side by side with distance and reasons: 合并 A → B / B → A (reversible), 相关但分开保留, 无关. |
 | 图片线索 | `#/leads` | Geotagged Commons files not yet matched to any place, with license, attribution, source page and an OSM link for the location. |
 | 任务与数据源 | `#/jobs` | Buttons to queue discovery/image/research/corridor jobs; 提交网页线索 (paste a public URL); job list with progress, cancel, retry; provider table (enabled / 需要 API key / 已禁用, intervals, last success, errors, HTTP stats); per-county coverage. |
-| 导入 · 导出 · 备份 | `#/data` | Export CSV/JSON/GeoJSON (all, 仅想去, 想去 + 也许); import CSV (预览 then 导入) or GPX/GeoJSON corridor from `data/imports/`; backup now; restore a listed backup. |
+| 导入 · 导出 · 备份 | `#/data` | Export CSV/JSON/GeoJSON (all, 仅想去, 想去 + 也许); 路书 block: GPX 坐标系 selector (WGS-84 / GCJ-02 / BD-09; changing it re-converts the imported route and recomputes detours), 导入 data/routes 路书 (per-day GPX), a per-day table (km, estimated climb, places within 1/3/5 km, 想去/也许/未决定 counts) and 导出带航点的 GPX (per day or all, 仅想去 or 想去 + 也许, optional 偏离 ≤ km); import CSV (预览 then 导入) or a single GPX/GeoJSON corridor from `data/imports/`; backup now; restore a listed backup. |
 
 ### Keyboard shortcuts
 
@@ -249,14 +253,67 @@ Merged places are excluded; village/town seeds are excluded unless `--include-se
   scores, corridor distance + note, discovery reason, description, counts, `source_urls`
   (pipe-separated), primary image local path / attribution / license / source page.
 
+### Phone trip page (`trip-plan.html`)
+
+`build-trip-plan` (or 导入 · 导出 · 备份 → 生成手机行程页) reads `manual_planning.txt` at the
+project root (`day N A -> B` headers, 景点 / 住宿 / 补给 sections, two bullet checklists headed
+到站后 / 出发前) and writes one self-contained HTML file. Tabs: 总览 (dates, totals, warnings),
+每日 (route stats, sunrise/sunset for the chosen start date, attractions sorted by km along the
+day with detour, lodging, supplies), 地图 (Leaflet inlined; route per day already converted to
+WGS-84; lodging / supply / attraction markers; tap-to-pin for anything without coordinates),
+清单 (per-day arrival and departure checklists with one-tap reset) and 出发前 (packing list).
+Everything the user ticks or pins is stored in the phone browser's localStorage. Attractions
+get coordinates only from catalog records, lodging only from the route's start/end points, and
+OSM features used as rough references are drawn grey and labelled 参考点. Optional
+`data/trip_plan_hints.json` maps plan lines to catalog names, adds reference points and lodging
+reference coordinates used to warn when a route day ends far from the lodging in the notes.
+Copy the file to the phone (USB, 微信文件传输, or download it from the export list while the
+app runs) and open it in a browser; the basemap needs internet, the rest works offline. The map
+page has a 底图 switcher (CARTO Voyager by default, 天地图 with a free personal key from
+console.tianditu.gov.cn, Esri World Street Map, OpenStreetMap, or none). OpenStreetMap's own
+tile server returns "Access blocked" to pages opened from a local file because the browser sends
+no Referer, so it only works when the page is served over http (for example from the app's
+export list).
+
+### GPX with waypoints (route book export)
+
+导出带航点的 GPX / `export-gpx` writes `route-<version>-dayNN-<interests>.gpx` per day:
+the day's full track (with elevation when the source had it) plus one `<wpt>` per chosen
+place, ordered by km along the day, with name, a description (category, interest, km
+along, straight-line detour and round-trip estimate, your notes), a `<sym>` (green flag
+想去, yellow 也许) and the category as `<type>`. The track is written in the route book's
+original coordinate system (exactly the numbers you imported) and the waypoints are converted
+from WGS-84 into that same system, so the file stays consistent with the Garmin Connect course
+it came from. Garmin Connect's handling of GPX
+waypoints on import has varied between versions; after importing a course, open it in
+the web course editor and check its course points before sending it to the Edge.
+
 ## Importing your own data
 
 - **CSV** columns (header row, UTF-8): `name, latitude, longitude, category, county,
   description, url, aliases` (aliases separated by `|`). Only `name` is required. Drop
   the file in `data/imports/`, preview, then import. Rows go through the same
   deduplication as discovered places.
-- **GPX / GeoJSON** track or line: 作为走廊导入 replaces the rough corridor with your
-  planned route; corridor distances are recomputed (still straight-line).
+- **Route book (recommended)**: put one GPX per day in `data/routes/` with `Day1`,
+  `Day2`, … in the file names (Garmin Connect course exports work as-is), then
+  导入 · 导出 · 备份 → 导入 data/routes 路书 (or `import-routes`). Each track becomes a
+  `route_segments` row, the merged line becomes the active corridor, and every place with
+  coordinates gets `route_day` (nearest day), `route_day_km` (km from that day's start to
+  the closest track point) and `route_distance_km` (straight-line detour). Re-importing
+  replaces the previous route book; discovery jobs keep these fields up to date. All three
+  numbers are geometric estimates, not road-network distances; the UI shows a round-trip
+  detour of 2 × the straight-line distance as a rough lower bound.
+- **Coordinate system of the route book**: GPX files exported from a course drawn on a
+  Chinese web map (Garmin Connect China, Amap, Tencent) are in GCJ-02; Baidu uses BD-09.
+  Drawn on the OSM basemap they sit a few hundred metres off the road and every detour is
+  wrong. Pick the system in the 路书 block (or `--crs` / `route-crs`): the parsed
+  coordinates are kept verbatim in `route_segments.source_geometry_json`, the WGS-84
+  conversion goes into `geometry_json` and drives the map, the corridor and all detours.
+  Your GPX files are never rewritten. Check on the map page that the line sits on the road
+  after switching.
+- **GPX / GeoJSON** single track or line: 作为走廊导入 replaces the route book with one
+  corridor line; corridor distances are recomputed (still straight-line) and per-day
+  fields are cleared.
 - **Public web page URL**: 任务与数据源 → 提交网页线索. The page is fetched only if its
   domain is allowed and robots.txt permits; place names found in the text become leads
   with the evidence sentence. Otherwise the URL is kept as a link-only source.

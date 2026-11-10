@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>__TITLE__</title>
+<style>/*__LEAFLET_CSS__*/</style>
+<style>
+/* Palette from the user's swatches (晴朗 / 活力 / 自由): cream paper, paint strokes of sky blue,
+   sunny yellow, orange, coral and lagoon turquoise. Light theme only: the page keeps the cream paper look
+   regardless of the phone's dark-mode setting. */
+:root{
+  --bg:#fbf7ee;--card:#ffffff;--ink:#2b3440;--muted:#7b8591;--line:#ede6d6;--soft:#fff6dc;--soft2:#eaf6fc;
+  --sky:#5fbdee;--sky-deep:#2f9fd8;--sun:#f6c445;--sun-deep:#e3a51f;--orange:#f28c38;--coral:#ee6f5c;--aqua:#39c0c9;--aqua-deep:#1fa3ad;--sand:#f1dfc0;
+  --accent:var(--aqua-deep);--accent-ink:#ffffff;
+  --warn-bg:#fdf0d4;--warn-ink:#8a5a12;--ok:#3f9d6a;
+  --lodging:#ee6f5c;--supply:#f28c38;--sight:#2f9fd8;--pin:#d6503e;--ref:#b9ae9c;
+  --shadow:0 2px 10px rgba(96,74,32,.07),0 1px 2px rgba(96,74,32,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;-webkit-text-size-adjust:100%}
+body{background-image:radial-gradient(circle at 100% -10%,rgba(95,189,238,.18),transparent 45%),radial-gradient(circle at -10% 20%,rgba(246,196,69,.16),transparent 40%);background-attachment:fixed}
+a{color:var(--accent)}
+button{font:inherit}
+.topbar{position:sticky;top:0;z-index:1000;background:var(--card);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top);box-shadow:var(--shadow)}
+.topbar::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--sky) 0 30%,var(--sun) 30% 55%,var(--orange) 55% 75%,var(--aqua) 75%)}
+.brand{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 4px}
+.brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:.04em;position:relative;display:inline-block}
+.brand h1::after{content:"";position:absolute;left:-2px;right:-2px;bottom:1px;height:8px;background:linear-gradient(90deg,var(--sun),var(--orange));opacity:.45;border-radius:4px 10px 3px 8px;z-index:-1;transform:skewX(-8deg)}
+.brand .sub{font-size:12px;color:var(--muted)}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 6px 0}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:9px 14px;border:0;background:none;color:var(--muted);font-weight:700;font-size:15px;position:relative;cursor:pointer;white-space:nowrap}
+.tab::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:4px;border-radius:3px 6px 2px 5px;background:linear-gradient(90deg,var(--sky),var(--aqua));opacity:0;transform:skewX(-10deg)}
+.tab.active{color:var(--ink)}
+.tab.active::after{opacity:1}
+main{padding:12px 12px calc(28px + env(safe-area-inset-bottom));max-width:860px;margin:0 auto}
+.card{background:var(--card);border:0;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card h2{font-size:17px;margin:0 0 8px;font-weight:800}
+.card h3{font-size:14px;margin:14px 0 6px;color:var(--muted);font-weight:700;letter-spacing:.04em}
+.muted{color:var(--muted)}.small{font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 15px;font-size:14px;font-weight:600;cursor:pointer;min-height:40px;box-shadow:0 1px 2px rgba(96,74,32,.05)}
+.btn.primary{background:linear-gradient(135deg,var(--sky-deep),var(--aqua));color:#fff;border-color:transparent}
+.btn.small{padding:6px 12px;min-height:34px;font-size:13px}
+.btn.danger{color:var(--pin);border-color:#f0c9c2;background:#fff7f5}
+.btn:active{transform:translateY(1px)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;background:var(--card);color:var(--ink);cursor:pointer}
+.chip.active{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.chip .dot{display:inline-block;width:10px;height:10px;border-radius:50% 60% 45% 55%;margin-right:5px;vertical-align:0}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border-radius:12px;padding:9px 12px;font-size:14px;margin:8px 0;border-left:4px solid var(--orange)}
+.daylist{display:grid;gap:8px}
+.dayrow{display:flex;gap:12px;align-items:center;padding:11px 12px;border:0;border-radius:14px;background:var(--card);cursor:pointer;text-align:left;width:100%;color:var(--ink);box-shadow:var(--shadow)}
+.dayrow .n{width:42px;height:42px;border-radius:40% 55% 45% 60%/55% 45% 60% 40%;display:flex;align-items:center;justify-content:center;font-weight:800;flex:0 0 auto;font-size:14px}
+.dayrow .t{flex:1;min-width:0}
+.dayrow .t b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dayrow .t span{font-size:13px;color:var(--muted)}
+.dayrow .prog{font-size:12px;color:var(--muted);text-align:right;flex:0 0 auto}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.stat{border-radius:14px;padding:9px 10px;background:var(--soft)}
+.stat:nth-child(2){background:var(--soft2)}
+.stat:nth-child(3){background:#fdebe1}
+.stat b{display:block;font-size:20px;font-weight:800}.stat span{font-size:12px;color:var(--muted)}
+.items{list-style:none;margin:0;padding:0}
+.item{display:flex;gap:10px;padding:10px 0;border-top:1px dashed var(--line);align-items:flex-start}
+.item:first-child{border-top:0}
+.item .ico{width:30px;height:30px;border-radius:45% 55% 50% 50%/55% 45% 55% 45%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex:0 0 auto;margin-top:2px}
+.item .body{flex:1;min-width:0}
+.item .body b{font-size:15px}
+.item .meta{font-size:13px;color:var(--muted)}
+.item .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.addr{font-size:13px;color:var(--muted);word-break:break-all}
+.check{display:flex;gap:12px;align-items:flex-start;padding:11px 4px;border-top:1px dashed var(--line);cursor:pointer}
+.check:first-child{border-top:0}
+.check input{width:22px;height:22px;margin:2px 0 0;flex:0 0 auto;accent-color:var(--aqua-deep)}
+.check .lbl{flex:1;font-size:16px}
+.check.done .lbl{color:var(--muted);text-decoration:line-through}
+.check .sub{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.check .sub label{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:14px;background:var(--card)}
+.check .sub label.done{color:var(--muted);text-decoration:line-through;background:var(--soft)}
+.check .sub input{width:18px;height:18px;margin:0}
+.progress{height:8px;background:var(--soft);border-radius:6px;overflow:hidden;margin:6px 0 10px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--sun),var(--orange));border-radius:6px}
+.mapwrap{position:relative;height:calc(100vh - 150px);min-height:360px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+#map{position:absolute;inset:0;background:#e9f3f7}
+.mapbar{position:absolute;left:8px;right:8px;top:8px;z-index:800;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.mapbar::-webkit-scrollbar{display:none}
+.mapbar .chip{flex:0 0 auto;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.mapfoot{position:absolute;left:8px;right:8px;bottom:8px;z-index:800;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mapfoot .btn{box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.banner{position:absolute;left:8px;right:8px;top:52px;z-index:800;background:var(--pin);color:#fff;padding:9px 12px;border-radius:12px;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.mk{display:flex;align-items:center;justify-content:center;border-radius:45% 55% 50% 50%/55% 45% 55% 45%;color:#fff;font-weight:800;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.mk.lodging{background:var(--lodging)}.mk.supply{background:var(--supply)}.mk.sight{background:var(--sight)}.mk.pin{background:var(--pin)}.mk.ref{background:var(--ref)}.mk.me{background:#1a73e8}
+.leaflet-popup-content-wrapper{border-radius:14px}
+.leaflet-popup-content{font-size:14px;line-height:1.4;margin:10px 12px}
+.leaflet-popup-content b{font-size:15px}
+.leaflet-container{font:inherit}
+.legend{font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50% 60% 45% 55%;margin:0 4px 0 8px;vertical-align:-1px}
+input[type=date],input[type=text]{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);min-height:40px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.kv dt{color:var(--muted)}.kv dd{margin:0}
+.navrow{display:flex;justify-content:space-between;gap:8px;margin:4px 0 12px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--muted);margin-left:4px;vertical-align:1px}
+.tag.warn{background:var(--warn-bg);color:var(--warn-ink)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:999px;font-size:14px;z-index:2000;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
+.toast.show{opacity:.95}
+.panel{position:absolute;left:8px;right:8px;bottom:56px;z-index:900;background:var(--card);border:0;border-radius:16px;padding:12px;box-shadow:0 6px 24px rgba(0,0,0,.25);max-height:60%;overflow:auto}
+.panel label.opt{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px dashed var(--line);cursor:pointer}
+.panel label.opt:first-of-type{border-top:0}
+.panel label.opt input{margin-top:4px;accent-color:var(--aqua-deep)}
+.panel .opt b{display:block;font-size:14px}.panel .opt span{font-size:12px;color:var(--muted)}
+.tilewarn{position:absolute;left:8px;right:8px;top:52px;z-index:800;background:var(--warn-bg);color:var(--warn-ink);padding:9px 12px;border-radius:12px;font-size:13px;display:flex;justify-content:space-between;gap:8px;align-items:center;border-left:4px solid var(--orange)}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><h1 id="brand-title">__TITLE__</h1><span class="sub" id="brand-sub"></span></div>
+  <nav class="tabs" id="tabs">
+    <button class="tab" data-tab="overview">总览</button>
+    <button class="tab" data-tab="day">每日</button>
+    <button class="tab" data-tab="map">地图</button>
+    <button class="tab" data-tab="check">清单</button>
+    <button class="tab" data-tab="prep">出发前</button>
+  </nav>
+</header>
+<main id="main"></main>
+<div class="toast" id="toast"></div>
+<script>/*__LEAFLET_JS__*/</script>
+<script>
+(function(){
+"use strict";
+const DATA = /*__DATA__*/{};
+// Paint-stroke palette from the swatches: sky, sun, orange, coral, lagoon, light sky, amber, salmon, deep sky, cream yellow.
+const DAY_COLORS = ["#5fbdee","#f6c445","#f28c38","#ee6f5c","#39c0c9","#8fd3f4","#f5a623","#f08c7d","#2f9fd8","#ffd36e"];
+const dayColor = (d) => DAY_COLORS[(d - 1) % DAY_COLORS.length];
+// Dark text on the light strokes (yellow, light sky), white on the rest.
+function textOn(hex) { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; return (0.299 * r + 0.587 * g + 0.114 * b) > 170 ? "#2b3440" : "#ffffff"; }
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KEY = "hntrip.v1.";
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(KEY + k); return v == null ? d : JSON.parse(v); } catch (_) { return d; } },
+  set(k, v) { try { localStorage.setItem(KEY + k, JSON.stringify(v)); } catch (_) {} },
+  del(k) { try { localStorage.removeItem(KEY + k); } catch (_) {} },
+};
+let toastTimer;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 1800); }
+const dayByNum = (n) => DATA.days.find((d) => d.day === n);
+const fmtKm = (v) => v == null ? "—" : (Math.round(v * 10) / 10).toFixed(1);
+
+// ---------------------------------------------------------------- dates & sun
+function tripStart() { const v = store.get("start_date", null); return v ? new Date(v + "T00:00:00") : null; }
+function dateForDay(day) { const s = tripStart(); if (!s) return null; const d = new Date(s); d.setDate(s.getDate() + day - 1); return d; }
+function fmtDate(d) { return d ? `${d.getMonth() + 1}月${d.getDate()}日 周${"日一二三四五六"[d.getDay()]}` : ""; }
+// NOAA sunrise/sunset (minutes after local midnight, UTC+8). Deterministic astronomy, +-2 min.
+function sunTimes(lat, lon, date) {
+  const rad = Math.PI / 180;
+  const start = Date.UTC(date.getFullYear(), 0, 0);
+  const doy = Math.floor((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - start) / 86400000);
+  const gamma = 2 * Math.PI / 365 * (doy - 1 + (12 - 12) / 24);
+  const eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(gamma) - 0.032077 * Math.sin(gamma) - 0.014615 * Math.cos(2 * gamma) - 0.040849 * Math.sin(2 * gamma));
+  const decl = 0.006918 - 0.399912 * Math.cos(gamma) + 0.070257 * Math.sin(gamma) - 0.006758 * Math.cos(2 * gamma) + 0.000907 * Math.sin(2 * gamma) - 0.002697 * Math.cos(3 * gamma) + 0.00148 * Math.sin(3 * gamma);
+  const cosHa = (Math.cos(90.833 * rad) / (Math.cos(lat * rad) * Math.cos(decl))) - Math.tan(lat * rad) * Math.tan(decl);
+  if (cosHa < -1 || cosHa > 1) return null;
+  const ha = Math.acos(cosHa) / rad;
+  const tz = 8 * 60;
+  const rise = 720 - 4 * (lon + ha) - eqtime + tz, set = 720 - 4 * (lon - ha) - eqtime + tz;
+  const f = (m) => { m = ((m % 1440) + 1440) % 1440; const h = Math.floor(m / 60), mi = Math.round(m % 60); return `${String(h).padStart(2, "0")}:${String(mi).padStart(2, "0")}`; };
+  return { rise: f(rise), set: f(set) };
+}
+
+// ---------------------------------------------------------------- checklists
+function checkKey(day, kind) { return `check.${day}.${kind}`; }
+function checkState(day, kind) { return store.get(checkKey(day, kind), {}); }
+function checklistItems(kind) { return DATA.checklists[kind] || []; }
+function checkProgress(day, kind) {
+  const st = checkState(day, kind); let total = 0, done = 0;
+  for (const it of checklistItems(kind)) {
+    if (it.sub && it.sub.length) { for (let i = 0; i < it.sub.length; i++) { total++; if (st[`${it.id}.${i}`]) done++; } }
+    else { total++; if (st[it.id]) done++; }
+  }
+  return { total, done };
+}
+
+// ---------------------------------------------------------------- pins (user-placed coordinates)
+function pinKey(k) { return `pin.${k}`; }
+function getPin(k) { return store.get(pinKey(k), null); }
+function coordOf(entity) { // entity: {key, lat, lon} ; user pin overrides missing coordinates
+  const pin = getPin(entity.key);
+  if (pin) return { lat: pin.lat, lon: pin.lon, source: "pin" };
+  if (entity.lat != null) return { lat: entity.lat, lon: entity.lon, source: entity.coord_source || "data" };
+  return null;
+}
+
+// ---------------------------------------------------------------- routing
+const tabs = ["overview", "day", "map", "check", "prep"];
+let state = { tab: "overview", day: 1, checkKind: "arrival", mapDay: null, focus: null, pinTarget: null };
+function parseHash() {
+  const h = (location.hash || "#/overview").replace(/^#\/?/, "").split("/");
+  const tab = tabs.includes(h[0]) ? h[0] : "overview";
+  const st = { ...state, tab };
+  if (tab === "day") st.day = clampDay(parseInt(h[1], 10));
+  if (tab === "check") { st.day = clampDay(parseInt(h[1], 10), true); st.checkKind = h[2] === "departure" ? "departure" : "arrival"; }
+  if (tab === "map") { st.mapDay = h[1] && h[1] !== "all" ? clampDay(parseInt(h[1], 10)) : null; st.focus = h[2] || null; }
+  return st;
+}
+function clampDay(n, allowZero) { const min = allowZero ? 0 : 1; if (isNaN(n)) return Math.max(min, state.day || 1); return Math.min(DATA.days.length, Math.max(min, n)); }
+function go(hash) { location.hash = hash; }
+window.addEventListener("hashchange", render);
+
+// ---------------------------------------------------------------- render
+function render() {
+  state = parseHash();
+  for (const b of document.querySelectorAll(".tab")) b.classList.toggle("active", b.dataset.tab === state.tab);
+  const main = $("#main");
+  if (state.tab !== "map" && mapState.map) { /* keep the map instance alive but detach */ }
+  if (state.tab === "overview") main.innerHTML = renderOverview();
+  else if (state.tab === "day") main.innerHTML = renderDay(state.day);
+  else if (state.tab === "check") main.innerHTML = renderCheck(state.day, state.checkKind);
+  else if (state.tab === "prep") main.innerHTML = renderPrep();
+  else if (state.tab === "map") { main.innerHTML = renderMapShell(); setTimeout(initMap, 0); }
+  bindCommon();
+  window.scrollTo(0, 0);
+}
+$("#tabs").addEventListener("click", (e) => {
+  const b = e.target.closest(".tab"); if (!b) return;
+  const t = b.dataset.tab;
+  if (t === "day") go(`#/day/${state.day || 1}`);
+  else if (t === "check") go(`#/check/${state.day || 1}/${state.checkKind}`);
+  else if (t === "map") go(`#/map/${state.mapDay || "all"}`);
+  else go(`#/${t}`);
+});
+function bindCommon() {
+  document.querySelectorAll("[data-go]").forEach((el) => el.onclick = () => go(el.dataset.go));
+  document.querySelectorAll("[data-copy]").forEach((el) => el.onclick = () => copyText(el.dataset.copy));
+}
+function copyText(text) {
+  const done = () => toast("已复制");
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+  else fallbackCopy(text, done);
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); done(); } catch (_) { toast("无法自动复制，请长按选择文字"); }
+  document.body.removeChild(ta);
+}
+
+// ---------------------------------------------------------------- overview
+function renderOverview() {
+  const total = DATA.days.reduce((a, d) => a + (d.km || 0), 0);
+  const climb = DATA.days.reduce((a, d) => a + (d.climb_m || 0), 0);
+  const start = store.get("start_date", "");
+  const warnings = DATA.days.filter((d) => d.lodging && d.lodging.warning).map((d) => `<div class="warn">Day ${d.day}：${esc(d.lodging.warning)}</div>`).join("");
+  const d0 = DATA.day0;
+  return `
+  <section class="card">
+    <h2>${esc(DATA.title)}</h2>
+    <div class="stats">
+      <div class="stat"><b>${DATA.days.length}</b><span>骑行天数</span></div>
+      <div class="stat"><b>${Math.round(total)}</b><span>总里程 km</span></div>
+      <div class="stat"><b>${Math.round(climb)}</b><span>累计爬升 m（估）</span></div>
+    </div>
+    <div class="row"><label class="small muted">Day 1 出发日期</label><input type="date" id="start-date" value="${esc(start)}"><span class="small muted">用于显示每天日期与日出日落时间</span></div>
+    ${warnings}
+    <p class="small muted">${esc(DATA.notes.route)}</p>
+  </section>
+  ${d0 ? `<section class="card"><h2>Day 0 · 抵达</h2><div class="kv"><dt>住宿</dt><dd><b>${esc(d0.lodging.name)}</b><div class="addr">${esc(d0.lodging.address || "")}</div></dd>${tripStart() ? `<dt>日期</dt><dd>${fmtDate(dateForDay(0))}</dd>` : ""}</div>
+     <div class="row" style="margin-top:8px"><button class="btn small" data-go="#/check/0/arrival">到站后清单</button><button class="btn small" data-go="#/prep">出发前准备</button>${d0.lodging.lat != null ? `<button class="btn small" data-go="#/map/1/lodging-start">地图上查看</button>` : ""}</div></section>` : ""}
+  <section class="card"><h2>每日计划</h2><div class="daylist">${DATA.days.map(dayRow).join("")}</div></section>
+  <section class="card"><h2>怎么用</h2><ul class="small muted" style="padding-left:18px;margin:0">
+    <li>每日页：当天路线、景点（按沿途公里排序）、住宿、补给；每个条目都能在地图上定位。</li>
+    <li>地图页：路线按天着色，住宿 / 补给 / 景点用不同颜色标记；没有坐标的点可以在地图上手动标定，保存在本机。</li>
+    <li>清单页：到站后与出发前两份清单，按天记录勾选，一键清零。</li>
+    <li>没有网络时地图底图不显示，但路线和标记仍可看。勾选和标定都保存在手机浏览器里。</li>
+  </ul></section>`;
+}
+function dayRow(d) {
+  const pa = checkProgress(d.day, "arrival"), pd = checkProgress(d.day, "departure");
+  const date = tripStart() ? fmtDate(dateForDay(d.day)) + " · " : "";
+  return `<button class="dayrow" data-go="#/day/${d.day}"><span class="n" style="background:${dayColor(d.day)};color:${textOn(dayColor(d.day))}">D${d.day}</span><span class="t"><b>${esc(d.from)} → ${esc(d.to)}${d.lodging && d.lodging.warning ? '<span class="tag warn">住宿待确认</span>' : ""}</b><span>${date}${fmtKm(d.km)} km · 爬升 ${d.climb_m == null ? "—" : Math.round(d.climb_m)} m · ${d.attractions.length} 个景点</span></span><span class="prog">到站 ${pa.done}/${pa.total}<br>出发 ${pd.done}/${pd.total}</span></button>`;
+}
+document.addEventListener("change", (e) => { if (e.target.id === "start-date") { store.set("start_date", e.target.value || null); render(); } });
+
+// ---------------------------------------------------------------- day
+function renderDay(n) {
+  const d = dayByNum(n); if (!d) return `<section class="card">没有 Day ${n}</section>`;
+  const date = dateForDay(n);
+  const sunStart = date && d.start ? sunTimes(d.start.lat, d.start.lon, date) : null;
+  const sunEnd = date && d.end ? sunTimes(d.end.lat, d.end.lon, date) : null;
+  const prev = dayByNum(n - 1), next = dayByNum(n + 1);
+  const lodging = d.lodging;
+  const lodgingCoord = lodging ? coordOf({ key: `lodging.${n}`, lat: lodging.lat, lon: lodging.lon, coord_source: lodging.coord_source }) : null;
+  return `
+  <div class="navrow"><button class="btn small" ${prev ? `data-go="#/day/${n - 1}"` : "disabled"}>‹ Day ${n - 1}</button><button class="btn small" data-go="#/overview">总览</button><button class="btn small" ${next ? `data-go="#/day/${n + 1}"` : "disabled"}>Day ${n + 1} ›</button></div>
+  <section class="card">
+    <h2><span class="tag" style="background:${dayColor(n)};color:${textOn(dayColor(n))}">Day ${n}</span> ${esc(d.from)} → ${esc(d.to)}</h2>
+    <div class="small muted">${date ? fmtDate(date) : "未设置出发日期"}${sunStart ? ` · 日出 ${sunStart.rise}（起点）` : ""}${sunEnd ? ` · 日落 ${sunEnd.set}（终点）` : ""}</div>
+    <div class="stats"><div class="stat"><b>${fmtKm(d.km)}</b><span>km（路书轨迹）</span></div><div class="stat"><b>${d.climb_m == null ? "—" : Math.round(d.climb_m)}</b><span>爬升 m（估）</span></div><div class="stat"><b>${d.attractions.length}</b><span>景点</span></div></div>
+    ${d.day_notes && d.day_notes.length ? `<div class="warn">${d.day_notes.map(esc).join("；")}</div>` : ""}
+    <div class="row"><button class="btn primary" data-go="#/map/${n}">在地图上看这一天</button><button class="btn" data-go="#/check/${n}/departure">出发前清单</button><button class="btn" data-go="#/check/${n}/arrival">到站后清单</button></div>
+  </section>
+  <section class="card"><h2>景点 <span class="small muted">按沿途公里排序</span></h2>
+    <ul class="items">${d.attractions.length ? d.attractions.map((a, i) => attractionItem(d, a, i)).join("") : '<li class="item muted small">这一天没有记录景点</li>'}</ul>
+  </section>
+  <section class="card"><h2>住宿</h2>
+    ${lodging ? `<div class="item"><span class="ico" style="background:var(--lodging)">宿</span><div class="body"><b>${esc(lodging.name)}</b>${lodging.address ? `<div class="addr">${esc(lodging.address)}</div>` : ""}
+      <div class="meta">${lodgingCoord ? (lodgingCoord.source === "pin" ? "位置：你手动标定" : lodgingCoord.source === "route_end" ? "位置：按路书 Day " + n + " 终点" : "位置：" + esc(lodgingCoord.source)) : "没有坐标"}</div>
+      ${lodging.warning ? `<div class="warn">${esc(lodging.warning)}</div>` : ""}
+      <div class="acts">${lodgingCoord ? `<button class="btn small" data-go="#/map/${n}/lodging-end">地图定位</button>` : ""}${lodging.address ? `<button class="btn small" data-copy="${esc(lodging.name + " " + lodging.address)}">复制地址</button>` : ""}<button class="btn small" data-pin="lodging.${n}" data-pin-label="${esc(lodging.name)}" data-pin-day="${n}">${getPin(`lodging.${n}`) ? "重新标定" : "在地图上标定"}</button>${getPin(`lodging.${n}`) ? `<button class="btn small danger" data-unpin="lodging.${n}">清除标定</button>` : ""}</div></div></div>` : '<div class="muted small">未记录</div>'}
+    ${d.start ? `<div class="small muted" style="margin-top:8px">出发：${esc(d.start_label || "路书起点")}${prev && prev.lodging ? `（${esc(prev.lodging.name)}）` : ""}</div>` : ""}
+  </section>
+  <section class="card"><h2>补给</h2>
+    <ul class="items">${d.supplies.length ? d.supplies.map((s, i) => supplyItem(d, s, i)).join("") : '<li class="item muted small">没有记录补给点，建议在出发前确认沿途便利店</li>'}</ul>
+  </section>`;
+}
+function attractionItem(d, a, i) {
+  const key = `sight.${d.day}.${i}`;
+  const c = coordOf({ key, lat: a.lat, lon: a.lon, coord_source: a.coord_source });
+  let pos = "";
+  if (a.km != null && a.route_day === d.day) pos = `Day ${d.day} 第 ${fmtKm(a.km)} km · 偏离路线约 ${fmtKm(a.detour)} km${d.km ? ` · 距住宿还有约 ${fmtKm(Math.max(0, d.km - a.km))} km` : ""}`;
+  else if (a.km != null && a.route_day != null) pos = `按路书它更靠近 Day ${a.route_day} 第 ${fmtKm(a.km)} km（偏离约 ${fmtKm(a.detour)} km）`;
+  else if (c && c.source === "pin") pos = "位置：你手动标定";
+  else if (c && a.reference) pos = `参考点：${esc(a.reference)}（非景点精确位置）`;
+  else if (!c) pos = "没有坐标，可在地图上标定";
+  const src = a.place_name && a.place_name !== a.label ? `<span class="tag">${esc(a.place_name)}</span>` : "";
+  const prec = a.precision && a.precision !== "exact" ? `<span class="tag">${a.precision === "centroid" ? "面要素中心" : "近似坐标"}</span>` : "";
+  return `<li class="item"><span class="ico" style="background:var(--sight)">${i + 1}</span><div class="body"><b>${esc(a.label)}</b>${src}${prec}${a.note ? `<span class="tag">${esc(a.note)}</span>` : ""}
+    <div class="meta">${pos}</div>
+    <div class="acts">${c ? `<button class="btn small" data-go="#/map/${d.day}/sight-${i}">地图定位</button>` : ""}<button class="btn small" data-pin="${key}" data-pin-label="${esc(a.label)}" data-pin-day="${d.day}">${getPin(key) ? "重新标定" : "在地图上标定"}</button>${getPin(key) ? `<button class="btn small danger" data-unpin="${key}">清除标定</button>` : ""}</div></div></li>`;
+}
+function supplyItem(d, s, i) {
+  const key = `supply.${d.day}.${i}`;
+  const c = coordOf({ key, lat: s.lat, lon: s.lon, coord_source: s.coord_source });
+  return `<li class="item"><span class="ico" style="background:var(--supply)">补</span><div class="body"><b>${esc(s.name)}</b>${s.address ? `<div class="addr">${esc(s.address)}</div>` : ""}
+    <div class="meta">${c ? (c.source === "pin" ? "位置：你手动标定" : "位置：" + esc(c.source)) : "没有坐标，可在地图上标定"}</div>
+    <div class="acts">${c ? `<button class="btn small" data-go="#/map/${d.day}/supply-${i}">地图定位</button>` : ""}${s.address ? `<button class="btn small" data-copy="${esc(s.name + " " + s.address)}">复制地址</button>` : ""}<button class="btn small" data-pin="${key}" data-pin-label="${esc(s.name)}" data-pin-day="${d.day}">${getPin(key) ? "重新标定" : "在地图上标定"}</button>${getPin(key) ? `<button class="btn small danger" data-unpin="${key}">清除标定</button>` : ""}</div></div></li>`;
+}
+document.addEventListener("click", (e) => {
+  const p = e.target.closest("[data-pin]");
+  if (p) { state.pinTarget = { key: p.dataset.pin, label: p.dataset.pinLabel, day: Number(p.dataset.pinDay) }; go(`#/map/${p.dataset.pinDay}/pinmode`); return; }
+  const u = e.target.closest("[data-unpin]");
+  if (u) { store.del(pinKey(u.dataset.unpin)); toast("已清除标定"); render(); }
+});
+
+// ---------------------------------------------------------------- checklists
+function renderCheck(day, kind) {
+  const d = dayByNum(day);
+  const title = day === 0 ? "Day 0 · 抵达海口" : d ? `Day ${day} · ${d.from} → ${d.to}` : `Day ${day}`;
+  const st = checkState(day, kind);
+  const items = checklistItems(kind);
+  const prog = checkProgress(day, kind);
+  const dayChips = [0, ...DATA.days.map((x) => x.day)].map((n) => `<button class="chip ${n === day ? "active" : ""}" data-go="#/check/${n}/${kind}">D${n}</button>`).join("");
+  return `
+  <section class="card">
+    <div class="chips" style="margin-bottom:10px"><button class="chip ${kind === "arrival" ? "active" : ""}" data-go="#/check/${day}/arrival">到站后</button><button class="chip ${kind === "departure" ? "active" : ""}" data-go="#/check/${day}/departure">出发前</button></div>
+    <div class="chips" style="margin-bottom:10px">${dayChips}</div>
+    <h2>${esc(title)} · ${kind === "arrival" ? "到站后" : "出发前"}</h2>
+    <div class="small muted">${prog.done}/${prog.total} 已完成</div>
+    <div class="progress"><i style="width:${prog.total ? Math.round(prog.done / prog.total * 100) : 0}%"></i></div>
+    <div id="checklist">${items.map((it) => checkRow(it, st)).join("")}</div>
+    <div class="row" style="margin-top:12px"><button class="btn danger" id="check-reset">一键清零（仅这一天的这份清单）</button>${day > 0 && d ? `<button class="btn" data-go="#/day/${day}">返回 Day ${day}</button>` : ""}</div>
+  </section>
+  <section class="card small muted">勾选状态按天分别保存在这台手机的浏览器里；换手机或清除浏览器数据会丢失。清单内容来自 manual_planning.txt，修改后重新生成本页即可。</section>`;
+}
+function checkRow(it, st) {
+  if (it.sub && it.sub.length) {
+    const allDone = it.sub.every((_, i) => st[`${it.id}.${i}`]);
+    return `<div class="check ${allDone ? "done" : ""}" data-group="${it.id}"><input type="checkbox" data-check-group="${it.id}" ${allDone ? "checked" : ""}><div class="lbl">${esc(it.text)}<div class="sub">${it.sub.map((s, i) => `<label class="${st[`${it.id}.${i}`] ? "done" : ""}"><input type="checkbox" data-check="${it.id}.${i}" ${st[`${it.id}.${i}`] ? "checked" : ""}>${esc(s)}</label>`).join("")}</div></div></div>`;
+  }
+  return `<label class="check ${st[it.id] ? "done" : ""}"><input type="checkbox" data-check="${it.id}" ${st[it.id] ? "checked" : ""}><span class="lbl">${esc(it.text)}</span></label>`;
+}
+document.addEventListener("change", (e) => {
+  if (state.tab !== "check") return;
+  const st = checkState(state.day, state.checkKind);
+  if (e.target.dataset.check) { if (e.target.checked) st[e.target.dataset.check] = true; else delete st[e.target.dataset.check]; }
+  else if (e.target.dataset.checkGroup) {
+    const it = checklistItems(state.checkKind).find((x) => x.id === e.target.dataset.checkGroup);
+    it.sub.forEach((_, i) => { if (e.target.checked) st[`${it.id}.${i}`] = true; else delete st[`${it.id}.${i}`]; });
+  } else return;
+  store.set(checkKey(state.day, state.checkKind), st);
+  render();
+});
+document.addEventListener("click", (e) => {
+  if (e.target.id === "check-reset") { store.del(checkKey(state.day, state.checkKind)); toast("已清零"); render(); }
+});
+
+// ---------------------------------------------------------------- prep (before the trip)
+function renderPrep() {
+  const st = store.get("prep", {});
+  const custom = store.get("prep_custom", []);
+  const groups = DATA.prep;
+  let total = 0, done = 0;
+  for (const g of groups) for (const it of g.items) { total++; if (st[it.id]) done++; }
+  for (const c of custom) { total++; if (st[c.id]) done++; }
+  return `
+  <section class="card"><h2>出发前准备</h2><div class="small muted">${done}/${total} 已完成 · 内容为建议清单，可按自己的习惯增删</div><div class="progress"><i style="width:${total ? Math.round(done / total * 100) : 0}%"></i></div>
+  ${groups.map((g) => `<h3>${esc(g.title)}</h3>${g.items.map((it) => `<label class="check ${st[it.id] ? "done" : ""}"><input type="checkbox" data-prep="${it.id}" ${st[it.id] ? "checked" : ""}><span class="lbl">${esc(it.text)}${it.note ? `<div class="small muted">${esc(it.note)}</div>` : ""}</span></label>`).join("")}`).join("")}
+  <h3>自定义</h3>${custom.map((c) => `<label class="check ${st[c.id] ? "done" : ""}"><input type="checkbox" data-prep="${c.id}" ${st[c.id] ? "checked" : ""}><span class="lbl">${esc(c.text)}</span><button class="btn small danger" data-prep-del="${c.id}">删</button></label>`).join("")}
+  <div class="row" style="margin-top:8px"><input type="text" id="prep-new" placeholder="添加一项…" style="flex:1"><button class="btn" id="prep-add">添加</button></div>
+  <div class="row" style="margin-top:12px"><button class="btn danger" id="prep-reset">一键清零</button></div></section>
+  <section class="card"><h2>路书与设备</h2><ul class="small muted" style="padding-left:18px;margin:0">${DATA.notes.prep.map((n) => `<li>${esc(n)}</li>`).join("")}</ul></section>`;
+}
+document.addEventListener("change", (e) => { if (e.target.dataset.prep) { const st = store.get("prep", {}); if (e.target.checked) st[e.target.dataset.prep] = true; else delete st[e.target.dataset.prep]; store.set("prep", st); render(); } });
+document.addEventListener("click", (e) => {
+  if (e.target.id === "prep-add") { const v = $("#prep-new").value.trim(); if (!v) return; const c = store.get("prep_custom", []); c.push({ id: "c" + Date.now(), text: v }); store.set("prep_custom", c); render(); }
+  if (e.target.id === "prep-reset") { store.del("prep"); toast("已清零"); render(); }
+  const del = e.target.closest("[data-prep-del]"); if (del) { store.set("prep_custom", store.get("prep_custom", []).filter((c) => c.id !== del.dataset.prepDel)); render(); }
+});
+
+// ---------------------------------------------------------------- map
+const mapState = { map: null, layers: {}, markers: [], show: { lodging: true, supply: true, sight: true }, meMarker: null, tileLayers: [], tileErrors: 0 };
+// Basemaps. All of these serve Web Mercator tiles in WGS-84, so the converted route and the catalog
+// coordinates sit on them without further shifting. OpenStreetMap's own server refuses requests that
+// carry no Referer, which is what a browser sends when a page is opened from a local file, so it is
+// not the default here. 天地图 needs a free personal key (console.tianditu.gov.cn) and is the choice
+// that loads reliably inside mainland China.
+const TILE_PROVIDERS = {
+  carto: { name: "CARTO Voyager（OSM 数据，无需密钥）", note: "适合本地文件打开；国内网络可能较慢。非商业个人使用。", layers: [{ url: "https://{s}.basemaps.cartocdn.com/rapid/{z}/{x}/{y}{r}.png", opts: { subdomains: "abcd", maxZoom: 19 } }], attribution: "&copy; OpenStreetMap contributors &copy; CARTO" },
+  tianditu: { name: "天地图（需要个人密钥，国内加载快）", note: "在 console.tianditu.gov.cn 免费申请“浏览器端”密钥后填入下方。坐标系 CGCS2000，与 WGS-84 一致。", needsKey: true, layers: [{ url: "https://t{s}.tianditu.gov.cn/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk={k}", opts: { subdomains: "01234567", maxZoom: 18 } }, { url: "https://t{s}.tianditu.gov.cn/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk={k}", opts: { subdomains: "01234567", maxZoom: 18 } }], attribution: "&copy; 天地图 国家地理信息公共服务平台" },
+  esri: { name: "Esri World Street Map（无需密钥）", note: "ArcGIS Online 公共底图；国内一般可加载。", layers: [{ url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", opts: { maxZoom: 18 } }], attribution: "Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors" },
+  osm: { name: "OpenStreetMap 官方（本地文件打开会被拒绝）", note: "仅当本页通过 http 服务打开时可用；轻量个人使用。", layers: [{ url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", opts: { maxZoom: 19 } }], attribution: "&copy; OpenStreetMap contributors" },
+  none: { name: "不加载底图（离线 / 省流量）", note: "只显示路线和标记。", layers: [], attribution: "" },
+};
+function tileProviderKey() { const k = store.get("tiles", null); return TILE_PROVIDERS[k] ? k : "carto"; }
+function addTiles(map) {
+  for (const l of mapState.tileLayers) { try { map.removeLayer(l); } catch (_) {} }
+  mapState.tileLayers = []; mapState.tileErrors = 0;
+  const warn = $("#tile-warn"); if (warn) warn.classList.add("hidden");
+  const key = tileProviderKey(), p = TILE_PROVIDERS[key];
+  const tk = store.get("tdt_key", "");
+  if (p.needsKey && !tk) { showTileWarn("天地图需要先填入密钥：点“底图”填写，或换一个底图。"); return; }
+  map.attributionControl.setPrefix('<a href="https://leafletjs.com" onclick="return false">Leaflet</a>');
+  for (const spec of p.layers) {
+    const layer = L.tileLayer(spec.url.replace("{k}", encodeURIComponent(tk)), { ...spec.opts, attribution: p.attribution }).addTo(map);
+    layer.on("tileerror", () => { mapState.tileErrors++; if (mapState.tileErrors === 4) showTileWarn(`底图「${p.name.split("（")[0]}」加载失败（无网络、被拒绝或密钥无效）。路线和标记不受影响；可点“底图”换一个。`); });
+    mapState.tileLayers.push(layer);
+  }
+}
+function showTileWarn(text) { const w = $("#tile-warn"); if (!w) return; $("#tile-warn-text").textContent = text; w.classList.remove("hidden"); }
+function tilePanelHtml() {
+  const cur = tileProviderKey();
+  return `<div class="panel hidden" id="tile-panel"><div class="row" style="justify-content:space-between"><b>底图</b><button class="btn small" id="tile-close">关闭</button></div>
+    ${Object.entries(TILE_PROVIDERS).map(([k, p]) => `<label class="opt"><input type="radio" name="tiles" value="${k}" ${k === cur ? "checked" : ""}><span><b>${esc(p.name)}</b><span>${esc(p.note)}</span></span></label>`).join("")}
+    <div class="row" style="margin-top:8px"><input type="text" id="tdt-key" placeholder="天地图密钥 tk" value="${esc(store.get("tdt_key", ""))}" style="flex:1" autocomplete="off" spellcheck="false"><button class="btn small" id="tdt-save">保存</button></div>
+    <div class="small muted" style="margin-top:6px">选择和密钥只保存在这台手机的浏览器里。所有底图都是 WGS-84 网络墨卡托，路线无需再转换。</div></div>`;
+}
+function renderMapShell() {
+  const chips = [`<button class="chip ${state.mapDay == null ? "active" : ""}" data-mapday="all">全程</button>`, ...DATA.days.map((d) => `<button class="chip ${state.mapDay === d.day ? "active" : ""}" data-mapday="${d.day}"><i class="dot" style="background:${dayColor(d.day)}"></i>D${d.day}</button>`)].join("");
+  const pinmode = state.focus === "pinmode" && state.pinTarget;
+  return `<div class="mapwrap"><div id="map"></div>
+    <div class="mapbar">${chips}</div>
+    ${pinmode ? `<div class="banner"><span>点地图放置「${esc(state.pinTarget.label)}」</span><button class="btn small" id="pin-cancel">取消</button></div>` : `<div class="tilewarn hidden" id="tile-warn"><span id="tile-warn-text"></span><button class="btn small" id="tile-warn-open">底图</button></div>`}
+    ${tilePanelHtml()}
+    <div class="mapfoot">
+      <button class="btn small" id="btn-tiles">底图</button>
+      <button class="btn small ${mapState.show.lodging ? "primary" : ""}" data-toggle="lodging">住宿</button>
+      <button class="btn small ${mapState.show.supply ? "primary" : ""}" data-toggle="supply">补给</button>
+      <button class="btn small ${mapState.show.sight ? "primary" : ""}" data-toggle="sight">景点</button>
+      <button class="btn small" id="btn-me">我的位置</button>
+      ${state.mapDay ? `<button class="btn small" data-go="#/day/${state.mapDay}">Day ${state.mapDay} 详情</button>` : ""}
+    </div></div>
+    <div class="legend">${esc(DATA.notes.map)} <i style="background:var(--lodging)"></i>住宿 <i style="background:var(--supply)"></i>补给 <i style="background:var(--sight)"></i>景点 <i style="background:var(--pin)"></i>手动标定 <i style="background:#8a8a8a"></i>参考点</div>`;
+}
+function mk(cls, text, size) { size = size || 26; return L.divIcon({ className: "", html: `<div class="mk ${cls}" style="width:${size}px;height:${size}px">${text}</div>`, iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2] }); }
+function initMap() {
+  const el = $("#map"); if (!el || !window.L) return;
+  if (mapState.map) { try { mapState.map.remove(); } catch (_) {} mapState.map = null; }
+  const map = L.map("map", { zoomControl: true, attributionControl: true });
+  mapState.map = map;
+  addTiles(map);
+  const bounds = [];
+  for (const d of DATA.days) {
+    const active = state.mapDay == null || d.day === state.mapDay;
+    const line = L.polyline(d.track, { color: dayColor(d.day), weight: active ? 5 : 3, opacity: active ? 0.9 : 0.25 }).addTo(map);
+    line.bindTooltip(`Day ${d.day} ${d.from} → ${d.to} · ${fmtKm(d.km)} km`, { sticky: true });
+    if (active) bounds.push(...d.track);
+    if (active) addDayMarkers(d, map);
+  }
+  if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
+  else map.setView([19.2, 109.7], 8);
+  handleFocus(map);
+  map.on("click", (e) => {
+    if (!(state.focus === "pinmode" && state.pinTarget)) return;
+    store.set(pinKey(state.pinTarget.key), { lat: Number(e.latlng.lat.toFixed(6)), lon: Number(e.latlng.lng.toFixed(6)), at: new Date().toISOString() });
+    toast(`已标定「${state.pinTarget.label}」`);
+    const day = state.pinTarget.day; state.pinTarget = null;
+    go(`#/day/${day}`);
+  });
+  document.querySelectorAll("[data-mapday]").forEach((b) => b.onclick = () => go(`#/map/${b.dataset.mapday}`));
+  document.querySelectorAll("[data-toggle]").forEach((b) => b.onclick = () => { mapState.show[b.dataset.toggle] = !mapState.show[b.dataset.toggle]; render(); });
+  const cancel = $("#pin-cancel"); if (cancel) cancel.onclick = () => { const day = state.pinTarget ? state.pinTarget.day : state.mapDay; state.pinTarget = null; go(`#/day/${day || 1}`); };
+  $("#btn-me").onclick = locateMe;
+  const panel = $("#tile-panel");
+  const openPanel = () => panel.classList.remove("hidden");
+  $("#btn-tiles").onclick = openPanel;
+  const wo = $("#tile-warn-open"); if (wo) wo.onclick = openPanel;
+  $("#tile-close").onclick = () => panel.classList.add("hidden");
+  panel.querySelectorAll("input[name=tiles]").forEach((r) => r.onchange = () => { store.set("tiles", r.value); addTiles(map); });
+  $("#tdt-save").onclick = () => { store.set("tdt_key", $("#tdt-key").value.trim()); if ($("#tdt-key").value.trim()) { store.set("tiles", "tianditu"); panel.querySelector("input[value=tianditu]").checked = true; } addTiles(map); toast("已保存"); };
+  setTimeout(() => map.invalidateSize(), 50);
+}
+function addDayMarkers(d, map) {
+  const n = d.day;
+  const popBtn = (hash, text) => `<button class="btn small" onclick="location.hash='${hash}'">${text}</button>`;
+  if (mapState.show.lodging) {
+    const prevDay = dayByNum(n - 1);
+    const startName = prevDay && prevDay.lodging ? prevDay.lodging.name : (n === 1 && DATA.day0 ? DATA.day0.lodging.name : "起点");
+    if (d.start) L.marker([d.start.lat, d.start.lon], { icon: mk("lodging", "起", 24) }).addTo(map).bindPopup(`<b>Day ${n} 起点</b><br>${esc(startName)}<br><span class="muted small">路书 Day ${n} 起点</span>`)._hn = `lodging-start`;
+    if (d.lodging) {
+      const c = coordOf({ key: `lodging.${n}`, lat: d.lodging.lat, lon: d.lodging.lon, coord_source: d.lodging.coord_source });
+      if (c) L.marker([c.lat, c.lon], { icon: mk(c.source === "pin" ? "pin" : "lodging", "宿", 28) }).addTo(map).bindPopup(`<b>${esc(d.lodging.name)}</b><br>${esc(d.lodging.address || "")}<br><span class="muted small">${c.source === "pin" ? "你手动标定" : "路书 Day " + n + " 终点"}</span>${d.lodging.warning ? `<div class="warn">${esc(d.lodging.warning)}</div>` : ""}<div style="margin-top:6px">${popBtn(`#/day/${n}`, `Day ${n} 详情`)}</div>`)._hn = `lodging-end`;
+      if (d.lodging.ref) L.marker([d.lodging.ref.lat, d.lodging.ref.lon], { icon: mk("ref", "参", 22) }).addTo(map).bindPopup(`<b>${esc(d.lodging.ref.name)}</b><br><span class="muted small">参考点，用于对照笔记里的住宿位置（${esc(d.lodging.ref.source)}）</span>`);
+    }
+  }
+  if (mapState.show.supply) d.supplies.forEach((s, i) => {
+    const c = coordOf({ key: `supply.${n}.${i}`, lat: s.lat, lon: s.lon, coord_source: s.coord_source }); if (!c) return;
+    L.marker([c.lat, c.lon], { icon: mk(c.source === "pin" ? "pin" : "supply", "补", 24) }).addTo(map).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.address || "")}<br><span class="muted small">${c.source === "pin" ? "你手动标定" : esc(c.source)}</span><div style="margin-top:6px">${popBtn(`#/day/${n}`, `Day ${n} 详情`)}</div>`)._hn = `supply-${i}`;
+  });
+  if (mapState.show.sight) d.attractions.forEach((a, i) => {
+    const c = coordOf({ key: `sight.${n}.${i}`, lat: a.lat, lon: a.lon, coord_source: a.coord_source }); if (!c) return;
+    const cls = c.source === "pin" ? "pin" : a.reference ? "ref" : "sight";
+    const pos = a.km != null && a.route_day === n ? `Day ${n} 第 ${fmtKm(a.km)} km · 偏离约 ${fmtKm(a.detour)} km` : a.reference ? `参考点：${esc(a.reference)}` : c.source === "pin" ? "你手动标定" : "";
+    L.marker([c.lat, c.lon], { icon: mk(cls, String(i + 1), 24) }).addTo(map).bindPopup(`<b>${esc(a.label)}</b>${a.place_name && a.place_name !== a.label ? `<br><span class="muted small">${esc(a.place_name)}</span>` : ""}<br><span class="muted small">${pos}</span><div style="margin-top:6px">${popBtn(`#/day/${n}`, `Day ${n} 详情`)}</div>`)._hn = `sight-${i}`;
+  });
+}
+function handleFocus(map) {
+  if (!state.focus || state.focus === "pinmode") return;
+  let target = null;
+  map.eachLayer((l) => { if (l._hn === state.focus && l.getLatLng) target = l; });
+  if (target) { map.setView(target.getLatLng(), 15); target.openPopup(); }
+}
+function locateMe() {
+  if (!navigator.geolocation) return toast("此浏览器不支持定位");
+  navigator.geolocation.getCurrentPosition((pos) => {
+    const ll = [pos.coords.latitude, pos.coords.longitude];
+    if (mapState.meMarker) mapState.meMarker.remove();
+    mapState.meMarker = L.marker(ll, { icon: mk("me", "我", 24) }).addTo(mapState.map).bindPopup(`我的位置（±${Math.round(pos.coords.accuracy)} m）`);
+    mapState.map.setView(ll, 14);
+  }, (err) => toast("定位失败：本地文件通常不允许定位，" + (err.message || "")), { enableHighAccuracy: true, timeout: 10000 });
+}
+
+// ---------------------------------------------------------------- boot
+$("#brand-sub").textContent = DATA.generated_at ? "生成于 " + DATA.generated_at.slice(0, 10) : "";
+render();
+})();
+</script>
+</body>
+</html>

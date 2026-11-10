@@ -1,0 +1,127 @@
+{
+  "_comment": "Hand-curated hints for build-trip-plan. 'attractions' maps a line from manual_planning.txt (raw or with 看日落/看日出/打卡 removed) to catalog canonical names; [] = known to be unlocated; 'END'/'START' = the day's route endpoint. 'references' are OSM features near an unlocated place, shown as grey reference points, never as the place itself. 'lodging_refs' are coordinates used only to warn when a route day's endpoint is far from the lodging in the notes. All coordinates WGS-84.",
+  "attractions": {
+    "西海岸带状公园": [
+      "西海岸带状公园"
+    ],
+    "新海港": [
+      "新海港"
+    ],
+    "道伦村 火山地貌": [
+      "道伦村"
+    ],
+    "临高角 灯塔 解放公园": [
+      "临高角灯塔",
+      "临高角解放公园"
+    ],
+    "博纵村": "END",
+    "龙井海滩": [],
+    "龙门激浪": [
+      "龙门激浪"
+    ],
+    "峨蔓镇火山海岸": [
+      "峨蔓火山海岸地质公园"
+    ],
+    "海花岛": [
+      "海花岛"
+    ],
+    "珊瑚海观景台": [
+      "珊瑚海滩观景台"
+    ],
+    "棋子湾": [
+      "棋子湾"
+    ],
+    "鱼鳞洲": [
+      "东方鱼鳞洲自然风景保护区"
+    ],
+    "西环铁路岭头站": [],
+    "崖州湾海滩": [
+      "崖州湾"
+    ],
+    "三亚湾": [
+      "三亚湾"
+    ],
+    "海棠湾": [
+      "海棠湾"
+    ],
+    "清水湾": [
+      "清水湾"
+    ],
+    "好汉坡": [],
+    "万宁海边": [],
+    "山钦湾燕子洞": [
+      "燕子洞"
+    ],
+    "博鳌": "START",
+    "牛奶海滩": [
+      "牛奶海滩"
+    ],
+    "东郊椰林": [
+      "东郊椰林风景区"
+    ]
+  },
+  "references": {
+    "龙门激浪": {
+      "name": "龙门村（OSM 村庄，峨蔓镇）",
+      "lat": 19.8927,
+      "lon": 109.2718,
+      "source": "OSM via Nominatim 2026-11-09"
+    },
+    "龙井海滩": {
+      "name": "龙腾云霞观景台（OSM，海南环岛旅游公路，峨蔓村）",
+      "lat": 19.8756,
+      "lon": 109.2568,
+      "source": "OSM via Nominatim 2026-11-09"
+    },
+    "好汉坡": {
+      "name": "牛岭 分界洲 高速出口（OSM）",
+      "lat": 18.5886,
+      "lon": 110.173,
+      "source": "OSM via Nominatim 2026-11-09"
+    },
+    "东郊椰林": {
+      "name": "东郊镇（OSM 镇中心）",
+      "lat": 19.577,
+      "lon": 110.8562,
+      "source": "OSM via Nominatim 2026-11-09"
+    },
+    "山钦湾燕子洞": {
+      "name": "山钦湾高尔夫球场（OSM）",
+      "lat": 19.0539,
+      "lon": 110.5643,
+      "source": "OSM via Nominatim 2026-11-09"
+    }
+  },
+  "lodging_refs": {
+    "2": {
+      "name": "海花岛（目录记录）",
+      "lat": 19.6700824,
+      "lon": 109.1754706,
+      "source": "catalog"
+    },
+    "5": {
+      "name": "清水湾（目录记录，OSM 海湾）",
+      "lat": 18.3920123,
+      "lon": 109.87799,
+      "source": "catalog"
+    },
+    "6": {
+      "name": "石梅村（OSM 村庄，住宿地址所在村委会）",
+      "lat": 18.66475,
+      "lon": 110.25705,
+      "source": "OSM node 9554782782 via Overpass 2026-11-10"
+    },
+    "8": {
+      "name": "彩虹南路（OSM 道路，龙楼镇）",
+      "lat": 19.6437,
+      "lon": 110.983,
+      "source": "OSM via Nominatim 2026-11-09"
+    },
+    "9": {
+      "name": "海口希尔顿酒店（OSM）",
+      "lat": 20.026,
+      "lon": 110.3019,
+      "source": "OSM via Nominatim 2026-11-09"
+    }
+  }
+}

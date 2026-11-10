@@ -88,11 +88,17 @@ After discovery jobs, `CorridorService.recompute_distances()` refreshes
    accept labels with similarity ≥80, fetch their bindings, keep those inside the bbox,
    ingest with `discovery_reason = research_relink`.
 2. If still no coordinates: Nominatim (≤3 variants, county suffix, similarity ≥80), then
-   Overpass regex name search (similarity ≥85).
+   Overpass regex name search (similarity ≥85). A Nominatim hit whose class is infrastructure
+   (railway, highway, building, aeroway, public_transport, office, shop) is skipped unless the
+   place itself is infrastructure-like (`nominatim_hit_compatible`): "棋子湾" the bay must not be
+   pinned to "棋子湾" the railway station. Skips are listed in the job result as `geocode_skipped`.
 3. If no zh/en description: zh-Wikipedia title search, accept similarity ≥85 and a Hainan
    signal (bbox, "海南" or the county in the extract).
 4. Images via `ImagePipeline.process_place`.
-5. Mark `research_status = done`, raise `confidence_score`, store corridor distance.
+5. Mark `research_status = done`, raise `confidence_score`, and position the place on the
+   route book (`RouteService.position_place`: day, km along the day, straight-line detour) or,
+   without a route book, store the plain corridor distance. Coordinates pinned by hand in the
+   detail drawer (`PATCH /api/places/{id}`) go through the same positioning.
 
 When a research hit resolves to a *different* existing place, `_attach_or_relate` merges
 only if similarity ≥92 and the other place has coordinates (reversible merge with audit);
@@ -153,7 +159,12 @@ pagination), `/api/places/{id}` (detail with facts/sources/images/relations/near
 reviews), decisions (`/decision`, `/bulk-decision`, `/undo`), `PATCH /api/places/{id}`
 (notes, verification, name, category, coordinates), merge/unmerge, `/api/relations`,
 image association/report/download/remove-local, image leads and duplicates, jobs CRUD,
-`/api/leads/url`, `/api/coverage`, `/api/corridor`, `/api/map/places` (GeoJSON),
+`/api/leads/url`, `/api/coverage`, `/api/corridor`, `/api/routes` (route-book summary
+with per-day counts), `/api/routes/geojson` (one LineString per day), `/api/map/places`
+(GeoJSON, optional `day`), `POST /api/import/routes` (import `data/<subdir>/*.gpx` as the
+route book; `crs` = wgs84 | gcj02 | bd09), `POST /api/routes/crs` (re-interpret the imported
+coordinates and rebuild detours), `POST /api/export/gpx` (per-day GPX with chosen places as waypoints), `POST /api/export/trip-plan`
+(build the single-file phone trip page from `manual_planning.txt`),
 export/import/backup/restore, and `/api/policy` (this repo's policy document). Swagger UI
 is at `/api/docs`. Local files are served from `/media/images`, `/media/thumbnails` and
 `/static`.
@@ -161,6 +172,46 @@ is at `/api/docs`. Local files are served from `/media/images`, `/media/thumbnai
 The UI (`ui/static/app.js`) is hash-routed (`#/review`, `#/map`, `#/duplicates`,
 `#/leads`, `#/jobs`, `#/data`, `#/review/<id>` opens the drawer), keeps filters in
 `localStorage` (`hx.filters`), polls `/api/summary` every 15 s and the jobs page every 5 s.
+
+### Route book (per-day tracks)
+
+`services/routes.py` (`RouteService`) owns the user's own route. `import_directory` parses
+every GPX in a folder, derives the day number from `Day<N>` in the file or track name,
+stores each track in `route_segments` (`route_version`, `day_number`, full geometry with
+elevation, length, hysteresis-filtered climb, start/end), records the version in
+`settings.active_route_version`, and inserts the merged, simplified line as the active
+`route_corridors` row with `is_estimated=0`. `recompute_positions` then assigns every place
+with coordinates to its nearest day using Douglas-Peucker-simplified tracks (25 m) with a
+bbox pre-filter: `route_day`, `route_day_km` (km from the day's start to the projection
+point) and `route_distance_km` (straight-line detour). `CorridorService.recompute_distances`
+delegates to it whenever the active corridor is the route book, so discovery jobs keep the
+fields current; importing a single corridor file clears the route book instead.
+`export_gpx` writes one GPX per day with the track and the selected places as `<wpt>`.
+Everything is a geometric estimate and is labelled as such in the API (`distance_note`),
+the facts panel ("路书位置", derived) and the UI.
+
+Coordinate systems live in `crs.py` (WGS-84 ⇄ GCJ-02 ⇄ BD-09, GeoJSON lon/lat order, iterative
+GCJ-02 inverse). A route book declares the system its files were drawn in
+(`settings.active_route_crs`, `route_segments.source_crs`); `source_geometry_json` keeps the
+parsed GPX verbatim and `geometry_json` holds the WGS-84 conversion that the map, the corridor
+and `recompute_positions` use. `set_crs` rebuilds everything from the source geometry, so the
+choice is reversible and the user's files are never rewritten. `export_gpx` writes the track
+from the source geometry and converts waypoints into that system. Which system a given file
+uses was checked empirically for the user's Garmin Connect China courses (27 sample points vs
+OSM highways: median 120 m raw, 2.8 m after GCJ-02 → WGS-84, 228 m with BD-09), but the
+default stays WGS-84 and the user chooses explicitly.
+
+### Phone trip page
+
+`trip_plan.py` turns the user's free-text plan into `data/exports/trip-plan.html` by inlining
+`ui/trip_template.html`, the vendored Leaflet CSS/JS and a JSON payload. `parse_plan` is a small
+line parser (day headers, 景点/住宿/补给 sections, bullet checklists; a colon or spaces inside a
+checklist line become sub-items). `TripPlanBuilder` resolves each attraction line against
+`places` (exact canonical name or alias first, then LIKE; among matches prefer the one on that
+route day, then exact precision, then smallest detour), anchors lodging on the route segment's
+end point, embeds a 20 m-simplified WGS-84 track per day, and flags days whose route end is
+more than 2 km from a lodging reference. The page itself is plain JS with hash routes and
+localStorage (checklists, pins, start date); the OSM tile server is its only network dependency.
 
 ## Design decisions
 
@@ -210,10 +261,14 @@ The UI (`ui/static/app.js`) is hash-routed (`#/review`, `#/map`, `#/duplicates`,
 - `permission_status` values `api_display_only` and `blocked` are never produced;
   restricted licenses become `link_only`.
 - `places.town`, `geometry_json`, `description_source_id`, `sources.content_hash`,
-  `images.source_id`, `discovery_runs.cursor_json`, `route_segments`, `settings` and
-  `provider_state.enabled/rate_limited_count` exist in the schema but are not populated.
+  `images.source_id`, `discovery_runs.cursor_json` and
+  `provider_state.enabled/rate_limited_count` exist in the schema but are not populated
+  (`route_segments` and `settings` are used by the route book).
 - The default corridor is a straight-line polyline between towns; it does not follow
-  roads, and inland regions have no corridor at all.
+  roads, and inland regions have no corridor at all. Importing the route book replaces it
+  with the real tracks, but detour distances remain straight-line, not routed.
+- Garmin Connect's treatment of `<wpt>` in imported GPX files is not verified for the
+  Edge 1050; exported course points must be checked in Garmin Connect before a ride.
 - `logs/` is created but the app logs to stderr only.
 - Single worker thread: long jobs (Wikipedia grid sweep, Commons sweep) block other jobs
   until finished or cancelled.
