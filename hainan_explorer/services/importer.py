@@ -204,5 +204,9 @@ def import_corridor(ctx: AppContext, path: Path, name: str = "用户导入路线
         raise ValueError("no line geometry found")
     geometry = {"type": "LineString", "coordinates": [[round(c[0], 6), round(c[1], 6)] for c in coords]}
     from .corridor import CorridorService
+    from .routes import ACTIVE_ROUTE_KEY
 
+    # A single-line corridor replaces the per-day route book as the distance reference.
+    with ctx.db.transaction() as conn:
+        conn.execute("DELETE FROM settings WHERE key=?", (ACTIVE_ROUTE_KEY,))
     return CorridorService(ctx).set_corridor(name, version or now_iso()[:10], geometry, source_note=f"imported from {path.name}", is_estimated=True)

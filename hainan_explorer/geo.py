@@ -133,3 +133,99 @@ def geometry_from_json(text: str | None) -> dict | None:
         return json.loads(text)
     except json.JSONDecodeError:
         return None
+
+
+# ----------------------------------------------------------------------------- route books
+# Helpers for per-day route tracks: simplification, cumulative distance and the position of a
+# point along a track. All polylines are GeoJSON-style [lon, lat(, ele)] sequences.
+
+
+def polyline_bbox(line: Sequence[Sequence[float]]) -> tuple[float, float, float, float]:
+    """(south, west, north, east) of a [lon, lat] polyline."""
+    lats = [p[1] for p in line]
+    lons = [p[0] for p in line]
+    return (min(lats), min(lons), max(lats), max(lons))
+
+
+def distance_to_bbox_km(lat: float, lon: float, bbox: Sequence[float]) -> float:
+    """Lower bound of the distance from a point to anything inside the bbox (0 when inside)."""
+    south, west, north, east = bbox
+    clat = min(max(lat, south), north)
+    clon = min(max(lon, west), east)
+    if clat == lat and clon == lon:
+        return 0.0
+    return haversine_km(lat, lon, clat, clon)
+
+
+def polyline_length_km(line: Sequence[Sequence[float]]) -> float:
+    return sum(haversine_km(a[1], a[0], b[1], b[0]) for a, b in zip(line[:-1], line[1:]))
+
+
+def polyline_cumulative_km(line: Sequence[Sequence[float]]) -> list[float]:
+    """Cumulative distance from the start at every vertex (same length as the line)."""
+    cum = [0.0]
+    for a, b in zip(line[:-1], line[1:]):
+        cum.append(cum[-1] + haversine_km(a[1], a[0], b[1], b[0]))
+    return cum
+
+
+def simplify_polyline(line: Sequence[Sequence[float]], tolerance_km: float) -> list[list[float]]:
+    """Douglas-Peucker simplification (iterative). Keeps the first and last vertex."""
+    n = len(line)
+    if n < 3:
+        return [list(p) for p in line]
+    lat0 = sum(p[1] for p in line) / n
+    pts = [_project(p[1], p[0], lat0) for p in line]
+    keep = [False] * n
+    keep[0] = keep[-1] = True
+    stack = [(0, n - 1)]
+    while stack:
+        start, end = stack.pop()
+        if end <= start + 1:
+            continue
+        x1, y1 = pts[start]
+        x2, y2 = pts[end]
+        dx, dy = x2 - x1, y2 - y1
+        seg_len2 = dx * dx + dy * dy
+        worst, worst_i = -1.0, -1
+        for i in range(start + 1, end):
+            px, py = pts[i]
+            if seg_len2 == 0:
+                d = math.hypot(px - x1, py - y1)
+            else:
+                t = max(0.0, min(1.0, ((px - x1) * dx + (py - y1) * dy) / seg_len2))
+                d = math.hypot(px - (x1 + t * dx), py - (y1 + t * dy))
+            if d > worst:
+                worst, worst_i = d, i
+        if worst > tolerance_km and worst_i > 0:
+            keep[worst_i] = True
+            stack.append((start, worst_i))
+            stack.append((worst_i, end))
+    return [list(p) for p, k in zip(line, keep) if k]
+
+
+def nearest_on_polyline_km(
+    lat: float, lon: float, line: Sequence[Sequence[float]], cumulative: Sequence[float] | None = None
+) -> tuple[float, float]:
+    """(straight-line distance km, distance along the line km) for the closest point on the line."""
+    if len(line) == 0:
+        return float("inf"), 0.0
+    if len(line) == 1:
+        return haversine_km(lat, lon, line[0][1], line[0][0]), 0.0
+    cum = cumulative or polyline_cumulative_km(line)
+    lat0 = lat
+    px, py = _project(lat, lon, lat0)
+    best, best_along = float("inf"), 0.0
+    for i in range(len(line) - 1):
+        lon1, lat1 = line[i][0], line[i][1]
+        lon2, lat2 = line[i + 1][0], line[i + 1][1]
+        x1, y1 = _project(lat1, lon1, lat0)
+        x2, y2 = _project(lat2, lon2, lat0)
+        dx, dy = x2 - x1, y2 - y1
+        seg_len2 = dx * dx + dy * dy
+        t = 0.0 if seg_len2 == 0 else max(0.0, min(1.0, ((px - x1) * dx + (py - y1) * dy) / seg_len2))
+        d = math.hypot(px - (x1 + t * dx), py - (y1 + t * dy))
+        if d < best:
+            best = d
+            best_along = cum[i] + t * (cum[i + 1] - cum[i])
+    return best, best_along

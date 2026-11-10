@@ -250,8 +250,8 @@ Use SQLite with migrations. At minimum create these tables:
 ### `place_relations`
 `id`, `place_id_a`, `place_id_b`, `relation_type`, `confidence_score`, `created_at`, `review_status`.
 
-### `route_segments` (can be deferred)
-`id`, `route_version`, `sequence_no`, `start_place_id`, `end_place_id`, `distance_km`, `elevation_gain_m`, `surface`, `source_id`, `is_estimated`, `notes`.
+### `route_segments`
+`id`, `route_version`, `sequence_no`, `day_number`, `name`, `source_file`, `point_count`, `start_lat/lon`, `end_lat/lon`, `distance_km`, `elevation_gain_m`, `surface`, `source_id`, `is_estimated`, `geometry_json` (WGS-84, used for display/distances), `source_crs` (`wgs84` | `gcj02` | `bd09`), `source_geometry_json` (GPX coordinates verbatim), `notes`, `created_at`. Populated by the route-book import (one row per day's GPX; see `services/routes.py`, conversions in `crs.py`). Never rewrite the user's GPX files; convert only the stored copy. Places carry `route_day`, `route_day_km` and `route_distance_km` derived from these tracks; all are straight-line geometric estimates and must stay labelled as such.
 
 Use foreign keys and indexes. Keep raw source identifiers in provider-specific fields or a `provider_ids` table rather than assuming one global identifier. Store coordinates as numeric values and use WGS84. Do not store private credentials in the database.
 

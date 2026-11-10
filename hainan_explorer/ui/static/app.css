@@ -194,3 +194,16 @@ kbd { font-family: var(--mono); font-size: 0.72em; border: 1px solid currentColo
   .two-col { grid-template-columns: 1fr; }
   .dup { grid-template-columns: 1fr; }
 }
+
+
+/* Route book */
+.route-chip { display: inline-flex; align-items: center; gap: 4px; padding: 0 6px; border-radius: 10px; border-left: 3px solid var(--day, var(--accent)); background: var(--surface); color: var(--fg); font-size: 0.72rem; white-space: nowrap; }
+.side-route { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,.08); padding-top: 6px; margin-top: 2px; }
+.map-wrap { position: relative; }
+.map-legend { position: absolute; right: 12px; bottom: 28px; z-index: 500; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 10px; font-size: 0.76rem; display: grid; gap: 3px; max-height: 60%; overflow: auto; box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+.map-legend i { display: inline-block; width: 18px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.map-legend .dim { opacity: .45; }
+.day-label { background: var(--surface-2); border: 1px solid var(--line); color: var(--fg); font-size: 0.72rem; padding: 1px 6px; border-radius: 4px; box-shadow: none; }
+.day-label::before { display: none; }
+.routes-days { margin: 6px 0 4px; }
+.routes-days .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }

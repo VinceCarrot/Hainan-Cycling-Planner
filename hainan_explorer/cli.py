@@ -14,6 +14,7 @@ from .services.export import BackupService, ExportService
 from .services.importer import import_corridor, import_csv, import_legacy_catalog
 from .services.jobs import JobService
 from .services.places import PlaceService
+from .services.routes import RouteService
 
 
 def _print(obj) -> None:
@@ -39,6 +40,24 @@ def main(argv: list[str] | None = None) -> int:
 
     p = sub.add_parser("import-corridor", help="import GPX/GeoJSON as the route corridor")
     p.add_argument("path")
+
+    p = sub.add_parser("import-routes", help="import a directory of per-day GPX files as the route book (default data/routes)")
+    p.add_argument("path", nargs="?", default=str(PROJECT_ROOT / "data" / "routes"))
+    p.add_argument("--name", help="display name of the route book")
+    p.add_argument("--crs", choices=["wgs84", "gcj02", "bd09"], default=None, help="coordinate system the GPX files were drawn in (default: current setting)")
+
+    p = sub.add_parser("build-trip-plan", help="build the self-contained phone trip page from manual_planning.txt")
+    p.add_argument("--plan", default=str(PROJECT_ROOT / "manual_planning.txt"))
+    p.add_argument("--out", default=None, help="output HTML (default data/exports/trip-plan.html)")
+    p.add_argument("--title", default="海南环岛 2026")
+
+    p = sub.add_parser("route-crs", help="re-interpret the imported route book's coordinates (wgs84 | gcj02 | bd09) and recompute place detours")
+    p.add_argument("crs", choices=["wgs84", "gcj02", "bd09"])
+
+    p = sub.add_parser("export-gpx", help="write per-day GPX files with your chosen places as waypoints")
+    p.add_argument("--day", type=int, default=None, help="only this day (default: all days)")
+    p.add_argument("--interest", nargs="*", default=["want_to_visit"])
+    p.add_argument("--max-detour-km", type=float, default=None)
 
     p = sub.add_parser("enqueue", help="queue a job")
     p.add_argument("job_type")
@@ -92,6 +111,16 @@ def main(argv: list[str] | None = None) -> int:
         _print(import_csv(ctx, Path(args.path), dry_run=not args.apply))
     elif args.command == "import-corridor":
         _print(import_corridor(ctx, Path(args.path)))
+    elif args.command == "import-routes":
+        _print(RouteService(ctx).import_directory(Path(args.path), name=args.name, crs=args.crs))
+    elif args.command == "route-crs":
+        _print(RouteService(ctx).set_crs(args.crs))
+    elif args.command == "build-trip-plan":
+        from .trip_plan import TripPlanBuilder
+
+        _print(TripPlanBuilder(ctx).build(Path(args.plan), out_path=Path(args.out) if args.out else None, title=args.title))
+    elif args.command == "export-gpx":
+        _print({"files": [str(p) for p in RouteService(ctx).export_gpx(day=args.day, interests=args.interest, max_detour_km=args.max_detour_km)]})
     elif args.command == "enqueue":
         _print({"job_id": jobs.enqueue(args.job_type, json.loads(args.payload), priority=args.priority)})
     elif args.command == "run-jobs":

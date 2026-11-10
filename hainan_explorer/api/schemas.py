@@ -82,3 +82,16 @@ class ExportRequest(BaseModel):
 
 class RestoreRequest(BaseModel):
     backup_name: str = Field(min_length=1, max_length=200)
+
+
+RouteCrs = Literal["wgs84", "gcj02", "bd09"]
+
+
+class RouteCrsRequest(BaseModel):
+    crs: RouteCrs
+
+
+class GpxExportRequest(BaseModel):
+    day: int | None = Field(default=None, ge=1, le=99)
+    interest: list[InterestStatus] = Field(default_factory=lambda: ["want_to_visit"], min_length=1)
+    max_detour_km: float | None = Field(default=None, ge=0)

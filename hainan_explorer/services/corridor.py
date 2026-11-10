@@ -66,18 +66,27 @@ class CorridorService:
             d["geometry"] = loads(d.pop("geometry_json"), None)
         return d
 
-    def set_corridor(self, name: str, version: str, geometry: dict, *, source_note: str, is_estimated: bool = True) -> dict[str, Any]:
+    def set_corridor(self, name: str, version: str, geometry: dict, *, source_note: str, is_estimated: bool = True, recompute: bool = True) -> dict[str, Any]:
         with self.ctx.db.transaction() as conn:
             conn.execute("UPDATE route_corridors SET is_active=0")
             conn.execute(
                 "INSERT INTO route_corridors (name, version, geometry_json, source_note, is_estimated, is_active) VALUES (?,?,?,?,?,1)",
                 (name, version, dumps(geometry), source_note, 1 if is_estimated else 0),
             )
-        updated = self.recompute_distances()
+        updated = self.recompute_distances() if recompute else 0
         return {"name": name, "version": version, "points": len(geometry.get("coordinates", [])), "places_updated": updated}
 
     def recompute_distances(self) -> int:
+        # When the user's route book is active, distances come from the per-day tracks and also
+        # refresh route_day / route_day_km; otherwise fall back to the single corridor polyline.
+        from .routes import RouteService
+
+        routes = RouteService(self.ctx)
         corridor = self.active()
+        if routes.active_version() and corridor and corridor.get("version") == routes.active_version():
+            return routes.recompute_positions()
+        if not corridor or not corridor.get("geometry"):
+            return 0
         if not corridor or not corridor.get("geometry"):
             return 0
         geometry = corridor["geometry"]
@@ -85,7 +94,7 @@ class CorridorService:
         rows = conn.execute("SELECT id, latitude, longitude FROM places WHERE latitude IS NOT NULL").fetchall()
         updates = [(round(distance_to_geometry_km(r["latitude"], r["longitude"], geometry), 2), r["id"]) for r in rows]
         with self.ctx.db.transaction() as wconn:
-            wconn.executemany("UPDATE places SET route_distance_km=? WHERE id=?", updates)
+            wconn.executemany("UPDATE places SET route_distance_km=?, route_day=NULL, route_day_km=NULL WHERE id=?", updates)
             # refresh discovery scores
             from .ingest import compute_scores
 
