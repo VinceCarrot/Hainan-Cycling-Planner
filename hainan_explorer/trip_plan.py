@@ -36,12 +36,27 @@ _BULLETS = ("·", "•", "-", "・", "*")
 _ADDRESS_MARKERS = "路号镇村区市县街店方向米岛城湾园中心广场楼"
 _SUFFIX_NOTES = ("看日落", "看日出", "打卡")
 _PRECISION_RANK = {"exact": 0, "centroid": 1, "approximate": 2, None: 3}
+# Checklist headers: any non-bullet line mentioning "checklist" or "清单". Known phases get stable kinds
+# so the page's saved tick state survives re-ordering; anything else becomes list1, list2, …
+_CHECKLIST_KINDS = (("到站后", "arrival", "到站后"), ("睡觉前", "bedtime", "睡觉前"), ("睡前", "bedtime", "睡前"), ("出发前", "departure", "出发前"))
 
 DEFAULT_PREP = [
     {"title": "证件与预订", "items": ["身份证、少量现金，手机支付可用", "逐晚核对酒店预订（Day 0 到 Day 8 共 9 晚）", "把本页面和 9 天 GPX 存到手机"]},
     {"title": "自行车", "items": ["整车检查：刹车、变速、链条磨损、螺丝", "备胎 ×2、补胎片、撬胎棒、便携气泵", "链条油与抹布", "多功能工具、备用刹车片、备用变速线", "码表装好 9 天路书并在设备上逐天打开确认"]},
     {"title": "电子设备", "items": ["手机、全景相机、蓝牙快门、手表、码表、功率计、充电宝、气泵、耳机全部充满", "车前灯 ×2、车后灯 ×2 充满", "充电线、插排、相机存储卡清空"]},
     {"title": "骑行装备", "items": ["头盔、手套、骑行服 ×2、风衣或雨衣", "防晒霜、袖套、唇膏、太阳镜", "水壶 ×2", "急救包与常用药"]},
+]
+
+# Day 0 (arrival evening) tasks. Used when the plan's "day 0" block has no bullet lines of its own.
+DEFAULT_DAY0_PREP = [
+    "自行车组装或展开并检查：车把、座管、快拆锁紧，刹车和变速正常",
+    "胎压打到 70 PSI，备胎与补胎工具放回车包",
+    "码表开机定位，选好 Day 1 路书，确认起点就在酒店",
+    "全部设备充电：按到站后清单的设备列表逐个确认",
+    "买第二天早餐和出发后第一小时的补给，水壶灌好",
+    "看 Day 1 路线、日出时间、天气和风向，定出发时间和闹钟",
+    "骑行服、头盔、手套、车灯、码表摆到一起",
+    "确认 Day 1 住宿的入住方式和联系电话",
 ]
 
 NOTES = {
@@ -69,12 +84,28 @@ def _split_lodging(text: str) -> tuple[str, str | None]:
     return text, None
 
 
+def _checklist_header(line: str, existing: int) -> dict[str, Any] | None:
+    if not line or line[0] in _BULLETS or _DAY_RE.match(line):
+        return None
+    if "checklist" not in line.lower() and "清单" not in line:
+        return None
+    title = re.sub(r"[（(][^）)]*[）)]", "", line).replace("checklist", "").replace("Checklist", "").strip(" ：:") or line
+    for key, kind, short in _CHECKLIST_KINDS:
+        if key in line:
+            return {"kind": kind, "short": short, "title": title, "items": []}
+    return {"kind": f"list{existing + 1}", "short": title[:6], "title": title, "items": []}
+
+
+def _split_subitems(text: str) -> list[str]:
+    return [s.strip() for s in re.split(r"[，,、]", text) if s.strip()]
+
+
 def _checklist_item(prefix: str, index: int, text: str) -> dict[str, Any]:
     text = text.strip()
-    m = re.match(r"^(.+?)[：:](.+)$", text)
+    m = re.match(r"^(.+?)[：:]\s*(.*)$", text)
     if m:
-        sub = [s.strip() for s in re.split(r"[，,、]", m.group(2)) if s.strip()]
-        return {"id": f"{prefix}{index}", "text": m.group(1).strip(), "sub": sub}
+        # "给设备充电：" with the devices on the following indented lines, or "补给：水，面包" on one line
+        return {"id": f"{prefix}{index}", "text": m.group(1).strip(), "sub": _split_subitems(m.group(2))}
     # "安装车灯 码表 相机": several short things on one line become sub-items that can be ticked separately
     tokens = text.split()
     if len(tokens) > 1 and all(len(t) <= 6 for t in tokens):
@@ -83,12 +114,13 @@ def _checklist_item(prefix: str, index: int, text: str) -> dict[str, Any]:
 
 
 def parse_plan(text: str) -> dict[str, Any]:
-    plan: dict[str, Any] = {"day0": None, "days": [], "checklists": {"arrival": [], "departure": []}}
+    plan: dict[str, Any] = {"day0": None, "days": [], "checklists": []}
     current: dict[str, Any] | None = None
     section: str | None = None
-    checklist: str | None = None
+    checklist: dict[str, Any] | None = None
     for raw in text.splitlines():
-        line = raw.strip().replace("﻿", "")
+        raw = raw.replace("\ufeff", "")
+        line = raw.strip()
         m = _DAY_RE.match(line)
         if m:
             n = int(m.group(1))
@@ -96,7 +128,7 @@ def parse_plan(text: str) -> dict[str, Any]:
             checklist = None
             section = None
             if n == 0:
-                current = {"day": 0, "lodging_raw": None, "lines": []}
+                current = {"day": 0, "lodging_raw": None, "lines": [], "items": []}
                 plan["day0"] = current
             else:
                 parts = _ARROW_RE.split(rest, maxsplit=1)
@@ -104,22 +136,30 @@ def parse_plan(text: str) -> dict[str, Any]:
                            "attractions_raw": [], "lodging_raw": None, "supplies_raw": [], "notes": []}
                 plan["days"].append(current)
             continue
-        if "到站后" in line and ("清单" in line or "checklist" in line.lower() or "准备" in line):
-            checklist, current, section = "arrival", None, None
+        header = _checklist_header(line, len(plan["checklists"]))
+        if header:
+            plan["checklists"].append(header)
+            checklist, current, section = header, None, None
             continue
-        if "出发前" in line and ("清单" in line or "checklist" in line.lower() or "准备" in line):
-            checklist, current, section = "departure", None, None
+        if checklist is not None and line and line[0] in _BULLETS:
+            checklist["items"].append(_checklist_item(checklist["kind"][0], len(checklist["items"]) + 1, line[1:]))
             continue
-        if checklist and line and line[0] in _BULLETS:
-            items = plan["checklists"][checklist]
-            items.append(_checklist_item("a" if checklist == "arrival" else "d", len(items) + 1, line[1:]))
+        if checklist is not None and line and raw[:1] in (" ", "\t") and checklist["items"]:
+            # indented continuation line under a bullet: more sub-items (e.g. the device list)
+            checklist["items"][-1]["sub"].extend(_split_subitems(line))
             continue
         if current is None or not line:
             continue
         if current["day"] == 0:
-            if "入住" in line:
-                current["lodging_raw"] = line.split("入住", 1)[1].strip()
-            current["lines"].append(line)
+            # Day 0 block: the lodging line plus optional bullet tasks (same syntax as the checklists)
+            if line[0] in _BULLETS:
+                current["items"].append(_checklist_item("z", len(current["items"]) + 1, line[1:]))
+            elif raw[:1] in (" ", "\t") and current["items"]:
+                current["items"][-1]["sub"].extend(_split_subitems(line))
+            else:
+                if "入住" in line:
+                    current["lodging_raw"] = line.split("入住", 1)[1].strip()
+                current["lines"].append(line)
             continue
         sm = re.match(r"^(景点|住宿|补给)\s*[：:]\s*(.*)$", line)
         if sm:
@@ -272,9 +312,13 @@ class TripPlanBuilder:
             day0 = {"lodging": {"name": name, "address": address, "lat": first["start"]["lat"] if first and first["start"] else None,
                                 "lon": first["start"]["lon"] if first and first["start"] else None, "coord_source": "route_start"},
                     "lines": plan["day0"]["lines"]}
+        day0_items = (plan["day0"] or {}).get("items") or [
+            {"id": f"z{i + 1}", "text": t, "sub": []} for i, t in enumerate(self.hints.get("day0_prep", DEFAULT_DAY0_PREP))
+        ]
         return {
             "title": title, "generated_at": now_iso(), "route_version": self.routes.active_version(), "route_crs": self.routes.crs(),
             "day0": day0, "days": days_out, "checklists": plan["checklists"],
+            "day0_prep": {"title": "Day 0 准备（抵达海口当晚）", "items": day0_items, "from_plan": bool((plan["day0"] or {}).get("items"))},
             "prep": [{"title": g["title"], "items": [{"id": f"p{gi}_{ii}", "text": t} for ii, t in enumerate(g["items"])]} for gi, g in enumerate(self.hints.get("prep", DEFAULT_PREP))],
             "notes": NOTES,
         }
@@ -312,7 +356,7 @@ class TripPlanBuilder:
         return {
             "path": str(out), "bytes": out.stat().st_size, "days": len(data["days"]), "attractions": total, "attractions_located": located,
             "lodging_warnings": [f"Day {d['day']}: {d['lodging']['warning']}" for d in data["days"] if d.get("lodging") and d["lodging"].get("warning")],
-            "checklist_items": {k: len(v) for k, v in data["checklists"].items()},
+            "checklist_items": {c["kind"]: len(c["items"]) for c in data["checklists"]},
         }
 
 

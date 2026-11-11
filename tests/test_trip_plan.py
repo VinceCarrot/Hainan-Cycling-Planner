@@ -12,12 +12,19 @@ from hainan_explorer.trip_plan import TripPlanBuilder, clean_attraction_label, p
 
 PLAN = """day 0
 降落海口，入住海口希尔顿酒店 滨海大道109-9号
+· 组装自行车
+· 充电：手机，码表
 
-每天到站后的骑行相关准备（做成checklist，有一键清零功能）
+每天到站后的骑行相关准备（做成checklist）
 · 清洁链条杂物
-· 需要充电的设备：手机，码表，车前灯x2
+· 需要充电的设备：
+    手机，码表，
+    车前灯x2
 
-每天出发前的骑行相关准备（做成checklist，有一键清零功能）
+睡觉前 checklist
+· 定闹钟
+
+每天出发前的骑行相关准备（做成checklist）
 · 安装车灯 码表 相机
 
 day 1 海口 -> 博纵村
@@ -70,16 +77,20 @@ def built(ctx, tmp_path):
 def test_parse_plan_sections_and_checklists():
     plan = parse_plan(PLAN)
     assert plan["day0"]["lodging_raw"] == "海口希尔顿酒店 滨海大道109-9号"
+    assert [(i["text"], i["sub"]) for i in plan["day0"]["items"]] == [("组装自行车", []), ("充电", ["手机", "码表"])]
     assert [d["day"] for d in plan["days"]] == [1, 2]
     d1, d2 = plan["days"]
     assert (d1["from"], d1["to"]) == ("海口", "博纵村")
     assert d1["attractions_raw"] == ["一日路边海滩看日落", "无名小岛打卡", "博纵村看日落"]
     assert d1["supplies_raw"] == [] and d2["supplies_raw"] == ["一号岛 赵一鸣"]
     assert d2["notes"] == ["日出前出发"] and d2["attractions_raw"] == ["二日灯塔"]
-    arrival, departure = plan["checklists"]["arrival"], plan["checklists"]["departure"]
+    assert [(c["kind"], c["short"]) for c in plan["checklists"]] == [("arrival", "到站后"), ("bedtime", "睡觉前"), ("departure", "出发前")]
+    arrival, bedtime, departure = (c["items"] for c in plan["checklists"])
     assert [i["text"] for i in arrival] == ["清洁链条杂物", "需要充电的设备"]
-    assert arrival[1]["sub"] == ["手机", "码表", "车前灯x2"] and arrival[1]["id"] == "a2"
+    assert arrival[1]["sub"] == ["手机", "码表", "车前灯x2"] and arrival[1]["id"] == "a2"  # indented continuation lines
+    assert bedtime[0]["text"] == "定闹钟" and bedtime[0]["id"] == "b1"
     assert departure[0]["text"] == "安装车灯 码表 相机" and departure[0]["sub"] == ["安装车灯", "码表", "相机"]
+    assert plan["checklists"][0]["title"] == "每天到站后的骑行相关准备"
     assert clean_attraction_label("鱼鳞洲看日落") == ("鱼鳞洲", "看日落")
     assert clean_attraction_label("好汉坡") == ("好汉坡", None)
 
@@ -105,13 +116,15 @@ def test_build_resolves_catalog_lodging_and_references(built):
     assert d2["day_notes"] == ["日出前出发"]
     assert d2["attractions"][0]["label"] == "二日灯塔" and d2["attractions"][0]["route_day"] == 2
     assert len(d1["track"]) >= 2 and d1["track"][0] == [19.0, 110.0] and d1["climb_m"] == 20
-    assert data["route_crs"] == "wgs84" and data["checklists"]["arrival"][1]["sub"] == ["手机", "码表", "车前灯x2"]
+    assert data["route_crs"] == "wgs84" and data["checklists"][0]["items"][1]["sub"] == ["手机", "码表", "车前灯x2"]
+    assert result["checklist_items"] == {"arrival": 2, "bedtime": 1, "departure": 1}
+    assert data["day0_prep"]["from_plan"] is True and data["day0_prep"]["items"][1]["id"] == "z2"
 
 
 def test_html_is_self_contained(built):
     result, html, data = built
     assert "<script src=" not in html and '<link rel="stylesheet"' not in html
     assert "L.map" in html and "leaflet" in html.lower()
-    assert "测试行程" in html and "一键清零" in html
+    assert "测试行程" in html and "一键清零" in html and "起点准备" in html
     assert "basemaps.cartocdn.com" in html and "tianditu.gov.cn" in html  # basemap tiles are the only network dependency
     assert result["bytes"] > 100_000
