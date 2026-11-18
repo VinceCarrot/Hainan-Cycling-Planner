@@ -19,7 +19,7 @@ config/sources.yaml
 data/explorer.db-wal
 data/explorer.db-shm
 data/explorer.db-journal
-data/exports/
+# data/exports/
 data/backups/
 data/imports/
 data/private/
