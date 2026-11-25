@@ -25,7 +25,9 @@ a{color:var(--accent)}
 button{font:inherit}
 .topbar{position:sticky;top:0;z-index:1000;background:var(--card);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top);box-shadow:var(--shadow)}
 .topbar::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--sky) 0 30%,var(--sun) 30% 55%,var(--orange) 55% 75%,var(--aqua) 75%)}
-.brand{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 4px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px 4px}
+.brand-actions{display:flex;align-items:center;gap:8px}
+@media(max-width:420px){.brand .sub{display:none}}
 .brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:.04em;position:relative;display:inline-block}
 .brand h1::after{content:"";position:absolute;left:-2px;right:-2px;bottom:1px;height:8px;background:linear-gradient(90deg,var(--sun),var(--orange));opacity:.45;border-radius:4px 10px 3px 8px;z-index:-1;transform:skewX(-8deg)}
 .brand .sub{font-size:12px;color:var(--muted)}
@@ -81,6 +83,26 @@ main{padding:12px 12px calc(28px + env(safe-area-inset-bottom));max-width:860px;
 .check .sub label{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:14px;background:var(--card)}
 .check .sub label.done{color:var(--muted);text-decoration:line-through;background:var(--soft)}
 .check .sub input{width:18px;height:18px;margin:0}
+.tree-node{border-top:1px dashed var(--line)}
+.tree-node:first-child{border-top:0}
+.tree-check{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;cursor:pointer}
+.tree-check input{width:22px;height:22px;margin:2px 0 0;flex:0 0 auto;accent-color:var(--aqua-deep)}
+.tree-check .lbl{flex:1;font-size:16px}
+.tree-check.done .lbl{color:var(--muted);text-decoration:line-through}
+.tree-children{margin-left:14px;padding-left:10px;border-left:2px solid var(--line)}
+.tree-check.tree-leaf{display:inline-flex;width:max-content;max-width:100%;align-items:center;margin:4px 6px 4px 0;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.tree-check.tree-leaf input{width:18px;height:18px;margin:0}
+.tree-check.tree-leaf .lbl{white-space:normal;font-size:14px}
+.tree-check.tree-leaf.done{background:var(--soft)}
+.tree-children.tree-leaves{display:flex;align-items:center;flex-wrap:wrap;overflow:visible;margin-left:14px;padding-left:10px;border-left:2px solid var(--line)}
+.edit-actions{display:flex;justify-content:space-between;gap:8px;margin:12px 0 4px}
+.editor-list{margin-top:8px}
+.editor-row{display:flex;align-items:center;gap:6px;padding:6px 0;border-top:1px dashed var(--line)}
+.editor-row input[type=text]{min-width:0;flex:1}
+.editor-row .btn{flex:0 0 auto}
+.editor-nested{margin:4px 0 4px 18px;padding-left:10px;border-left:2px solid var(--line)}
+.editor-tools{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.editor-group{border-top:1px dashed var(--line);padding-top:8px;margin-top:8px}
 .progress{height:8px;background:var(--soft);border-radius:6px;overflow:hidden;margin:6px 0 10px}
 .progress i{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--sun),var(--orange));border-radius:6px}
 .mapwrap{position:relative;height:calc(100vh - 150px);min-height:360px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
@@ -118,13 +140,13 @@ input[type=date],input[type=text]{font:inherit;padding:8px 12px;border:1px solid
 </head>
 <body>
 <header class="topbar">
-  <div class="brand"><h1 id="brand-title">__TITLE__</h1><span class="sub" id="brand-sub"></span></div>
+  <div class="brand"><h1 id="brand-title">__TITLE__</h1><div class="brand-actions"><span class="sub" id="brand-sub"></span><button class="btn small" id="save-html">保存到本地</button></div></div>
   <nav class="tabs" id="tabs">
     <button class="tab" data-tab="overview">总览</button>
     <button class="tab" data-tab="day">每日</button>
     <button class="tab" data-tab="map">地图</button>
     <button class="tab" data-tab="check">清单</button>
-    <button class="tab" data-tab="prep">起点准备</button>
+    <button class="tab" data-tab="prep">出发前准备</button>
   </nav>
 </header>
 <main id="main"></main>
@@ -147,6 +169,12 @@ const store = {
   set(k, v) { try { localStorage.setItem(KEY + k, JSON.stringify(v)); } catch (_) {} },
   del(k) { try { localStorage.removeItem(KEY + k); } catch (_) {} },
 };
+const savedChecklists = store.get("editable.checklists", {});
+DATA.checklists.forEach((list) => { if (Array.isArray(savedChecklists[list.kind])) list.items = savedChecklists[list.kind]; });
+const savedPrep = store.get("editable.prep", null);
+if (savedPrep && DATA.departure_prep && Array.isArray(savedPrep.departureItems)) DATA.departure_prep.items = savedPrep.departureItems;
+if (savedPrep && DATA.day0_prep && Array.isArray(savedPrep.day0Items)) DATA.day0_prep.items = savedPrep.day0Items;
+if (savedPrep && Array.isArray(savedPrep.fallback)) DATA.prep = savedPrep.fallback;
 let toastTimer;
 function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 1800); }
 const dayByNum = (n) => DATA.days.find((d) => d.day === n);
@@ -186,6 +214,21 @@ function checkProgress(day, kind) {
   }
   return { total, done };
 }
+let editState = null;
+function cloneData(value) { return JSON.parse(JSON.stringify(value)); }
+function newEditId() { return `edit_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`; }
+function editToolbar() {
+  const active = !!editState;
+  return `<div class="edit-actions"><button class="btn" data-edit-action="${active ? "cancel" : "start"}">${active ? "取消编辑" : "编辑"}</button><button class="btn primary" data-edit-action="save" ${active ? "" : "disabled"}>保存</button></div>`;
+}
+function renderChecklistEditor(items, heading) {
+  return `<section class="card"><h2>${esc(heading)} · 编辑项目</h2><div class="editor-list">${items.map((it, i) => `
+    <div class="editor-group">
+      <div class="editor-row"><input type="text" data-edit-scope="check-list" data-index="${i}" data-field="text" value="${esc(it.text)}" aria-label="清单项目"><button class="btn small danger" data-edit-action="delete-check-item" data-index="${i}">删除</button></div>
+      ${(it.sub || []).map((sub, j) => `<div class="editor-row editor-nested"><input type="text" data-edit-scope="check-sub" data-index="${i}" data-sub-index="${j}" value="${esc(sub)}" aria-label="子项目"><button class="btn small danger" data-edit-action="delete-check-sub" data-index="${i}" data-sub-index="${j}">删除</button></div>`).join("")}
+      <div class="editor-tools"><button class="btn small" data-edit-action="add-check-sub" data-index="${i}">添加子项 checkbox</button></div>
+    </div>`).join("")}</div><div class="editor-tools"><button class="btn small" data-edit-action="add-check-item">添加一级 checkbox</button></div></section>`;
+}
 
 // ---------------------------------------------------------------- pins (user-placed coordinates)
 function pinKey(k) { return `pin.${k}`; }
@@ -216,13 +259,17 @@ window.addEventListener("hashchange", render);
 // ---------------------------------------------------------------- render
 function render() {
   state = parseHash();
+  if (editState && (editState.type === "check" ? state.tab !== "check" || state.checkKind !== editState.kind : state.tab !== "prep")) editState = null;
   for (const b of document.querySelectorAll(".tab")) b.classList.toggle("active", b.dataset.tab === state.tab);
   const main = $("#main");
   if (state.tab !== "map" && mapState.map) { /* keep the map instance alive but detach */ }
   if (state.tab === "overview") main.innerHTML = renderOverview();
   else if (state.tab === "day") main.innerHTML = renderDay(state.day);
   else if (state.tab === "check") main.innerHTML = renderCheck(state.day, state.checkKind);
-  else if (state.tab === "prep") main.innerHTML = renderPrep();
+  else if (state.tab === "prep") {
+    main.innerHTML = renderPrep();
+    main.querySelectorAll("[data-partial='true']").forEach((input) => { input.indeterminate = true; });
+  }
   else if (state.tab === "map") { main.innerHTML = renderMapShell(); setTimeout(initMap, 0); }
   bindCommon();
   window.scrollTo(0, 0);
@@ -270,14 +317,9 @@ function renderOverview() {
     <p class="small muted">${esc(DATA.notes.route)}</p>
   </section>
   ${d0 ? `<section class="card"><h2>Day 0 · 抵达</h2><div class="kv"><dt>住宿</dt><dd><b>${esc(d0.lodging.name)}</b><div class="addr">${esc(d0.lodging.address || "")}</div></dd>${tripStart() ? `<dt>日期</dt><dd>${fmtDate(dateForDay(0))}</dd>` : ""}</div>
-     <div class="row" style="margin-top:8px"><button class="btn small primary" data-go="#/prep">起点准备（起飞前 · Day 0）</button>${d0.lodging.lat != null ? `<button class="btn small" data-go="#/map/1/lodging-start">地图上查看</button>` : ""}</div></section>` : ""}
+     <div class="row" style="margin-top:8px"><button class="btn small primary" data-go="#/prep">出发前准备（含抵达当晚 · Day 0）</button>${d0.lodging.lat != null ? `<button class="btn small" data-go="#/map/1/lodging-start">地图上查看</button>` : ""}</div></section>` : ""}
   <section class="card"><h2>每日计划</h2><div class="daylist">${DATA.days.map(dayRow).join("")}</div></section>
-  <section class="card"><h2>怎么用</h2><ul class="small muted" style="padding-left:18px;margin:0">
-    <li>每日页：当天路线、景点（按沿途公里排序）、住宿、补给；每个条目都能在地图上定位。</li>
-    <li>地图页：路线按天着色，住宿 / 补给 / 景点用不同颜色标记；没有坐标的点可以在地图上手动标定，保存在本机。</li>
-    <li>清单页：到站后与出发前两份清单，按天记录勾选，一键清零。</li>
-    <li>没有网络时地图底图不显示，但路线和标记仍可看。勾选和标定都保存在手机浏览器里。</li>
-  </ul></section>`;
+  `;
 }
 function dayRow(d) {
   const prog = DATA.checklists.map((c) => { const p = checkProgress(d.day, c.kind); return `${esc(c.short)} ${p.done}/${p.total}`; }).join("<br>");
@@ -351,6 +393,9 @@ document.addEventListener("click", (e) => {
 function renderCheck(day, kind) {
   const d = dayByNum(day);
   const title = d ? `Day ${day} · ${d.from} → ${d.to}` : `Day ${day}`;
+  if (editState && editState.type === "check" && editState.kind === kind) {
+    return `${renderChecklistEditor(editState.items, `${title} · ${esc(checklistDef(kind).short)}`)}${editToolbar()}`;
+  }
   const st = checkState(day, kind);
   const items = checklistItems(kind);
   const prog = checkProgress(day, kind);
@@ -363,9 +408,10 @@ function renderCheck(day, kind) {
     <div class="small muted">${prog.done}/${prog.total} 已完成</div>
     <div class="progress"><i style="width:${prog.total ? Math.round(prog.done / prog.total * 100) : 0}%"></i></div>
     <div id="checklist">${items.map((it) => checkRow(it, st)).join("")}</div>
-    <div class="row" style="margin-top:12px"><button class="btn danger" id="check-reset">一键清零（仅这一天的这份清单）</button>${d ? `<button class="btn" data-go="#/day/${day}">返回 Day ${day}</button>` : ""}</div>
+    <div class="row" style="margin-top:12px"><button class="btn danger" id="check-reset">反选（仅这一天的这份清单）</button>${d ? `<button class="btn" data-go="#/day/${day}">返回 Day ${day}</button>` : ""}</div>
   </section>
-  <section class="card small muted">勾选状态按天分别保存在这台手机的浏览器里；换手机或清除浏览器数据会丢失。清单内容来自 manual_planning.txt，修改后重新生成本页即可。</section>`;
+  <section class="card small muted">勾选状态按天分别保存在这台手机的浏览器里；换手机或清除浏览器数据会丢失。</section>
+  ${editToolbar()}`;
 }
 function checkRow(it, st) {
   if (it.sub && it.sub.length) {
@@ -386,12 +432,20 @@ document.addEventListener("change", (e) => {
   render();
 });
 document.addEventListener("click", (e) => {
-  if (e.target.id === "check-reset") { store.del(checkKey(state.day, state.checkKind)); toast("已清零"); render(); }
+  if (e.target.id === "check-reset") {
+    const st = checkState(state.day, state.checkKind);
+    const ids = [];
+    checklistItems(state.checkKind).forEach((it) => {
+      if (it.sub && it.sub.length) it.sub.forEach((_, i) => ids.push(`${it.id}.${i}`));
+      else ids.push(it.id);
+    });
+    store.set(checkKey(state.day, state.checkKind), invertState(st, ids)); toast("已反选"); render();
+  }
 });
 
-// ---------------------------------------------------------------- 起点准备: before the flight + Day 0 evening
+// ---------------------------------------------------------------- departure prep + Day 0 evening
 // Two independent tick lists, each with its own saved state and custom items:
-//   flight: store "prep" / "prep_custom"   (DATA.prep groups)
+//   departure: store "departure_prep"      (hierarchical items from manual_planning.txt)
 //   day0:   store "day0" / "day0_custom"   (DATA.day0_prep items, from the plan's day 0 bullets or defaults)
 function prepSection(storeKey, title, subtitle, groups, flatItems) {
   const st = store.get(storeKey, {});
@@ -413,61 +467,338 @@ function prepSection(storeKey, title, subtitle, groups, flatItems) {
   ${(flatItems || []).map(row).join("")}
   ${custom.length ? `<h3>自定义</h3>` : ""}${custom.map((c) => `<label class="check ${st[c.id] ? "done" : ""}"><input type="checkbox" data-store="${storeKey}" data-item="${c.id}" ${st[c.id] ? "checked" : ""}><span class="lbl">${esc(c.text)}</span><button class="btn small danger" data-store="${storeKey}" data-del="${c.id}">删</button></label>`).join("")}
   <div class="row" style="margin-top:8px"><input type="text" id="new-${storeKey}" placeholder="添加一项…" style="flex:1"><button class="btn" data-store="${storeKey}" data-add="1">添加</button></div>
-  <div class="row" style="margin-top:12px"><button class="btn danger" data-store="${storeKey}" data-reset="1">一键清零</button></div></section>`;
+  <div class="row" style="margin-top:12px"><button class="btn danger" data-store="${storeKey}" data-reset="1">反选</button></div></section>`;
 }
 function renderPrep() {
+  const departure = DATA.departure_prep;
   const d0 = DATA.day0_prep || { title: "Day 0 准备", items: [] };
-  return prepSection("prep", "起飞前准备", "建议清单，可按自己的习惯增删", DATA.prep, null)
+  if (editState && editState.type === "prep") {
+    const departureEditor = editState.tree
+      ? `<section class="card"><h2>${esc(departure ? departure.title : "出发前准备")} · 编辑项目</h2>${renderTreeEditor(editState.departureItems)}<div class="editor-tools"><button class="btn small" data-edit-action="add-tree-root">添加一级 checkbox</button></div></section>`
+      : renderFallbackEditor(editState.fallback);
+    return `${departureEditor}${renderItemEditor(editState.day0Items, "day0", d0.title)}${editToolbar()}`;
+  }
+  return (departure ? prepTreeSection(departure) : prepSection("prep", "出发前准备", "建议清单，可按自己的习惯增删", DATA.prep, null))
     + prepSection("day0", d0.title, d0.from_plan ? "来自 manual_planning.txt 的 day 0 条目" : "建议清单；在 manual_planning.txt 的 day 0 下用“·”写自己的条目可替换", null, d0.items)
-    + `<section class="card"><h2>路书与设备</h2><ul class="small muted" style="padding-left:18px;margin:0">${DATA.notes.prep.map((n) => `<li>${esc(n)}</li>`).join("")}</ul></section>`;
+    + editToolbar();
+}
+function renderTreeEditor(nodes, parentPath) {
+  const prefix = parentPath || [];
+  return nodes.map((node, i) => {
+    const path = prefix.concat(i).join(".");
+    return `<div class="editor-group"><div class="editor-row"><input type="text" data-edit-scope="tree-text" data-path="${path}" value="${esc(node.text)}" aria-label="清单项目"><button class="btn small" data-edit-action="add-tree-child" data-path="${path}">添加子项</button><button class="btn small" data-edit-action="add-tree-sibling" data-path="${path}">添加同级</button><button class="btn small danger" data-edit-action="delete-tree" data-path="${path}">删除</button></div>${node.children && node.children.length ? `<div class="editor-nested">${renderTreeEditor(node.children, prefix.concat(i))}</div>` : ""}</div>`;
+  }).join("");
+}
+function renderItemEditor(items, scope, title) {
+  return `<section class="card"><h2>${esc(title)} · 编辑项目</h2><div class="editor-list">${items.map((it, i) => `
+    <div class="editor-group"><div class="editor-row"><input type="text" data-edit-scope="${scope}-text" data-index="${i}" value="${esc(it.text)}" aria-label="清单项目"><button class="btn small danger" data-edit-action="delete-${scope}-item" data-index="${i}">删除</button></div>
+      ${(it.sub || []).map((sub, j) => `<div class="editor-row editor-nested"><input type="text" data-edit-scope="${scope}-sub" data-index="${i}" data-sub-index="${j}" value="${esc(sub)}" aria-label="子项目"><button class="btn small danger" data-edit-action="delete-${scope}-sub" data-index="${i}" data-sub-index="${j}">删除</button></div>`).join("")}
+      <div class="editor-tools"><button class="btn small" data-edit-action="add-${scope}-sub" data-index="${i}">添加子项 checkbox</button></div></div>`).join("")}</div><div class="editor-tools"><button class="btn small" data-edit-action="add-${scope}-item">添加 checkbox</button></div></section>`;
+}
+function renderFallbackEditor(groups) {
+  return `<section class="card"><h2>出发前准备 · 编辑项目</h2>${groups.map((group, gi) => `<div class="editor-group"><div class="editor-row"><input type="text" data-edit-scope="fallback-title" data-group-index="${gi}" value="${esc(group.title)}" aria-label="分类名称"><button class="btn small danger" data-edit-action="delete-fallback-group" data-group-index="${gi}">删除分类</button></div>${group.items.map((it, ii) => `<div class="editor-row editor-nested"><input type="text" data-edit-scope="fallback-item" data-group-index="${gi}" data-index="${ii}" value="${esc(it.text)}" aria-label="清单项目"><button class="btn small danger" data-edit-action="delete-fallback-item" data-group-index="${gi}" data-index="${ii}">删除</button></div>`).join("")}<div class="editor-tools"><button class="btn small" data-edit-action="add-fallback-item" data-group-index="${gi}">添加 checkbox</button></div></div>`).join("")}<div class="editor-tools"><button class="btn small" data-edit-action="add-fallback-group">添加分类</button></div></section>`;
+}
+function treeNodeAt(nodes, path) {
+  let list = nodes, node = null;
+  for (const index of path) {
+    node = list[index];
+    if (!node) return null;
+    list = node.children || [];
+  }
+  return node;
+}
+function treeCollectionAt(nodes, path) {
+  let list = nodes;
+  for (const index of path) {
+    if (!list[index]) return null;
+    list = list[index].children || [];
+  }
+  return list;
+}
+function editStart() {
+  if (state.tab === "check") {
+    editState = { type: "check", kind: state.checkKind, items: cloneData(checklistItems(state.checkKind)) };
+  } else if (state.tab === "prep") {
+    const customDay0 = store.get("day0_custom", []);
+    const customPrep = store.get("prep_custom", []);
+    const fallback = cloneData(DATA.prep);
+    if (customPrep.length) fallback.push({ title: "自定义", items: customPrep });
+    const day0 = DATA.day0_prep || { items: [] };
+    editState = {
+      type: "prep",
+      tree: !!DATA.departure_prep,
+      departureItems: cloneData(DATA.departure_prep ? DATA.departure_prep.items : []),
+      day0Items: cloneData(day0.items || []).concat(cloneData(customDay0)),
+      fallback,
+    };
+  }
+  render();
+}
+function editorValueTarget(scope, index, subIndex, groupIndex, path) {
+  if (scope === "check-list") return editState.items[index];
+  if (scope === "check-sub") return editState.items[index] && { sub: editState.items[index].sub, subIndex };
+  if (scope === "day0-text") return editState.day0Items[index];
+  if (scope === "day0-sub") return editState.day0Items[index] && { sub: editState.day0Items[index].sub, subIndex };
+  if (scope === "tree-text") return treeNodeAt(editState.departureItems, path);
+  if (scope === "fallback-title") return editState.fallback[groupIndex];
+  if (scope === "fallback-item") return editState.fallback[groupIndex] && editState.fallback[groupIndex].items[index];
+  return null;
+}
+document.addEventListener("input", (e) => {
+  if (!editState || !e.target.dataset.editScope) return;
+  const path = (e.target.dataset.path || "").split(".").filter(Boolean).map(Number);
+  const target = editorValueTarget(e.target.dataset.editScope, Number(e.target.dataset.index), Number(e.target.dataset.subIndex), Number(e.target.dataset.groupIndex), path);
+  if (!target) return;
+  if (e.target.dataset.editScope.endsWith("-sub")) target.sub[target.subIndex] = e.target.value;
+  else if (e.target.dataset.editScope === "fallback-title") target.title = e.target.value;
+  else target.text = e.target.value;
+});
+function addListItem(items) { items.push({ id: newEditId(), text: "新项目", sub: [] }); }
+function handleEditAction(button) {
+  const action = button.dataset.editAction;
+  if (action === "start") { editStart(); return; }
+  if (action === "cancel") { editState = null; render(); return; }
+  if (action === "save") { saveEditedLists(); return; }
+  if (!editState) return;
+  const index = Number(button.dataset.index), subIndex = Number(button.dataset.subIndex);
+  if (editState.type === "check") {
+    if (action === "add-check-item") addListItem(editState.items);
+    else if (action === "delete-check-item") editState.items.splice(index, 1);
+    else if (action === "add-check-sub") { const item = editState.items[index]; item.sub = item.sub || []; item.sub.push("新子项目"); }
+    else if (action === "delete-check-sub") { const item = editState.items[index]; item.id = newEditId(); item.sub.splice(subIndex, 1); }
+  } else if (editState.type === "prep") {
+    if (action === "add-tree-root") editState.departureItems.push({ id: newEditId(), text: "新分类", children: [] });
+    else if (action.startsWith("add-tree-") || action === "delete-tree") {
+      const path = button.dataset.path.split(".").map(Number);
+      const parentPath = path.slice(0, -1), siblingIndex = path[path.length - 1];
+      const siblings = treeCollectionAt(editState.departureItems, parentPath);
+      if (!siblings) return;
+      if (action === "delete-tree") siblings.splice(siblingIndex, 1);
+      else if (action === "add-tree-sibling") siblings.splice(siblingIndex + 1, 0, { id: newEditId(), text: "新项目", children: [] });
+      else { const node = treeNodeAt(editState.departureItems, path); node.children = node.children || []; node.children.push({ id: newEditId(), text: "新项目", children: [] }); }
+    } else if (action === "add-day0-item") addListItem(editState.day0Items);
+    else if (action === "delete-day0-item") editState.day0Items.splice(index, 1);
+    else if (action === "add-day0-sub") { const item = editState.day0Items[index]; item.sub = item.sub || []; item.sub.push("新子项目"); }
+    else if (action === "delete-day0-sub") { const item = editState.day0Items[index]; item.id = newEditId(); item.sub.splice(subIndex, 1); }
+    else if (action === "add-fallback-group") editState.fallback.push({ title: "新分类", items: [] });
+    else if (action === "delete-fallback-group") editState.fallback.splice(Number(button.dataset.groupIndex), 1);
+    else if (action === "add-fallback-item") editState.fallback[Number(button.dataset.groupIndex)].items.push({ id: newEditId(), text: "新项目" });
+    else if (action === "delete-fallback-item") editState.fallback[Number(button.dataset.groupIndex)].items.splice(index, 1);
+  }
+  render();
+}
+document.addEventListener("click", (e) => {
+  const button = e.target.closest("[data-edit-action]");
+  if (button) { handleEditAction(button); return; }
+});
+function validItems(items) {
+  return items.every((item) => item.text && item.text.trim() && (item.sub || []).every((sub) => sub && sub.trim()));
+}
+function cleanSavedState(key, validIds) {
+  const stateObject = store.get(key, {});
+  Object.keys(stateObject).forEach((id) => { if (!validIds.has(id)) delete stateObject[id]; });
+  store.set(key, stateObject);
+}
+function persistEdit(key, value) {
+  try {
+    localStorage.setItem(KEY + key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    toast(`保存失败：${error.message || error}`);
+    return false;
+  }
+}
+function saveEditedLists() {
+  if (!editState) return;
+  if (editState.type === "check") {
+    if (!validItems(editState.items)) { toast("请先填写所有清单项目名称"); return; }
+    const previousItems = savedChecklists[editState.kind];
+    savedChecklists[editState.kind] = editState.items;
+    if (!persistEdit("editable.checklists", savedChecklists)) {
+      if (previousItems === undefined) delete savedChecklists[editState.kind];
+      else savedChecklists[editState.kind] = previousItems;
+      return;
+    }
+    const definition = checklistDef(editState.kind);
+    definition.items = editState.items;
+    DATA.days.forEach((day) => {
+      const validIds = new Set();
+      definition.items.forEach((item) => {
+        if (item.sub && item.sub.length) item.sub.forEach((_, i) => validIds.add(`${item.id}.${i}`));
+        else validIds.add(item.id);
+      });
+      cleanSavedState(checkKey(day.day, editState.kind), validIds);
+    });
+  } else {
+    if ((editState.tree && !validTree(editState.departureItems)) || !validItems(editState.day0Items) || !validFallback(editState.fallback)) {
+      toast("请先填写所有清单项目名称"); return;
+    }
+    const saved = { tree: editState.tree, departureItems: editState.departureItems, day0Items: editState.day0Items, fallback: editState.fallback };
+    if (!persistEdit("editable.prep", saved)) return;
+    if (editState.tree && DATA.departure_prep) DATA.departure_prep.items = editState.departureItems;
+    DATA.day0_prep = DATA.day0_prep || { title: "Day 0 准备", items: [] };
+    DATA.day0_prep.items = editState.day0Items;
+    DATA.prep = editState.fallback;
+    store.set("day0_custom", []);
+    store.set("prep_custom", []);
+    const departureIds = new Set(editState.tree ? DATA.departure_prep.items.flatMap(treeLeafIds) : []);
+    cleanSavedState("departure_prep", departureIds);
+    cleanSavedState("day0", new Set(prepItemIds("day0")));
+    cleanSavedState("prep", new Set(prepItemIds("prep")));
+  }
+  editState = null;
+  render();
+  toast("已保存到当前浏览器");
+}
+function validTree(nodes) {
+  return nodes.every((node) => node.text && node.text.trim() && validTree(node.children || []));
+}
+function validFallback(groups) {
+  return groups.every((group) => group.title && group.title.trim() && validItems(group.items));
+}
+function exportHtmlSource() {
+  const copy = document.documentElement.cloneNode(true);
+  const script = Array.from(copy.querySelectorAll("script")).find((item) => item.textContent.includes("const DATA = "));
+  if (!script) throw new Error("找不到行程数据脚本");
+  const source = script.textContent;
+  const start = source.indexOf("const DATA = ");
+  const end = source.indexOf("\n", start);
+  if (start < 0 || end < 0) throw new Error("无法定位行程数据");
+  const data = JSON.stringify(DATA).replace(/<\/script/gi, "<\\/script");
+  script.textContent = source.slice(0, start) + `const DATA = ${data};` + source.slice(end);
+  return `<!doctype html>\n${copy.outerHTML}`;
+}
+async function saveHtmlToLocal() {
+  if (editState) { toast("请先保存或取消清单编辑，再导出 HTML"); return; }
+  let content;
+  try { content = exportHtmlSource(); }
+  catch (error) { toast(`生成 HTML 失败：${error.message || error}`); return; }
+  const filename = "trip-plan.html";
+  if (typeof window.showSaveFilePicker === "function") {
+    try {
+      const handle = await window.showSaveFilePicker({ suggestedName: filename, types: [{ description: "HTML 文件", accept: { "text/html": [".html"] } }] });
+      const writable = await handle.createWritable();
+      await writable.write(content);
+      await writable.close();
+      toast("HTML 已保存");
+      return;
+    } catch (error) {
+      if (error && error.name === "AbortError") return;
+      if (!error || error.name !== "NotAllowedError") {
+        toast(`保存失败：${error.message || error}`);
+        return;
+      }
+    }
+  }
+  const url = URL.createObjectURL(new Blob([content], { type: "text/html;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url; link.download = filename; link.style.display = "none";
+  document.body.appendChild(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast("HTML 已下载到本地");
+}
+document.addEventListener("click", (e) => {
+  if (e.target.closest("#save-html")) saveHtmlToLocal();
+});
+function treeLeafIds(node) {
+  if (!node.children || !node.children.length) return [node.id];
+  return node.children.flatMap(treeLeafIds);
+}
+function treeState(node, st) {
+  const ids = treeLeafIds(node), done = ids.filter((id) => st[id]).length;
+  return { all: done === ids.length, partial: done > 0 && done < ids.length, done, total: ids.length };
+}
+function renderPrepTreeNode(node, st, storeKey) {
+  const status = treeState(node, st);
+  const children = node.children || [];
+  const leafChildren = children.length > 0 && children.every((child) => !child.children || !child.children.length);
+  return `<div class="tree-node"><label class="tree-check ${children.length ? "" : "tree-leaf"} ${status.all ? "done" : ""}"><input type="checkbox" data-store="${storeKey}" data-tree="${node.id}" ${status.all ? "checked" : ""} ${status.partial ? "data-partial='true'" : ""}><span class="lbl">${esc(node.text)}</span></label>${children.length ? `<div class="tree-children ${leafChildren ? "tree-leaves" : ""}">${children.map((child) => renderPrepTreeNode(child, st, storeKey)).join("")}</div>` : ""}</div>`;
+}
+function prepTreeSection(departure) {
+  const storeKey = "departure_prep", st = store.get(storeKey, {});
+  const leaves = departure.items.flatMap(treeLeafIds);
+  const done = leaves.filter((id) => st[id]).length;
+  return `<section class="card"><h2>${esc(departure.title)}</h2><div class="small muted">${done}/${leaves.length} 已完成 · 勾选父项可一次完成所有子项</div><div class="progress"><i style="width:${leaves.length ? Math.round(done / leaves.length * 100) : 0}%"></i></div><div class="tree-list">${departure.items.map((item) => renderPrepTreeNode(item, st, storeKey)).join("")}</div><div class="row" style="margin-top:12px"><button class="btn danger" data-store="${storeKey}" data-reset="1">反选</button></div></section>`;
+}
+function invertState(st, ids) {
+  const next = {};
+  new Set([...ids, ...Object.keys(st)]).forEach((id) => { if (!st[id]) next[id] = true; });
+  return next;
+}
+function prepItemIds(storeKey) {
+  if (storeKey === "departure_prep") return DATA.departure_prep ? DATA.departure_prep.items.flatMap(treeLeafIds) : [];
+  const ids = [];
+  prepItemsFor(storeKey).forEach((it) => {
+    if (typeof it === "string") ids.push(it);
+    else if (it.sub && it.sub.length) it.sub.forEach((_, i) => ids.push(`${it.id}.${i}`));
+    else if (it.id) ids.push(it.id);
+  });
+  return ids;
 }
 function prepItemsFor(storeKey) {
   if (storeKey === "prep") return DATA.prep.flatMap((g) => g.items);
+  if (storeKey === "departure_prep") return DATA.departure_prep ? DATA.departure_prep.items : [];
   return (DATA.day0_prep || { items: [] }).items;
 }
 document.addEventListener("change", (e) => {
   const key = e.target.dataset.store; if (!key || state.tab !== "prep") return;
   const st = store.get(key, {});
-  if (e.target.dataset.item) { if (e.target.checked) st[e.target.dataset.item] = true; else delete st[e.target.dataset.item]; }
+  if (e.target.dataset.tree) {
+    const node = findPrepNode(prepItemsFor(key), e.target.dataset.tree); if (!node) return;
+    treeLeafIds(node).forEach((id) => { if (e.target.checked) st[id] = true; else delete st[id]; });
+  }
+  else if (e.target.dataset.item) { if (e.target.checked) st[e.target.dataset.item] = true; else delete st[e.target.dataset.item]; }
   else if (e.target.dataset.group) {
     const it = prepItemsFor(key).find((x) => x.id === e.target.dataset.group); if (!it) return;
     it.sub.forEach((_, i) => { if (e.target.checked) st[`${it.id}.${i}`] = true; else delete st[`${it.id}.${i}`]; });
   } else return;
   store.set(key, st); render();
 });
+function findPrepNode(nodes, id) {
+  for (const node of nodes) {
+    if (node.id === id) return node;
+    const found = findPrepNode(node.children || [], id);
+    if (found) return found;
+  }
+  return null;
+}
 document.addEventListener("click", (e) => {
   const b = e.target.closest("[data-store]"); if (!b || state.tab !== "prep" || b.tagName !== "BUTTON") return;
   const key = b.dataset.store;
   if (b.dataset.add) { const inp = $(`#new-${key}`); const v = inp.value.trim(); if (!v) return; const c = store.get(key + "_custom", []); c.push({ id: "c" + Date.now(), text: v }); store.set(key + "_custom", c); render(); }
-  else if (b.dataset.reset) { store.del(key); toast("已清零"); render(); }
+  else if (b.dataset.reset) {
+    const st = store.get(key, {});
+    const ids = prepItemIds(key);
+    store.get(key + "_custom", []).forEach((c) => ids.push(c.id));
+    store.set(key, invertState(st, ids)); toast("已反选"); render();
+  }
   else if (b.dataset.del) { store.set(key + "_custom", store.get(key + "_custom", []).filter((c) => c.id !== b.dataset.del)); render(); }
 });
 
 // ---------------------------------------------------------------- map
 const mapState = { map: null, layers: {}, markers: [], show: { lodging: true, supply: true, sight: true }, meMarker: null, tileLayers: [], tileErrors: 0 };
 // Basemaps. All of these serve Web Mercator tiles in WGS-84, so the converted route and the catalog
-// coordinates sit on them without further shifting. OpenStreetMap's own server refuses requests that
-// carry no Referer, which is what a browser sends when a page is opened from a local file, so it is
-// not the default here. 天地图 needs a free personal key (console.tianditu.gov.cn) and is the choice
-// that loads reliably inside mainland China.
+// coordinates sit on them without further shifting. Esri is the no-key default. OpenStreetMap's tile
+// server requires a Referer, which local file pages do not send.
 const TILE_PROVIDERS = {
-  carto: { name: "CARTO Voyager（OSM 数据，无需密钥）", note: "适合本地文件打开；国内网络可能较慢。非商业个人使用。", layers: [{ url: "https://{s}.basemaps.cartocdn.com/rapid/{z}/{x}/{y}{r}.png", opts: { subdomains: "abcd", maxZoom: 19 } }], attribution: "&copy; OpenStreetMap contributors &copy; CARTO" },
-  tianditu: { name: "天地图（需要个人密钥，国内加载快）", note: "在 console.tianditu.gov.cn 免费申请“浏览器端”密钥后填入下方。坐标系 CGCS2000，与 WGS-84 一致。", needsKey: true, layers: [{ url: "https://t{s}.tianditu.gov.cn/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk={k}", opts: { subdomains: "01234567", maxZoom: 18 } }, { url: "https://t{s}.tianditu.gov.cn/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk={k}", opts: { subdomains: "01234567", maxZoom: 18 } }], attribution: "&copy; 天地图 国家地理信息公共服务平台" },
   esri: { name: "Esri World Street Map（无需密钥）", note: "ArcGIS Online 公共底图；国内一般可加载。", layers: [{ url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", opts: { maxZoom: 18 } }], attribution: "Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors" },
   osm: { name: "OpenStreetMap 官方（本地文件打开会被拒绝）", note: "仅当本页通过 http 服务打开时可用；轻量个人使用。", layers: [{ url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", opts: { maxZoom: 19 } }], attribution: "&copy; OpenStreetMap contributors" },
   none: { name: "不加载底图（离线 / 省流量）", note: "只显示路线和标记。", layers: [], attribution: "" },
 };
-function tileProviderKey() { const k = store.get("tiles", null); return TILE_PROVIDERS[k] ? k : "carto"; }
+function tileProviderKey() {
+  const saved = store.get("tiles", null);
+  const key = TILE_PROVIDERS[saved] ? saved : "esri";
+  if (key !== saved) store.set("tiles", key);
+  return key;
+}
 function addTiles(map) {
   for (const l of mapState.tileLayers) { try { map.removeLayer(l); } catch (_) {} }
   mapState.tileLayers = []; mapState.tileErrors = 0;
   const warn = $("#tile-warn"); if (warn) warn.classList.add("hidden");
   const key = tileProviderKey(), p = TILE_PROVIDERS[key];
-  const tk = store.get("tdt_key", "");
-  if (p.needsKey && !tk) { showTileWarn("天地图需要先填入密钥：点“底图”填写，或换一个底图。"); return; }
   map.attributionControl.setPrefix('<a href="https://leafletjs.com" onclick="return false">Leaflet</a>');
   for (const spec of p.layers) {
-    const layer = L.tileLayer(spec.url.replace("{k}", encodeURIComponent(tk)), { ...spec.opts, attribution: p.attribution }).addTo(map);
+    const layer = L.tileLayer(spec.url, { ...spec.opts, attribution: p.attribution }).addTo(map);
     layer.on("tileerror", () => { mapState.tileErrors++; if (mapState.tileErrors === 4) showTileWarn(`底图「${p.name.split("（")[0]}」加载失败（无网络、被拒绝或密钥无效）。路线和标记不受影响；可点“底图”换一个。`); });
     mapState.tileLayers.push(layer);
   }
@@ -477,8 +808,7 @@ function tilePanelHtml() {
   const cur = tileProviderKey();
   return `<div class="panel hidden" id="tile-panel"><div class="row" style="justify-content:space-between"><b>底图</b><button class="btn small" id="tile-close">关闭</button></div>
     ${Object.entries(TILE_PROVIDERS).map(([k, p]) => `<label class="opt"><input type="radio" name="tiles" value="${k}" ${k === cur ? "checked" : ""}><span><b>${esc(p.name)}</b><span>${esc(p.note)}</span></span></label>`).join("")}
-    <div class="row" style="margin-top:8px"><input type="text" id="tdt-key" placeholder="天地图密钥 tk" value="${esc(store.get("tdt_key", ""))}" style="flex:1" autocomplete="off" spellcheck="false"><button class="btn small" id="tdt-save">保存</button></div>
-    <div class="small muted" style="margin-top:6px">选择和密钥只保存在这台手机的浏览器里。所有底图都是 WGS-84 网络墨卡托，路线无需再转换。</div></div>`;
+    <div class="small muted" style="margin-top:6px">底图选择只保存在这台手机的浏览器里。所有底图都是 WGS-84 网络墨卡托，路线无需再转换。</div></div>`;
 }
 function renderMapShell() {
   const chips = [`<button class="chip ${state.mapDay == null ? "active" : ""}" data-mapday="all">全程</button>`, ...DATA.days.map((d) => `<button class="chip ${state.mapDay === d.day ? "active" : ""}" data-mapday="${d.day}"><i class="dot" style="background:${dayColor(d.day)}"></i>D${d.day}</button>`)].join("");
@@ -532,7 +862,6 @@ function initMap() {
   const wo = $("#tile-warn-open"); if (wo) wo.onclick = openPanel;
   $("#tile-close").onclick = () => panel.classList.add("hidden");
   panel.querySelectorAll("input[name=tiles]").forEach((r) => r.onchange = () => { store.set("tiles", r.value); addTiles(map); });
-  $("#tdt-save").onclick = () => { store.set("tdt_key", $("#tdt-key").value.trim()); if ($("#tdt-key").value.trim()) { store.set("tiles", "tianditu"); panel.querySelector("input[value=tianditu]").checked = true; } addTiles(map); toast("已保存"); };
   setTimeout(() => map.invalidateSize(), 50);
 }
 function addDayMarkers(d, map) {

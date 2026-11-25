@@ -1,5 +1,7 @@
 .gitattributes text eol=lf
 .gitignore text eol=lf
+*.html text eol=lf
+*.py text eol=lf
 data/exports/trip-plan.html text eol=lf
 data/routes/*.gpx text eol=lf
 data/trip_plan_hints.json text eol=lf

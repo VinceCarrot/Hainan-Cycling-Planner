@@ -1,9 +1,10 @@
 """Build a self-contained, phone-friendly trip page from the user's manual plan.
 
-Input: a plain-text plan (``manual_planning.txt``): ``day N A -> B`` headers with 景点 / 住宿 / 补给
-sections, plus two checklists (到站后 / 出发前). Output: one HTML file with Leaflet inlined, the
-route book (converted to WGS-84 so it sits on OpenStreetMap roads), per-day attractions resolved
-against the catalog, lodging anchored on the route's day endpoints, and the checklists.
+Input: a plain-text plan (``manual_planning.txt``): a nested ``出发前`` packing list, ``day N A -> B``
+headers with 景点 / 住宿 / 补给 sections, plus arrival, bedtime, and departure checklists. Output:
+one HTML file with Leaflet inlined, the route book (converted to WGS-84 so it sits on OpenStreetMap
+roads), per-day attractions resolved against the catalog, lodging anchored on route endpoints, and
+the checklists.
 
 Nothing here invents coordinates: an attraction gets a position only from a catalog record, a
 lodging only from the route book's start/end points, and anything else is marked "没有坐标" so the
@@ -61,13 +62,13 @@ DEFAULT_DAY0_PREP = [
 
 NOTES = {
     "route": "里程与爬升来自你的路书轨迹（Garmin Connect 导出），爬升按 5 m 滞回估算。景点的沿途公里与偏离距离是对轨迹的直线几何估算，不是导航里程。",
-    "map": "路线已从 GCJ-02 转换为 WGS-84 显示，与底图道路对齐；底图需要联网，可在地图页“底图”里切换（国内建议天地图，需免费密钥）。",
+    "map": "路线已从 GCJ-02 转换为 WGS-84 显示，与底图道路对齐；底图需要联网，可在地图页“底图”里切换。",
     "prep": [
         "路书 GPX 由佳明中国网页版生成，坐标系为 GCJ-02。本页显示时已转换为 WGS-84 以便与 OSM 道路重合；原始 GPX 文件没有改动，码表直接使用原文件。",
         "Garmin Connect 导入含航点的 GPX 时对 course point 的处理因版本而异，出发前在 Connect 网页版打开路线核对。",
         "住宿位置按路书每天的起终点标注；笔记里的住宿与路书终点不一致的天数已在总览里提示，请以实际预订为准修改路书或笔记。",
         "没有坐标的点（部分景点、所有超市）可以在地图页手动标定，标定只保存在这台手机的浏览器里。",
-        "底图：本地文件打开时 OpenStreetMap 官方瓦片会拒绝（浏览器不发送 Referer），默认改用 CARTO；在国内骑行时建议到 console.tianditu.gov.cn 申请免费密钥并在地图页“底图”里填入天地图。",
+        "底图：默认使用无需密钥的 Esri World Street Map；其他在线底图可能有地区可用性、密钥或使用条款限制。",
     ],
 }
 
@@ -113,12 +114,64 @@ def _checklist_item(prefix: str, index: int, text: str) -> dict[str, Any]:
     return {"id": f"{prefix}{index}", "text": text, "sub": []}
 
 
+def _parse_departure_prep(lines: list[str]) -> dict[str, Any] | None:
+    start = next((i for i, line in enumerate(lines) if re.match(r"^\s*出发前\s*[：:]?\s*$", line)), None)
+    if start is None:
+        return None
+
+    roots: list[dict[str, Any]] = []
+    numbered_group: dict[str, Any] | None = None
+    category: dict[str, Any] | None = None
+    for raw in lines[start + 1:]:
+        line = raw.strip()
+        if not line:
+            continue
+        if _DAY_RE.match(line):
+            break
+        numbered = re.match(r"^\d+[.、]\s*(.+?)\s*[：:]?$", line)
+        if not roots:
+            root = {"text": line.rstrip("：:"), "children": []}
+            roots.append(root)
+            numbered_group = root
+            category = root
+        elif numbered:
+            numbered_group = {"text": numbered.group(1).rstrip("：:"), "children": []}
+            roots[0]["children"].append(numbered_group)
+            category = numbered_group
+        elif line.endswith(("：", ":")):
+            parent = numbered_group or roots[0]
+            category = {"text": line[:-1].strip(), "children": []}
+            parent["children"].append(category)
+        else:
+            parent = category or numbered_group or roots[0]
+            parent["children"].append({"text": line, "children": []})
+
+    if not roots:
+        return None
+    counter = 0
+
+    def assign_ids(node: dict[str, Any]) -> None:
+        nonlocal counter
+        counter += 1
+        node["id"] = f"dp{counter}"
+        for child in node["children"]:
+            assign_ids(child)
+
+    for root in roots:
+        assign_ids(root)
+    return {"title": "出发前准备", "items": roots}
+
+
 def parse_plan(text: str) -> dict[str, Any]:
-    plan: dict[str, Any] = {"day0": None, "days": [], "checklists": []}
+    lines = text.splitlines()
+    plan: dict[str, Any] = {
+        "departure_prep": _parse_departure_prep(lines),
+        "day0": None, "days": [], "checklists": [],
+    }
     current: dict[str, Any] | None = None
     section: str | None = None
     checklist: dict[str, Any] | None = None
-    for raw in text.splitlines():
+    for raw in lines:
         raw = raw.replace("\ufeff", "")
         line = raw.strip()
         m = _DAY_RE.match(line)
@@ -318,6 +371,7 @@ class TripPlanBuilder:
         return {
             "title": title, "generated_at": now_iso(), "route_version": self.routes.active_version(), "route_crs": self.routes.crs(),
             "day0": day0, "days": days_out, "checklists": plan["checklists"],
+            "departure_prep": plan.get("departure_prep"),
             "day0_prep": {"title": "Day 0 准备（抵达海口当晚）", "items": day0_items, "from_plan": bool((plan["day0"] or {}).get("items"))},
             "prep": [{"title": g["title"], "items": [{"id": f"p{gi}_{ii}", "text": t} for ii, t in enumerate(g["items"])]} for gi, g in enumerate(self.hints.get("prep", DEFAULT_PREP))],
             "notes": NOTES,
@@ -350,7 +404,7 @@ class TripPlanBuilder:
         data = self.build_data(plan, title or "海南环岛 路书")
         out = out_path or (self.ctx.config.exports_dir / OUTPUT_NAME)
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(self.render(data), encoding="utf-8")
+        out.write_text(self.render(data), encoding="utf-8", newline="\n")
         located = sum(1 for d in data["days"] for a in d["attractions"] if a.get("lat") is not None and a.get("coord_source") == "catalog")
         total = sum(len(d["attractions"]) for d in data["days"])
         return {

@@ -95,6 +95,40 @@ def test_parse_plan_sections_and_checklists():
     assert clean_attraction_label("好汉坡") == ("好汉坡", None)
 
 
+def test_parse_departure_prep_as_nested_checklist():
+    plan = parse_plan("""出发前：
+
+出发时的行李准备：
+1. 随车行李：
+自行车及配件：
+    大行K9
+    工具包（棘轮扳手，撬胎棒）
+
+洗漱用品：
+    毛巾
+
+2. 寄存在海口的行李：
+电子产品：
+    笔记本电脑
+
+day 0
+降落海口，入住酒店
+""")
+    departure = plan["departure_prep"]
+    assert departure["title"] == "出发前准备"
+    root = departure["items"][0]
+    assert root["text"] == "出发时的行李准备"
+    carry, stored = root["children"]
+    assert carry["text"] == "随车行李"
+    bike, toiletries = carry["children"]
+    assert bike["text"] == "自行车及配件"
+    assert [item["text"] for item in bike["children"]] == ["大行K9", "工具包（棘轮扳手，撬胎棒）"]
+    assert [item["text"] for item in toiletries["children"]] == ["毛巾"]
+    assert stored["text"] == "寄存在海口的行李"
+    assert stored["children"][0]["children"][0]["text"] == "笔记本电脑"
+    assert len({node["id"] for node in [root, carry, bike, *bike["children"], toiletries, *toiletries["children"], stored]}) == 8
+
+
 def test_build_resolves_catalog_lodging_and_references(built):
     result, html, data = built
     assert result["days"] == 2 and result["attractions"] == 4 and result["attractions_located"] == 2
@@ -125,6 +159,15 @@ def test_html_is_self_contained(built):
     result, html, data = built
     assert "<script src=" not in html and '<link rel="stylesheet"' not in html
     assert "L.map" in html and "leaflet" in html.lower()
-    assert "测试行程" in html and "一键清零" in html and "起点准备" in html
-    assert "basemaps.cartocdn.com" in html and "tianditu.gov.cn" in html  # basemap tiles are the only network dependency
+    assert "测试行程" in html and "反选" in html and "出发前准备" in html
+    assert "一键清零" not in html
+    assert "data-tree" in html and "tree-children" in html and "tree-leaf" in html and "tree-leaves" in html
+    assert "怎么用" not in html and "路书与设备" not in html
+    assert "清单内容来自 manual_planning.txt，修改后重新生成本页即可。" not in html
+    assert 'id="save-html"' in html and 'data-edit-action="${active ? "cancel" : "start"}"' in html
+    assert "add-tree-child" in html and "add-check-sub" in html and "editable.checklists" in html
+    assert 'const filename = "trip-plan.html"' in html
+    assert "server.arcgisonline.com" in html
+    assert "tianditu.gov.cn" not in html and "tdt-key" not in html
+    assert "basemaps.cartocdn.com" not in html
     assert result["bytes"] > 100_000
