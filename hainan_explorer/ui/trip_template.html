@@ -338,7 +338,7 @@ function renderDay(n) {
   const lodging = d.lodging;
   const lodgingCoord = lodging ? coordOf({ key: `lodging.${n}`, lat: lodging.lat, lon: lodging.lon, coord_source: lodging.coord_source }) : null;
   return `
-  <div class="navrow"><button class="btn small" ${prev ? `data-go="#/day/${n - 1}"` : "disabled"}>‹ Day ${n - 1}</button><button class="btn small" data-go="#/overview">总览</button><button class="btn small" ${next ? `data-go="#/day/${n + 1}"` : "disabled"}>Day ${n + 1} ›</button></div>
+  <div class="navrow">${prev ? `<button class="btn small" data-go="#/day/${n - 1}">‹ Day ${n - 1}</button>` : "<span></span>"}<button class="btn small" data-go="#/overview">总览</button>${next ? `<button class="btn small" data-go="#/day/${n + 1}">Day ${n + 1} ›</button>` : "<span></span>"}</div>
   <section class="card">
     <h2><span class="tag" style="background:${dayColor(n)};color:${textOn(dayColor(n))}">Day ${n}</span> ${esc(d.from)} → ${esc(d.to)}</h2>
     <div class="small muted">${date ? fmtDate(date) : "未设置出发日期"}${sunStart ? ` · 日出 ${sunStart.rise}（起点）` : ""}${sunEnd ? ` · 日落 ${sunEnd.set}（终点）` : ""}</div>
